@@ -4,6 +4,7 @@
 *
 * Depends:
 *   - jQuery 1.4.2+
+*   - jQuery History
 *
 * Dual licensed under MIT or GPLv2 licenses
 *   http://en.wikipedia.org/wiki/MIT_License

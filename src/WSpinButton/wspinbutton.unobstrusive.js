@@ -179,3 +179,30 @@
         }
     });
 })(jQuery);
+
+$(document).ready(function()
+{
+	$('.wspinbutton').each(function()
+	{
+		var opt = {};
+		var max = $(this).attr('max');
+		var min = $(this).attr('min');
+		var step = $(this).attr('step');
+		opt.locked = $(this).attr('locked') !== undefined;
+
+		if (max)
+		{
+			opt.max = max;
+		}
+		if (min)
+		{
+			opt.min = min;
+		}
+		if (step)
+		{
+			opt.step = step;
+		}
+
+		$(this).wspinbutton(opt);
+	});
+});
