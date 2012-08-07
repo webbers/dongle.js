@@ -26,13 +26,5 @@ class MainBuild( Builder ):
         Builder.__init__( self, "dongle.js Main Build" )
 
     def build( self ):
-        tempDir  = os.path.join( os.path.dirname( __file__ ), '../temp' )
-        consoleTempDir  = os.path.join( os.path.dirname( __file__ ), '../temp/WebUtils/' )
-        pubDir = os.path.join( os.path.dirname( __file__ ), '../pub' )
-        resDir = os.path.join( os.path.dirname( __file__ ), '../res' )
-        consoleProjectPath = os.path.join( os.path.dirname( __file__ ), '../src/WebUtils.sln' )
-		
-        self.addStep( DelTreeStep( tempDir ) )        
         self.addStep( SvnUpdateDirStep( os.path.join( os.path.dirname( __file__ ), '../' ) ) )
-                
         return Builder.build(self)
