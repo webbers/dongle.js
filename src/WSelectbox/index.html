@@ -1,0 +1,54 @@
+﻿<!doctype html>
+<html>
+<head>
+    <title>jQuery SelectBox plugin</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <link href="wselectbox.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <select name="country_id" id="country_id">
+        <option value="">[Selecione]</option>
+        <optgroup>
+            <option value="1">USA</option>
+            <option value="9">Canada</option>
+        </optgroup>
+        <optgroup>
+            <option value="2">France</option>
+            <option value="3">Spain</option>
+            <option value="6">Bulgaria</option>
+            <option value="7" disabled="disabled">Greece</option>
+            <option value="8">Italy</option>
+        </optgroup>
+        <optgroup>
+            <option value="5">Japan</option>
+            <option value="11">China</option>
+        </optgroup>
+        <option value="4">Brazil</option>
+        <option value="10">South Africa</option>
+    </select>
+    
+    
+     <select name="country_id" id="Select1">
+        <option value="">Mais opções...</option>
+        <optgroup>
+            <option value="1">Adicionar vários</option>
+            <option value="9">Excluir</option>
+        </optgroup>
+        <optgroup>
+            <option value="2">Importar...</option>
+            <option value="3">Exportar...</option>
+        </optgroup>
+    </select>
+
+    <script src="../../3rd/jquery/1.5.1/jquery.js" type="text/javascript"></script>
+    <script src="wselectbox.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function ()
+        {
+            $("#country_id").wselectbox({ showFirst: false });
+            $("#Select1").wselectbox({ showFirst: false });
+           // $("#Select1").wselectbox('disable');
+        });
+    </script>
+</body>
+</html>
