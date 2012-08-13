@@ -1,0 +1,555 @@
+*
+{
+	margin: 0;
+	padding: 0;
+	border-collapse: collapse;
+	outline: none;
+}
+table
+{
+	border-spacing: 0px;
+}
+
+thead
+{
+	display: table-row-group;
+	vertical-align: middle;
+	border-color: inherit;
+}
+
+th, td
+{
+	margin:0px;
+}
+
+.wgrid {
+    border: 1px solid #CDCDCD;
+    background-color: #FFFFFF;
+	position: absolute;
+}
+
+.wgrid-main
+{
+    background-color: white;
+}
+
+.wgrid-title {
+    background: #E8E8E8;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    height: 33px;
+    border-bottom: 1px solid #CDCDCD;
+}
+
+.wgrid-horizontal-empty
+{
+	background-color: white;
+	height: 15px;
+	width: 50px;
+}
+
+.wgrid-horizontal-empty div
+{
+    border-top: 1px solid #CDCDCD;
+	height: 100%;
+	border-right: 1px solid #CDCDCD;
+}
+
+.wgrid-horizontal-empty *
+{
+	font-size:1px;
+}
+
+.wgrid-vertical-empty
+{
+	height: 30px;
+	background: #E8E8E8;
+	width:6px;
+}
+
+.wgrid-left{
+	float: left; width: 50px;
+}
+
+.wgrid-content
+{
+	width:90000px;
+	min-height: 10px;
+}
+
+.wgrid-header-main
+{
+    background: #e8e8e8;   
+}
+
+.wgrid-header-content
+{
+	width:90000px;
+	position: absolute;
+}
+
+.wgrid-header-content th
+{
+	/*padding-top:9px;*/
+}
+
+.wgrid-header-container-main
+{
+	width:100%;
+    background: #e8e8e8;
+}
+
+.wgrid-header-container, .wgrid-header-container-check
+{
+	overflow: hidden;
+	width:100%;
+	height:33px;
+	background: url('images/wgrid-header-bg.png') repeat-x #e8e8e8;
+	position: relative;
+    border-right: 1px solid #CDCDCD;
+}
+
+.wgrid-header-container
+{
+	float:left;
+    border-right: none;
+}
+
+.wgrid-header-check
+{
+	height:33px;
+	font-size:3px;
+	background: url('images/wgrid-header-bg.png');
+	border-right: 1px solid #CDCDCD;
+	border-bottom: 1px solid #CDCDCD;
+}
+
+.wgrid-header-check input
+{
+	padding:0;
+	margin:0;
+	width:15px;
+	height:15px;
+	margin-top:9px; 
+	margin-left:8px; 
+}
+
+.wgrid-header-container-check th
+{
+	padding-left: 6px;	
+}
+
+.wgrid-header-container th
+{
+	text-align: left;
+}
+
+.wgrid-container
+{
+    overflow: scroll;
+	width:100%;
+	height: 200px;
+}
+
+.wgrid-check-container
+{
+    overflow: hidden;
+    height: 184px;
+}
+
+.wgrid-header-container-button
+{
+	width: 16px;
+	height: 16px;
+	float:left;
+}
+
+.wgrid-order-button
+{
+    background-image: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position:  center right;
+	height: 33px;
+    padding-right: 20px; 
+}
+
+.hover .wgrid-order-button {
+   background-image: url('images/order-icon.png'); 
+}
+
+.wgrid-order-button.asc
+{
+	background-image: url('images/order-asc-icon.png');
+}
+
+.wgrid-order-button.desc
+{
+	background-image: url('images/order-desc-icon.png');
+}
+
+.wgrid-filter-button
+{
+    background-repeat: no-repeat;
+    background-position:  center center;
+    height: 33px;
+    padding: 0 8px;
+}
+
+.hover .wgrid-filter-button {
+    background: url('images/filter-icon.png') no-repeat center center;
+}
+
+.wgrid-filter-button.active
+{
+	background: url('images/filter-icon-active.png') no-repeat center center;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.wgrid-table, .wgrid-check-content
+{
+	border-collapse: separate;
+	border-spacing: 0;
+	*border-collapse: collapse; /* hack is needed for IE7 also */
+}
+
+.wgrid-table td, .wgrid-check-content td
+{
+	height: 32px;
+    border-bottom: 1px solid #CDCDCD;
+	cursor: default;
+}
+
+.wgrid-table tr.class-4 td
+{
+	color: #803329;
+}
+
+.wgrid-table tr.class-2 td
+{
+	color: #806400;
+}
+
+.wgrid-checkbox-item
+{
+	margin-left:8px;
+}
+
+.wgrid-table td, .wgrid-header-container table th
+{
+	padding-right:10px;
+	padding-left:10px;
+}
+
+.wgrid-header-container th div
+{
+    height: 33px;
+    vertical-align: middle;
+    line-height: 33px;    
+}
+
+.wgrid-column-title
+{
+    padding-right: 20px;
+}
+
+.wgrid-selected-line
+{
+	background-color: #234B73 !important;
+}
+
+.wgrid-selected-line td
+{
+	color: white !important;
+}
+
+.wgrid-check-container
+{
+	position:relative;
+	border-right: 1px solid #CDCDCD;
+}
+
+.wgrid-check-content
+{
+	position:absolute;
+	width: 50px;
+}
+
+/* EVENT STATUS ICONS */
+
+.wgrid-check-content tr.class-4
+{
+	background-color: #f8dbd7;
+}
+
+.wgrid-check-content tr.class-4 .wgrid-status-icon
+{
+    background: url("images/event-red.png")  no-repeat;
+}
+
+.wgrid-check-content tr.class-2
+{
+	background-color: #fffcbd;
+}
+
+.wgrid-check-content tr.class-2 .wgrid-status-icon
+{
+    background: url("images/event-yellow.png")  no-repeat;
+}  
+
+.wgrid-status-icon
+{
+	background: url("images/event-blue.png")  no-repeat;
+	display:block;
+	width:16px;
+	height:16px;
+	margin-left:2px;
+}
+
+/*--------------------------------------------------*/
+.wgrid-content-filter-panel
+{
+	padding: 10px;
+}
+
+.wgrid-filter-panel
+{
+	position:absolute;
+	background-color:white;
+	border: 1px solid #CDCDCD;
+	
+	-webkit-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3);
+	box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3);
+	
+}
+.wgrid-filter-advanced
+{
+    width: 100px;
+    height: 15px;
+    font-size: 12px;
+    padding-top: 10px;
+    cursor: pointer;
+    width: 120px;
+    clear: both
+}
+.advanced-options
+{
+    margin-top: 10px;
+    line-height: 20px;
+}
+
+.wgrid-filter-panel button, .wgrid-filter-panel select, .wgrid-filter-panel input[type=text]
+{
+    float: left;    
+}
+
+.wgrid-check-content .row-type-alert
+{
+	background-color: #fefed4;
+}
+
+.wgrid-check-content .row-type-error
+{
+	background-color: #fcc2c2;
+}
+
+.wgrid-bar
+{
+    background: url(images/wgrid-header-bg.png);
+}
+
+.wgrid-loader-overlay
+{
+    background: url('images/big-loader.gif') no-repeat center;
+    opacity: 0.75;
+    height: 100% !important;
+    background-color: white;
+    display: none;
+    z-index: 99999;
+}
+
+#wgrid-access-overlay.wgrid-loader-overlay, #wgrid-events-overlay.wgrid-loader-overlay
+{
+    background: url('images/big-loader.gif') no-repeat center;
+    opacity: 0.75;
+    background-color: white;
+    top: 102px;
+    left: 218px;
+    bottom: 62px;
+    right: 11px;
+    display: none;
+    z-index: 99999;
+    height: auto !important;
+}
+
+.wgrid-bar .get-more-items
+{
+    float: right;
+    height: 100%;
+    line-height: 33px;
+}
+
+.wgrid-bar .get-more-items .more-items-button {
+    float: right;
+    border-left: 1px solid #CDCDCD;
+    width: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+    content: ".";
+    background: url('images/show-more.png') no-repeat center;
+}
+
+.wgrid-bar .reload-items
+{
+    float: left;
+    border-right: 1px solid #CDCDCD;
+    height: 100%;
+    line-height: 33px;
+    padding: 0 10px 0 36px;
+    background: url('images/refresh.png') 10px center no-repeat;
+    cursor: pointer;
+}
+
+.wgrid-bar .wbutton
+{
+    vertical-align: middle;
+}
+
+.wgrid td, .wgrid tr {
+    vertical-align: middle;
+}
+
+.wgrid-content-filter-panel select {
+    margin-top: 7px;
+}
+
+.wgrid-status-panel
+{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+/* IE 8 FIX DESATIVADO, PARA ATIVAR !IMPORTANT */
+#status-panel
+{
+    z-index /*\**/: 555\9;
+    bottom /*\**/: -69px\9;
+    border-top: 1px solid #CDCDCD;
+}
+#status-panel.status-panel-event
+{
+    z-index /*\**/: 555\9;
+    bottom /*\**/: -65px\9;   
+    border-top: 1px solid #CDCDCD;
+}
+
+/*INBOX WGRID AJUSTMENTS */
+
+
+.wgrid-left
+{
+    /*width: 50px;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    float: none;
+    z-index: 2;*/
+}
+
+.wgrid-check-container
+{
+    position: absolute;
+    top: 34px;
+    bottom: 51px;
+    width: 49px;
+    height: auto;
+}
+
+.wgrid-header-container
+{
+    width: auto;
+    position: absolute;
+    left: 50px;
+    top: 0;
+    right: 0;
+    border-bottom: 1px solid #cdcdcd;
+}
+
+.wgrid-container
+{
+    width: auto;
+    height: auto;
+    position: absolute;
+    left: 50px;
+    top: 34px;
+    right: 0px;
+    bottom: 34px;
+}
+
+.wgrid-table, .wgrid-header-content table
+{
+    width: auto !important;
+}
+
+.wgrid-column-title {
+    border-right: 1px solid #CDCDCD;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    margin-right: -10px;
+}
+
+
+#retrieve-more-items-bar
+{
+    color: #19334e;
+    padding: 0px 0px;
+    text-align: center;
+    height: 33px;
+    border-top: 1px solid #CDCDCD;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#retrieve-more-items-bar .container
+{
+    margin: auto auto;
+    width: 165px;
+    padding: 10px;
+}
+
+.wgrid-table tbody tr:last-child td, .wgrid tr:last-child td {
+    border: none;
+}
+.wgrid-filter-panel-apply-button, .wgrid-filter-panel-remove-button 
+{
+    float: right;
+    padding: 0 10px;
+    cursor: pointer;
+    margin-left: 3px;
+    background: url("images/apply-filter-icon.png") no-repeat center #ABADB3;
+    height: 100%;
+    width: auto;
+    border: 1px solid #ABADB3;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+.wgrid-filter-panel-remove-button 
+{
+    background: url("images/remove-filter-icon.png") no-repeat center #ABADB3;
+    margin-right: 3px;
+}
+.wgrid-content-filter-panel input[type=text] 
+{
+    height: 22px;
+}
