@@ -3,18 +3,14 @@
     module("CSS");
     test("Initial CSS Tests", function ()
     {
+        expect(3);
         $('.reload-items').click();
         var heigth = $('#wgrid-teste').closest('.wgrid').height();
-        if (heigth < 200)
-        {
-            heigth = false;
-        }
-        else
+        if (heigth >= 200)
         {
             heigth = true;
         }
-        equal(heigth, true, "Wgrid is greather than 200px");
-
+        var position = $('#wgrid-teste').closest('.wgrid').css('position');
         var bgWhite = true;
         $(".wgrid-table tbody tr").each(function ()
         {
@@ -24,9 +20,19 @@
             }
         });
 
-        var position = $('#wgrid-teste').closest('.wgrid').css('position');
+        $("#wgrid-teste tr th").each(function ()
+        {
+            var index = $(this).index();
+            if ($(".wgrid-table tr:eq(0) td:eq(" + index + ")").width() != $(this).width())
+            {
+                ok(false, "Width of TH is different of TD width");
+            }
+        });
+
+        equal(heigth, true, "Wgrid is greather than 200px");
         equal(position, "relative", "Position relative test!");
         equal(bgWhite, true, "Row background is white when load wgrid");
+
     });
     
     module("Records");
@@ -49,9 +55,9 @@
                 ok(false, "There is some column with disable handling true but still showing filter or order icon");
             }
         });
-    });  
+    });
 
-    module("Global");
+    module("Global");    
     test("Checkboxes tests", function ()
     {
         expect(4);
@@ -102,7 +108,7 @@
         });
         equal(correctUncheck, true, "All checkboxes uncheck their respective row in table");
     });
-    
+
     test("Event fired when row clicked", function ()
     {
         expect(1);
