@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dongle.js", "Dongle.js\Dongle.js.csproj", "{961F8B54-BD5E-41A8-BB90-C798BECD6AA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dongle.js", "Dongle.js\Dongle.js.csproj", "{479AF00E-B756-4CBB-8E05-AE51D967B4A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{961F8B54-BD5E-41A8-BB90-C798BECD6AA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{961F8B54-BD5E-41A8-BB90-C798BECD6AA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{961F8B54-BD5E-41A8-BB90-C798BECD6AA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{961F8B54-BD5E-41A8-BB90-C798BECD6AA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{479AF00E-B756-4CBB-8E05-AE51D967B4A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{479AF00E-B756-4CBB-8E05-AE51D967B4A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{479AF00E-B756-4CBB-8E05-AE51D967B4A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{479AF00E-B756-4CBB-8E05-AE51D967B4A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
