@@ -3,7 +3,7 @@
     module("CSS");
     test("Initial CSS Tests", function ()
     {
-        expect(3);
+        expect(4);
         $('.reload-items').click();
         var heigth = $('#wgrid-teste').closest('.wgrid').height();
         if (heigth >= 200)
@@ -19,16 +19,17 @@
                 bgWhite = false;
             }
         });
-
+        var widthError = 0;
         $("#wgrid-teste tr th").each(function ()
         {
             var index = $(this).index();
             if ($(".wgrid-table tr:eq(0) td:eq(" + index + ")").width() != $(this).width())
             {
-                ok(false, "Width of TH is different of TD width");
+                widthError += 1;
             }
         });
 
+        equal(widthError, 0, "All TH width's is equals of respective TD width");
         equal(heigth, true, "Wgrid is greather than 200px");
         equal(position, "relative", "Position relative test!");
         equal(bgWhite, true, "Row background is white when load wgrid");
@@ -230,6 +231,28 @@
             setTimeout(function ()
             {
                 deepEqual($(".wgrid-table tr:eq(0) td:eq(0)").text() == checkValue, true, "Showing exactly row with value equals filter field value");
+                start();
+            }, 100);
+            start();
+        }, 100);
+
+    });
+
+    test("Equals with no result", function ()
+    {
+        $('.wgrid-filter-button').click();
+        stop();
+        setTimeout(function ()
+        {
+            var checkValue = 99;
+            $('input[name=filter-field1]').val(checkValue);
+            $('input[type=radio][value=equals]').trigger('click');
+            $('input[type=radio][value=equals]').attr('checked', 'checked');
+            $('.wgrid-filter-panel-apply-button').click();
+            stop();
+            setTimeout(function ()
+            {
+                deepEqual($(".wgrid-table tr:eq(0) td:eq(0)").text() == "", true, "Show no results when filters doens't find any record");
                 start();
             }, 100);
             start();
