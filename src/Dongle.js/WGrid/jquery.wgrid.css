@@ -21,7 +21,10 @@ th, td
 {
 	margin:0px;
 }
-
+.hide 
+{
+    display: none;
+}
 .wgrid {
     border: 1px solid #CDCDCD;
     background-color: #FFFFFF;

@@ -6,6 +6,7 @@
 *   - jQuery 1.4.2+
 *   - jQuery.cron
 *   - jQuery.wContextMenu
+*   - QUnitjs
 *
 * The MIT License
 * 
@@ -30,7 +31,7 @@
 
 (function ($)
 {
-    $.Wgrid = function (element, options)
+    $.Wgrid = function (element, options, test)
     {
         var $element = $(element);
         $element.data('wgrid', this);
@@ -94,7 +95,7 @@
                 {
                     $loading.width($element.width());
                 }, 50);
-                
+
             }
             $loading.show();
         };
@@ -249,6 +250,14 @@
             return rowToInsert.join('');
         };
 
+        var hideMoreItems = function ()
+        {
+            var moreItemsButton = plugin.settings.statusPanel.find('.more-items-button');
+            $("#more-margin").remove();
+            moreItemsButton.after(moreMargin);
+            moreItemsButton.hide();
+        };
+
         var insertJsonItems = function (completeUrl, callback)
         {
             //plugin.settings.statusPanel.find('.reload-button').wbutton('disable');
@@ -291,13 +300,14 @@
                         totalDisplayingItems += totalInserted;
                         totalItems = json.TotalCount != null ? json.TotalCount : totalItems;
                         data.tableRows = $element.find('.wgrid-table tr');
+                        if (totalDisplayingItems >= totalItems)
+                        {
+                            hideMoreItems();
+                        }
                     }
                     else
                     {
-                        var moreItemsButton = plugin.settings.statusPanel.find('.more-items-button');
-                        $("#more-margin").remove();
-                        moreItemsButton.after(moreMargin);
-                        moreItemsButton.hide();
+                        hideMoreItems();
                     }
                     reloadTotalsDisplays();
                     loadingHide();
@@ -1056,7 +1066,6 @@
             var isLineChecked = lineCheckbox.attr("checked");
             var lineIndex = $element.find('.wgrid-check-content tr').index($(this).closest('tr'));
             var gridTableLine = $(data.table.find('tr')[lineIndex]);
-
             isLineChecked ? checkALine(gridTableLine, true) : checkALine(gridTableLine, false);
         });
 
@@ -1081,6 +1090,11 @@
             $('.wgrid-left').hide();
             $('.wgrid-header-container').css('left', '0px');
             $('.wgrid-container').css('left', '0px');
+        }
+
+        if (test)
+        {
+
         }
 
         return $element;
