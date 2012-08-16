@@ -1,7 +1,7 @@
 ﻿function runTests()
 {
     module("CSS");
-    test("Initial CSS Tests", function ()
+    test("Initial Tests", function ()
     {
         expect(5);
         $(".wgrid-table tr:eq(0) td:eq(1)").text("Teste");
