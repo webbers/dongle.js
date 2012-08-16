@@ -367,6 +367,10 @@
             clearGrid();
             insertJsonItems(completeUrl);
             resizeColumns();
+            if ($.browser.version == '9.0')
+            {
+                $('.wgrid-main .wgrid-layout').width('auto');
+            }
         };
 
         var retrieveMoreItems = function ()
@@ -429,9 +433,9 @@
 
             firstColumns.each(function ()
             {
-                var isIe9 = $.browser.msie && $.browser.version == "9.0";
-                var columnWidth = isIe9 ? $(this).width() + 5 : $(this).width();
-                var columnHeaderWidth = isIe9 ? $(data.headerColumns[count]).width() + 5 : $(data.headerColumns[count]).width();
+                var columnWidth = $(this).width();
+                var columnHeaderWidth = $(data.headerColumns[count]).width();
+
                 if (columnWidth >= columnHeaderWidth)
                 {
                     $(data.headerColumns[count]).width(columnWidth);

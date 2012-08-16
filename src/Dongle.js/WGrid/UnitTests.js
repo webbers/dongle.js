@@ -3,7 +3,7 @@
     module("CSS");
     test("Initial CSS Tests", function ()
     {
-        expect(6);
+        expect(5);
         $(".wgrid-table tr:eq(0) td:eq(1)").text("Teste");
         $('.reload-items').click();
         var heigth = $('#wgrid-teste').closest('.wgrid').height();
@@ -12,14 +12,6 @@
             heigth = true;
         }
         var position = $('#wgrid-teste').closest('.wgrid').css('position');
-        var bgWhite = true;
-        $(".wgrid-table tbody tr").each(function ()
-        {
-            if ($(this).css('background-color') != "rgba(0, 0, 0, 0)" && $('.wgrid-checkbox-item:eq(' + $(this).index() + ')').is(':checked') == false)
-            {
-                bgWhite = false;
-            }
-        });
         var widthError = 0;
         $("#wgrid-teste tr th").each(function ()
         {
@@ -40,7 +32,6 @@
             ok(true, "All wgrid main elements has position absolute");
         }
         equal(widthError, 0, "All <TH> width's is equals of respective <TD> width");
-        equal(bgWhite, true, "Rows background is white when wgrid reload/load");
         equal(heigth, true, "Wgrid is greather than 200px");
         equal(position, "relative", "Wgrid have position relative");
         deepEqual($(window).width() >= $('.wgrid').width(), true, 'Wgrid is not more larger than window');
