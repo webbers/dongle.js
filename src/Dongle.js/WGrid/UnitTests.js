@@ -4,6 +4,7 @@
     test("Initial CSS Tests", function ()
     {
         expect(4);
+        $(".wgrid-table tr:eq(0) td:eq(1)").text("Teste");
         $('.reload-items').click();
         var heigth = $('#wgrid-teste').closest('.wgrid').height();
         if (heigth >= 200)
@@ -29,13 +30,17 @@
             }
         });
 
+        setTimeout(function() {
+            deepEqual($(".wgrid-table tr:eq(0) td:eq(1)").text() != "Teste", true, "Realod button working");
+        },100);
+
         equal(widthError, 0, "All TH width's is equals of respective TD width");
         equal(heigth, true, "Wgrid is greather than 200px");
         equal(position, "relative", "Position relative test!");
         equal(bgWhite, true, "Row background is white when load wgrid");
 
     });
-    
+
     module("Records");
     test("First 10 records", function ()
     {
