@@ -3,7 +3,7 @@
     module("CSS");
     test("Initial CSS Tests", function ()
     {
-        expect(4);
+        expect(6);
         $(".wgrid-table tr:eq(0) td:eq(1)").text("Teste");
         $('.reload-items').click();
         var heigth = $('#wgrid-teste').closest('.wgrid').height();
@@ -30,22 +30,27 @@
             }
         });
 
-        setTimeout(function() {
+        setTimeout(function ()
+        {
             deepEqual($(".wgrid-table tr:eq(0) td:eq(1)").text() != "Teste", true, "Realod button working");
-        },100);
+        }, 100);
 
-        equal(widthError, 0, "All TH width's is equals of respective TD width");
+        if ($('.wgrid-check-container').css('position') == "absolute" && $('.wgrid-header-container').css('position') == "absolute" && $('.wgrid-container').css('position') == "absolute" && $('.wgrid-status-panel').css('position') == "absolute")
+        {
+            ok(true, "All wgrid main elements has position absolute");
+        }
+        equal(widthError, 0, "All <TH> width's is equals of respective <TD> width");
+        equal(bgWhite, true, "Rows background is white when wgrid reload/load");
         equal(heigth, true, "Wgrid is greather than 200px");
-        equal(position, "relative", "Position relative test!");
-        equal(bgWhite, true, "Row background is white when load wgrid");
-
+        equal(position, "relative", "Wgrid have position relative");
+        deepEqual($(window).width() >= $('.wgrid').width(), true, 'Wgrid is not more larger than window');
     });
 
     module("Records");
-    test("First 10 records", function ()
+    test("Listing like ListItemCount", function ()
     {
         var qtd = $(".wgrid-table tbody tr").length;
-        equal(qtd, 10, "Listing 10 items when load Wgrid in first time");
+        equal(qtd, 10, "Listing 10 items when load Wgrid in first time like listItemCount");
     });
 
     test("Disable Handling", function ()
@@ -138,7 +143,7 @@
     {
         var firstValue = $(".wgrid-table tr:eq(0) td:eq(0)").text();
         $('.wgrid-order-button').click();
-        deepEqual(ajaxReturnValue($(".wgrid-table tr:eq(0) td:eq(0)")) != firstValue, true, "Reordering sucess!");
+        deepEqual(ajaxReturnValue($(".wgrid-table tr:eq(0) td:eq(0)")) != firstValue, true, "Reordering records!");
     });
 
     test("Paging", function ()
@@ -172,7 +177,7 @@
             stop();
             setTimeout(function ()
             {
-                deepEqual($(".wgrid-table tr:eq(0) td:eq(0):contains('" + checkValue + "')").length > 0, true, "Showing exactly row with value equals filter field value");
+                deepEqual($(".wgrid-table tr:eq(0) td:eq(0):contains('" + checkValue + "')").length > 0, true, "Showing row(s) with value(s) starts with filter value");
                 start();
             }, 100);
             start();
@@ -193,7 +198,7 @@
             stop();
             setTimeout(function ()
             {
-                deepEqual($(".wgrid-table tr:eq(0) td:eq(0):contains('" + checkValue + "')").length > 0, true, "Showing exactly row with value equals filter field value");
+                deepEqual($(".wgrid-table tr:eq(0) td:eq(0):contains('" + checkValue + "')").length > 0, true, "Showing row(s) with value(s) ends with filter value");
                 start();
             }, 100);
             start();
@@ -214,7 +219,7 @@
             stop();
             setTimeout(function ()
             {
-                deepEqual($(".wgrid-table tr:eq(0) td:eq(0):contains('" + checkValue + "')").length > 0, true, "Showing exactly row with value equals filter field value");
+                deepEqual($(".wgrid-table tr:eq(0) td:eq(0):contains('" + checkValue + "')").length > 0, true, "Showing row(s) with value(s) contains filter value");
                 start();
             }, 100);
             start();
@@ -235,7 +240,7 @@
             stop();
             setTimeout(function ()
             {
-                deepEqual($(".wgrid-table tr:eq(0) td:eq(0)").text() == checkValue, true, "Showing exactly row with value equals filter field value");
+                deepEqual($(".wgrid-table tr:eq(0) td:eq(0)").text() == checkValue, true, "Showing row(s) with value(s) equals filter value");
                 start();
             }, 100);
             start();
