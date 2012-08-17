@@ -260,6 +260,16 @@
         }, 100);
 
     });
+
+    module("Wgrid functions");
+    test("reloadShow() / reloadHide()", function ()
+    {
+        $('.wgrid').wgrid('loaderShow');
+        equal($('.wgrid-loader-overlay').is(':visible'), true, "Showing loader overlay");
+
+        $('.wgrid').wgrid('loaderHide');
+        equal($('.wgrid-loader-overlay').is(':visible'), false, "Hiding loader overlay");
+    });
     
     $("#testButton").remove();
     $("#tests").fadeIn();
@@ -271,4 +281,15 @@ function ajaxReturnValue($selector)
     {
         return $selector.text();
     });
+}
+function sleep(milliseconds)
+{
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++)
+    {
+        if ((new Date().getTime() - start) > milliseconds)
+        {
+            break;
+        }
+    }
 }

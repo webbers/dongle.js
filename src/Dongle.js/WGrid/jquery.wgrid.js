@@ -645,6 +645,14 @@
             {
                 reloadGrid();
             },
+            loaderShow: function ()
+            {
+                loadingShow();
+            },
+            loaderHide: function ()
+            {
+                loadingHide();
+            },
             updateRow: function (elementData)
             {
                 var elementId = elementData['Id'];
