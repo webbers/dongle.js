@@ -10,8 +10,10 @@
 *   http://en.wikipedia.org/wiki/GNU_General_Public_License
 *
 */
-(function ($) {
-    $.WSwitchbutton = function (element, options) {
+(function ($)
+{
+    $.WSwitchbutton = function (element, options)
+    {
         var defaults = {
             yes: 'sim',
             no: 'não',
@@ -22,6 +24,19 @@
         plugin.settings = {};
         var $element = $(element);
 
+        if (typeof (options) == "string")
+        {
+            if (options == "on")
+            {
+                check();
+            }
+            if (options == "off")
+            {
+                uncheck();
+            }
+            return false;
+        }
+
         var oldOnSelectStart = null;
 
         var checkedPos = parseInt(selectStyle('.wswitchbutton-checked')['background-position'], 0);
@@ -29,41 +44,77 @@
 
         var uncheckedPos = parseInt(selectStyle('.wswitchbutton-unchecked')['background-position'], 0);
         uncheckedPos = uncheckedPos ? uncheckedPos : -25;
-        
+
         var checkedStyle;
         var uncheckedStyle;
-        
-        if (navigator.appName != 'Microsoft Internet Explorer') {
+
+        if (navigator.appName != 'Microsoft Internet Explorer')
+        {
             checkedStyle = { 'background-position': checkedPos };
             uncheckedStyle = { 'background-position': uncheckedPos };
         }
-        else {
+        else
+        {
             checkedStyle = { 'background-position-x': checkedPos };
             uncheckedStyle = { 'background-position-x': uncheckedPos };
         }
-        
 
-        var startControl = function (el, button, animate) {
+        var startControl = function (el, button, animate)
+        {
             var style = el.is(':checked') ? checkedStyle : uncheckedStyle;
-            if (animate) {
+            if (animate)
+            {
                 button.animate(style, Math.abs(uncheckedPos) / plugin.settings.speed);
             }
-            else {
+            else
+            {
                 button.css(style, Math.abs(uncheckedPos) / plugin.settings.speed);
             }
         };
 
-        plugin.init = function () {
+        function setChecked(checked)
+        {
+            var disabledButton = $element.attr('disabled');
+
+            if (!disabledButton)
+            {
+                if (checked && $element.attr('checked') == false)
+                {
+                    $element.attr('checked', true);
+                    $element.triggerHandler('change');
+                }
+                else if (!checked && $element.attr('checked') == true)
+                {
+                    $element.attr('checked', false);
+                    $element.triggerHandler('change');
+                }
+            }
+        }
+
+        function check()
+        {
+            setChecked(true);
+        }
+
+        function uncheck()
+        {
+            setChecked(false);
+        }
+
+        plugin.init = function ()
+        {
             plugin.settings = $.extend({}, defaults, options);
             var $control = $('<div class="wswitchbutton-control"></div>');
             var $noLabel = $('<div class="left" unselectable="on">' + plugin.settings.no + '</div>');
 
             var $yesLabel = $('<div class="right" unselectable="on">' + plugin.settings.yes + '</div>');
             var disabledButton = $element.attr('disabled');
-            if (disabledButton) {
+            if (disabledButton)
+            {
                 var $button = $('<div class="button button-disabled" disabled="disabled"></div>');
             }
-            else {
+            else
+            {
                 var $button = $('<div class="button"></div>');
             }
 
@@ -76,50 +127,36 @@
             var initBgPos = 0;
             var moved = false;
 
-            function setChecked(checked) {
-                if (!disabledButton) {
-                    if (checked && $element.attr('checked') == false) {
-                        $element.attr('checked', true);
-                        $element.triggerHandler('change');
-                    }
-                    else if (!checked && $element.attr('checked') == true) {
-                        $element.attr('checked', false);
-                        $element.triggerHandler('change');
-                    }
-                }
-            }
-
-            function check() {
-                setChecked(true);
-            }
-
-            function uncheck() {
-                setChecked(false);
-            }
-
-            $element.change(function () {
+            $element.change(function ()
+            {
                 startControl($element, $button, true);
             });
 
-            $yesLabel.click(function () {
+            $yesLabel.click(function ()
+            {
                 check();
                 startControl($element, $button, true);
             });
 
-            $noLabel.click(function () {
+            $noLabel.click(function ()
+            {
                 uncheck();
                 startControl($element, $button, true);
             });
             var initCss;
             var splited;
-            $(document).mousedown(function (e) {
-                if (e.target == $button[0]) {
+            $(document).mousedown(function (e)
+            {
+                if (e.target == $button[0])
+                {
                     downPos = e.pageX - $button[0].offsetLeft;
-                    if (navigator.appName != 'Microsoft Internet Explorer') {
+                    if (navigator.appName != 'Microsoft Internet Explorer')
+                    {
                         initCss = $button.css('background-position');
                         splited = initCss.split(" ", 1);
                     }
-                    else {
+                    else
+                    {
                         initCss = $button.css('background-position-x');
                         splited = initCss;
                     }
@@ -128,16 +165,19 @@
                     dragging = e.target;
 
                     oldOnSelectStart = document.onselectstart;
-                    document.onselectstart = function () {
+                    document.onselectstart = function ()
+                    {
                         return false;
                     };
                 }
 
             });
 
-            $(document).mousemove(function (e) {
+            $(document).mousemove(function (e)
+            {
 
-                if (dragging && !disabledButton) {
+                if (dragging && !disabledButton)
+                {
                     var offset = e.pageX - $button[0].offsetLeft;
                     moved = (offset - downPos) != 0;
                     var pos = initBgPos + offset - downPos;
@@ -146,40 +186,51 @@
                     pos = pos > 0 ? 0 : pos;
                     $button.css('background-position', pos + 'px');
 
-                    if (pos > uncheckedPos / 2) {
+                    if (pos > uncheckedPos / 2)
+                    {
                         check();
                     }
-                    else {
+                    else
+                    {
                         uncheck();
                     }
                     $button.css('cursor', 'pointer');
                 }
             });
 
-            $(document).mouseup(function () {
+            $(document).mouseup(function ()
+            {
                 document.onselectstart = oldOnSelectStart;
 
-                if (dragging == $button[0]) {
-                    if (!moved) {
-                        if ($element.is(':checked')) {
+                if (dragging == $button[0])
+                {
+                    if (!moved)
+                    {
+                        if ($element.is(':checked'))
+                        {
                             uncheck();
                         }
-                        else {
+                        else
+                        {
                             check();
                         }
                     }
                     moved = false;
-                    if (navigator.appName != 'Microsoft Internet Explorer') {
+                    if (navigator.appName != 'Microsoft Internet Explorer')
+                    {
                         initBgPos = parseInt($button.css('background-position').split(' '), 0);
                     }
-                    else {
+                    else
+                    {
                         initBgPos = parseInt($button.css('background-position-x'), 0);
                     }
-                    
-                    if (!$element.is(':checked')) {
+
+                    if (!$element.is(':checked'))
+                    {
                         $button.animate(uncheckedStyle, Math.abs(initBgPos + Math.abs(uncheckedPos)) / plugin.settings.speed);
                     }
-                    else {
+                    else
+                    {
                         $button.animate(checkedStyle, Math.abs(initBgPos) / plugin.settings.speed);
                     }
                 }
@@ -195,12 +246,25 @@
         return $element;
     };
 
-    $.fn.wswitchbutton = function (options) {
-        return this.each(function () {
-            if (undefined == $(this).data('WSwitchButton')) {
+    $.fn.wswitchbutton = function (options)
+    {
+        return this.each(function ()
+        {
+            var objectData = $(this).data('WSwitchButton');
+            if (objectData == undefined)
+            {
                 var plugin = new $.WSwitchbutton(this, options);
                 $(this).data('WSwitchButton', plugin);
+            } else
+            {
+                if (typeof (options) == "string")
+                {
+                    $.WSwitchbutton(this, options);
+                }
             }
+
+
+
         });
     };
 
@@ -229,7 +293,7 @@ function selectStyle(sel)
         attrClass = Array();
     }
 
-    var objStyle = { };
+    var objStyle = {};
 
     if (attrClass == "")
     {

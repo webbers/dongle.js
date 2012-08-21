@@ -31,7 +31,7 @@
 
 (function ($)
 {
-    $.Wgrid = function (element, options, test)
+    $.Wgrid = function (element, options)
     {
         var $element = $(element);
         $element.data('wgrid', this);
@@ -116,8 +116,6 @@
         }
 
         /*------------------ INTERNAL FUNCTIONS ------------*/
-
-
         var getScrollBarWidth = function ()
         {
             var scrollbarWidth;
@@ -375,6 +373,14 @@
 
         var retrieveMoreItems = function ()
         {
+            var processingData = $element.data("processing");
+            if (processingData)
+            {
+                return;
+            }
+
+            $element.data("processing", true);
+
             skip = data.tableRows.length;
 
             if (plugin.settings.jsonUrl == null) { return; }
@@ -382,7 +388,8 @@
 
             insertJsonItems(completeUrl, function ()
             {
-                $(".wgrid-container").animate({ scrollTop: $(".wgrid-container").attr("scrollHeight") }, 500);
+                $element.data("processing", false);
+                //$(".wgrid-container").animate({ scrollTop: $(".wgrid-container").attr("scrollHeight") }, 500);
             });
         };
 
@@ -836,6 +843,8 @@
                                 });
                             }
                             filterField = $('<input type="text" name="filter-' + fieldName + '"/>');
+                            
+                            //FILTER CLICK
                             filterButton.click(function ()
                             {
                                 var advancedChoicedOption = $(this).siblings('.advanced-options').find('input[name=advancedFilter]:checked').val();
@@ -851,10 +860,16 @@
                                     }
                                 }
                                 filterIcon.addClass('active');
+
                                 if (filterType == 'string')
                                 {
                                     filters[fieldName] = filterType + '|' + advancedChoicedOption + '|' + '"' + filterField.val() + '"';
-                                } else
+                                }
+                                else if (filterType == 'hexaid')
+                                {
+                                    filters[fieldName] = 'text' + '|' + advancedChoicedOption + '|' + '00' + filterField.val();
+                                }
+                                else
                                 {
                                     filters[fieldName] = filterType + '|' + advancedChoicedOption + '|' + filterField.val();
                                 }
@@ -1078,6 +1093,7 @@
             var isLineChecked = lineCheckbox.attr("checked");
             var lineIndex = $element.find('.wgrid-check-content tr').index($(this).closest('tr'));
             var gridTableLine = $(data.table.find('tr')[lineIndex]);
+
             isLineChecked ? checkALine(gridTableLine, true) : checkALine(gridTableLine, false);
         });
 
@@ -1103,12 +1119,6 @@
             $('.wgrid-header-container').css('left', '0px');
             $('.wgrid-container').css('left', '0px');
         }
-
-        if (test)
-        {
-
-        }
-
         return $element;
     };
 
