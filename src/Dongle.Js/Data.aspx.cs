@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,7 +11,6 @@ namespace Dongle.Test
 {
     public partial class _Default : System.Web.UI.Page
     {
-        //public ActionResult Index(string @orderby, string sort, NameValueCollection querystring, int skip = 0)
         protected void Page_Load(object sender, EventArgs e)
         {
             int skip;
@@ -111,16 +111,16 @@ namespace Dongle.Test
             }
             else if (paramArray[1] == "startsWith")
             {
-                if (i.ToString().Length > 1)
+                if (i.ToString(CultureInfo.InvariantCulture).Length > 1)
                 {
-                    if (paramArray[2] != i.ToString().Substring(0, i.ToString().Length - 1))
+                    if (paramArray[2] != i.ToString(CultureInfo.InvariantCulture).Substring(0, i.ToString(CultureInfo.InvariantCulture).Length - 1))
                     {
                         return true;
                     }
                 }
                 else
                 {
-                    if (paramArray[2] != i.ToString())
+                    if (paramArray[2] != i.ToString(CultureInfo.InvariantCulture))
                     {
                         return true;
                     }
@@ -129,17 +129,17 @@ namespace Dongle.Test
             }
             else if (paramArray[1] == "contains")
             {
-                char[] containArray = i.ToString().ToCharArray();
+                char[] containArray = i.ToString(CultureInfo.InvariantCulture).ToCharArray();
                 if (containArray.Length == 1)
                 {
-                    if (containArray[0].ToString() != paramArray[2])
+                    if (containArray[0].ToString(CultureInfo.InvariantCulture) != paramArray[2])
                     {
                         return true;
                     }
                 }
                 else
                 {
-                    if (containArray[0].ToString() != paramArray[2] && containArray[1].ToString() != paramArray[2])
+                    if (containArray[0].ToString(CultureInfo.InvariantCulture) != paramArray[2] && containArray[1].ToString(CultureInfo.InvariantCulture) != paramArray[2])
                     {
                         return true;
                     }
@@ -147,16 +147,16 @@ namespace Dongle.Test
             }
             else if (paramArray[1] == "endsWith")
             {
-                if (i.ToString().Length > 1)
+                if (i.ToString(CultureInfo.InvariantCulture).Length > 1)
                 {
-                    if (paramArray[2] != i.ToString().Substring(i.ToString().Length - 1, 1))
+                    if (paramArray[2] != i.ToString(CultureInfo.InvariantCulture).Substring(i.ToString(CultureInfo.InvariantCulture).Length - 1, 1))
                     {
                         return true;
                     }
                 }
                 else
                 {
-                    if (paramArray[2] != i.ToString())
+                    if (paramArray[2] != i.ToString(CultureInfo.InvariantCulture))
                     {
                         return true;
                     }
