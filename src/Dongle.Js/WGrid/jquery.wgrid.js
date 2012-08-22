@@ -4,9 +4,6 @@
 *
 * Depends:
 *   - jQuery 1.4.2+
-*   - jQuery.cron
-*   - jQuery.wContextMenu
-*   - QUnitjs
 *
 * The MIT License
 * 
@@ -786,6 +783,7 @@
             var $column = $(this);
             var filterType = $column.attr('field_type');
             var fieldValue = $column.attr('field_value');
+            var fieldOrderBy = $column.attr('orderby');
 
             var fieldName = fieldValue != null && fieldValue != "" ? $column.attr('field_value') : $column.attr('field_name');
 
@@ -843,7 +841,7 @@
                                 });
                             }
                             filterField = $('<input type="text" name="filter-' + fieldName + '"/>');
-                            
+
                             //FILTER CLICK
                             filterButton.click(function ()
                             {
@@ -979,7 +977,7 @@
 
             $div.click(function ()
             {
-                orderby = fieldName;
+                orderby = fieldOrderBy != "" && fieldOrderBy != undefined ? fieldOrderBy : fieldName;
 
                 var isDesc = orderbyIcon.hasClass('desc');
 
