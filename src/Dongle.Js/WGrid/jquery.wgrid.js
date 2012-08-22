@@ -386,7 +386,7 @@
             insertJsonItems(completeUrl, function ()
             {
                 $element.data("processing", false);
-                //$(".wgrid-container").animate({ scrollTop: $(".wgrid-container").attr("scrollHeight") }, 500);
+                $(".wgrid-container").scrollTop($(".wgrid-container").attr("scrollHeight"));
             });
         };
 
