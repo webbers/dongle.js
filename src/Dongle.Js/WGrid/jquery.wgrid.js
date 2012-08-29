@@ -79,7 +79,8 @@
                 of: "de",
                 items: "itens",
                 showing: "Mostrando",
-                reload: "Recarregar"
+                reload: "Recarregar",
+                many: "muitos"
             }
         };
 
@@ -257,6 +258,7 @@
         {
             //plugin.settings.statusPanel.find('.reload-button').wbutton('disable');
             loadingShow();
+            var totalInserted = 0;
 
             $.ajax({
                 url: completeUrl,
@@ -270,7 +272,7 @@
                     var jsonData = json.Data;
                     if (jsonData != null && jsonData.length > 0)
                     {
-                        var totalInserted = jsonData.length;
+                        totalInserted = jsonData.length;
                         var rowsToInsert = [];
                         var checkRowsToInsert = [];
 
@@ -293,9 +295,12 @@
                         checkIfNotExistsOldItems(totalInserted);
 
                         totalDisplayingItems += totalInserted;
-                        totalItems = json.TotalCount != null ? json.TotalCount : totalItems;
+
+                        //totalItems = json.TotalCount != null ? json.TotalCount : totalItems;
+
+                        totalItems = json.TotalCount;
                         data.tableRows = $element.find('.wgrid-table tr');
-                        if (totalDisplayingItems >= totalItems)
+                        if (totalDisplayingItems >= totalItems && totalItems != null)
                         {
                             hideMoreItems();
                         }
@@ -304,7 +309,7 @@
                     {
                         hideMoreItems();
                     }
-                    reloadTotalsDisplays();
+                    reloadTotalsDisplays(totalInserted);
                     loadingHide();
                     //plugin.settings.statusPanel.find('.reload-button').wbutton('enable');
 
@@ -386,7 +391,7 @@
             insertJsonItems(completeUrl, function ()
             {
                 $element.data("processing", false);
-                $(".wgrid-container").scrollTop($(".wgrid-container").attr("scrollHeight"));
+                $element.find(".wgrid-container").scrollTop($(".wgrid-container").attr("scrollHeight"));
             });
         };
 
@@ -520,11 +525,28 @@
             });
         };
 
-        var reloadTotalsDisplays = function ()
+        var reloadTotalsDisplays = function (totalInserted)
         {
             loadingShow();
             plugin.settings.statusPanel.find('.wgrid-displaying').html(totalDisplayingItems);
-            plugin.settings.statusPanel.find('.wgrid-total').html(totalItems);
+
+            var totalItemsText = totalItems == null ? plugin.settings.dictionary.many : totalItems;
+
+            if (totalItems == null && totalDisplayingItems < plugin.settings.listItemCount)
+            {
+                totalItemsText = totalDisplayingItems;
+            }
+
+            if (totalInserted != null || totalInserted != undefined)
+            {
+                if (totalInserted < plugin.settings.listItemCount)
+                {
+                    totalItemsText = totalDisplayingItems;
+                }
+            }
+
+            plugin.settings.statusPanel.find('.wgrid-total').html(totalItemsText);
+
             plugin.settings.statusPanel.find('.more-items-button>.content>span').html('+ ' + plugin.settings.listItemCount);
             loadingHide();
         };
