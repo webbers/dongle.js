@@ -26,11 +26,11 @@
 
         if (typeof (options) == "string")
         {
-            if (options == "on")
+            if (options == "on" || options == "check")
             {
                 check();
             }
-            if (options == "off")
+            if (options == "off" || options == "uncheck")
             {
                 uncheck();
             }

@@ -51,6 +51,47 @@
     <Reference Include="System.Web.ApplicationServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="3rd\jquery.history\1.0\jquery.history.js" />
+    <Content Include="3rd\jquery.history\mit-license.txt" />
+    <Content Include="3rd\jquery.multiselect\1.11-gas\jquery.multiselect.css" />
+    <Content Include="3rd\jquery.multiselect\1.11-gas\jquery.multiselect.js" />
+    <Content Include="3rd\jquery.multiselect\mit-license.txt" />
+    <Content Include="3rd\jquery.ui\1.8.16\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="3rd\jquery.ui\1.8.16\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="3rd\jquery.ui\1.8.16\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="3rd\jquery.ui\1.8.16\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="3rd\jquery.ui\1.8.16\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="3rd\jquery.ui\1.8.16\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="3rd\jquery.ui\1.8.16\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="3rd\jquery.ui\1.8.16\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="3rd\jquery.ui\1.8.16\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="3rd\jquery.ui\1.8.16\images\ui-icons_222222_256x240.png" />
+    <Content Include="3rd\jquery.ui\1.8.16\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="3rd\jquery.ui\1.8.16\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="3rd\jquery.ui\1.8.16\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="3rd\jquery.ui\1.8.16\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="3rd\jquery.ui\1.8.16\jquery.ui.css" />
+    <Content Include="3rd\jquery.ui\1.8.16\jquery.ui.js" />
+    <Content Include="3rd\jquery.ui\1.8.16\jquery.ui.min.js" />
+    <Content Include="3rd\jquery.ui\mit-license.txt" />
+    <Content Include="3rd\jquery.validate\1.8.0\jquery.validate-vsdoc.js" />
+    <Content Include="3rd\jquery.validate\1.8.0\jquery.validate.js" />
+    <Content Include="3rd\jquery.validate\1.8.0\jquery.validate.min.js" />
+    <Content Include="3rd\jquery.validate\1.8.0\jquery.validate.unobtrusive.js" />
+    <Content Include="3rd\jquery.validate\1.8.0\jquery.validate.unobtrusive.min.js" />
+    <Content Include="3rd\jquery.validate\mit-license.txt" />
+    <Content Include="3rd\jquery\1.2.6\jquery.js" />
+    <Content Include="3rd\jquery\1.2.6\jquery.min.js" />
+    <Content Include="3rd\jquery\1.3\jquery.js" />
+    <Content Include="3rd\jquery\1.3\jquery.min.js" />
+    <Content Include="3rd\jquery\1.5.1\jquery.js" />
+    <Content Include="3rd\jquery\1.5.1\jquery.min.js" />
+    <Content Include="3rd\jquery\1.5.1\jquery.vsdoc.js" />
+    <Content Include="3rd\jquery\mit-license.txt" />
+    <Content Include="3rd\qunit\1.9.0\qunit.css" />
+    <Content Include="3rd\qunit\1.9.0\qunit.js" />
+    <Content Include="3rd\qunit\teste.html" />
+    <Content Include="ActionBox\ActionBox.js" />
     <Content Include="Data.aspx" />
     <Content Include="Global.asax" />
     <Content Include="WButton\images\default-dark-icon.png" />
@@ -131,6 +172,7 @@
     <Content Include="WSwitchButton\images\wswitchbutton-disabled.png" />
     <Content Include="WSwitchButton\images\wswitchbutton.png" />
     <Content Include="WSwitchButton\sample.html" />
+    <Content Include="WSwitchButton\UnitTests.js" />
     <Content Include="WSwitchButton\wswitchbutton.css" />
     <Content Include="WSwitchButton\wswitchbutton.js" />
     <Content Include="WSwitchButton\wswitchbutton.unobstrusive.js" />
@@ -148,16 +190,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="3rd\jquery.history\1.0\" />
-    <Folder Include="3rd\jquery.multiselect\1.11-gas\" />
-    <Folder Include="3rd\jquery.ui\1.8.16\images\" />
-    <Folder Include="3rd\jquery.validate\1.8.0\" />
-    <Folder Include="3rd\jquery\1.2.6\" />
-    <Folder Include="3rd\jquery\1.3\" />
-    <Folder Include="3rd\jquery\1.5.1\" />
     <Folder Include="3rd\jquery\1.7.1\" />
-    <Folder Include="3rd\qunit\1.9.0\" />
-    <Folder Include="ActionBox\" />
     <Folder Include="App_Data\" />
     <Folder Include="Properties\" />
   </ItemGroup>
