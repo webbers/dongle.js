@@ -65,6 +65,7 @@
             checkboxRowSelect: true,
             showStatusIcon: true,
             statusPanel: null,
+            complete: null,
             dictionary:
             {
                 yes: "Sim",
@@ -147,6 +148,11 @@
             if (plugin.settings.keyColumn != "" || plugin.settings.keyColumn != null)
             {
                 querystring = querystring + "&keyColumn=" + plugin.settings.keyColumn;
+            }
+
+            if (plugin.settings.orderby != "" || plugin.settings.orderby != null)
+            {
+                orderby = plugin.settings.orderby;
             }
 
             querystring = filterParams == "" ? querystring : querystring + "&" + filterParams;
@@ -316,6 +322,10 @@
                     if (typeof callback == 'function')
                     {
                         callback();
+                    }
+                    if (typeof plugin.settings.complete == 'function')
+                    {
+                        plugin.settings.complete();
                     }
                 }
             });
@@ -819,12 +829,16 @@
                 'true' :
                 'false';
 
+            var disableOrder = $column.attr('disable_order') == 'true' ?
+                'true' :
+                'false';
+
             var headerName = $column.html();
             $column.html('');
 
             var $div = $('<div class="wgrid-column-title" style="cursor: pointer"/>');
-
-            var orderbyIcon = $('<div class="wgrid-order-button" style="float:left">' + headerName + '</div>');
+            var orderbyclass = disableOrder != 'true' ? "wgrid-order-button" : "";
+            var orderbyIcon = $('<div class="' + orderbyclass + '" style="float:left">' + headerName + '</div>');
 
             if (disableManipulating == 'true' || filterType == null || filterType == "tag")
             {
@@ -997,22 +1011,29 @@
                 $column.removeClass('hover');
             });
 
-            $div.click(function ()
+            if (disableOrder != 'true')
             {
-                orderby = fieldOrderBy != "" && fieldOrderBy != undefined ? fieldOrderBy : fieldName;
+                $div.click(function ()
+                {
+                    orderby = fieldOrderBy != "" && fieldOrderBy != undefined ? fieldOrderBy : fieldName;
 
-                var isDesc = orderbyIcon.hasClass('desc');
+                    var isDesc = orderbyIcon.hasClass('desc');
 
-                $('.wgrid-order-button')
+                    $('.wgrid-order-button')
                             .removeClass('desc')
                             .removeClass('asc');
 
-                isDesc ? orderbyIcon.removeClass('desc').addClass('asc') : orderbyIcon.removeClass('asc').addClass('desc');
+                    isDesc ? orderbyIcon.removeClass('desc').addClass('asc') : orderbyIcon.removeClass('asc').addClass('desc');
 
-                sort = orderbyIcon.hasClass('desc') ? 'desc' : 'asc';
+                    sort = orderbyIcon.hasClass('desc') ? 'desc' : 'asc';
 
-                reloadGrid();
-            });
+                    reloadGrid();
+                });
+            }
+            else
+            {
+                $div.css('cursor', 'default');
+            }
 
             $column.append($div);
 

@@ -28,7 +28,6 @@ th, td
 .wgrid {
     border: 1px solid #CDCDCD;
     background-color: #FFFFFF;
-	position: absolute;
 }
 
 .wgrid-main
@@ -198,6 +197,7 @@ th, td
     background-position:  center center;
     height: 33px;
     padding: 0 8px;
+    cursor: pointer;
 }
 
 .hover .wgrid-filter-button {
