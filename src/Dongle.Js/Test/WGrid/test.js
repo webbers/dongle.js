@@ -304,7 +304,7 @@
         equal($('.wgrid').wgrid('getQuerystring').split('&').length >= 2, true, "getQuerystring generates more than 2 query strings");
     });
 
-    test("getQuerystring", function ()
+    test("getHeaderColumnIndex", function ()
     {
         equal(typeof $('.wgrid').wgrid('getHeaderColumnIndex', 'field1'), "number", "getHeaderColumnIndex is returning a numeric value");
         equal($('.wgrid').wgrid('getHeaderColumnIndex', 'field1'), 0, "getHeaderColumnIndex(field1) returning the correct number of column index(0)");
