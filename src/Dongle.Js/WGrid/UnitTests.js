@@ -262,13 +262,67 @@
     });
 
     module("Wgrid functions");
-    test("reloadShow() / reloadHide()", function ()
+    test("loaderShow", function ()
     {
         $('.wgrid').wgrid('loaderShow');
         equal($('.wgrid-loader-overlay').is(':visible'), true, "Showing loader overlay");
+    });
 
+    test("loaderHide", function ()
+    {
         $('.wgrid').wgrid('loaderHide');
         equal($('.wgrid-loader-overlay').is(':visible'), false, "Hiding loader overlay");
+    });
+
+    test("getFilters", function ()
+    {
+        equal(typeof ($('.wgrid').wgrid('getFilters')), "object", "getFilter is returning a object");
+    });
+
+    test("getOrderAndSort", function ()
+    {
+        equal(typeof ($('.wgrid').wgrid('getOrderAndSort')), "object", "getOrderAndSort is returning a object");
+    });
+
+    test("clearGrid", function ()
+    {
+        $('.wgrid').wgrid('clearGrid');
+        equal($('.wgrid .wgrid-table').html(), "", "clearGrid is clearing grid");
+    });
+
+    test("getHeaderColumns", function ()
+    {
+        var getHeaderColumns = $('.wgrid').wgrid('getHeaderColumns');
+        equal(typeof (getHeaderColumns), "object", "getHeaderColumns generates a object");
+        equal($(getHeaderColumns[0]).is('th'), true, "getHeaderColumns[0] is a th(column) element");
+    });
+
+    test("getQuerystring", function ()
+    {
+        var getQuerystring = $('.wgrid').wgrid('getQuerystring');
+        equal(typeof (getQuerystring), "string", "getQuerystring generates a string");
+        equal($('.wgrid').wgrid('getQuerystring').split('&').length >= 2, true, "getQuerystring generates more than 2 query strings");
+    });
+
+    test("getQuerystring", function ()
+    {
+        equal(typeof $('.wgrid').wgrid('getHeaderColumnIndex', 'field1'), "number", "getHeaderColumnIndex is returning a numeric value");
+        equal($('.wgrid').wgrid('getHeaderColumnIndex', 'field1'), 0, "getHeaderColumnIndex(field1) returning the correct number of column index(0)");
+        equal($('.wgrid').wgrid('getHeaderColumnIndex', 'field2'), 1, "getHeaderColumnIndex(field2) returning the correct number of column index(1)");
+        equal($('.wgrid').wgrid('getHeaderColumnIndex', 'field3'), 2, "getHeaderColumnIndex(field2) returning the correct number of column index(2)");
+    });
+
+    test("getRowsData", function ()
+    {
+        equal(typeof $('.wgrid').wgrid('getRowsData'), "object", "getRowsData is returning a object");
+        deepEqual($('.wgrid').find('.wgrid-table tr').length == $('.wgrid').wgrid('getRowsData').length, true, "getRowsData is returning the correct number of data");
+
+        var index0 = 0;
+        var index1 = 1;
+        var columnIndex = $('.wgrid').find('th[field_name="field1"]').index();
+
+        deepEqual($('.wgrid').wgrid('getRowsData')[index0].field1 == $('.wgrid').find('.wgrid-table tr:eq(' + index0 + ') td:eq(' + columnIndex + ')').text(), true, "getRowsData is returning the data element equals the wgrid line element in the first line");
+        deepEqual($('.wgrid').wgrid('getRowsData')[index1].field1 == $('.wgrid').find('.wgrid-table tr:eq(' + index1 + ') td:eq(' + columnIndex + ')').text(), true, "getRowsData is returning the data element equals the wgrid line element in the second line");
     });
     
     $("#testButton").remove();
