@@ -104,8 +104,8 @@
     <Content Include="Src\WContextMenu\wcontextmenu.js" />
     <Content Include="Test\WButton\sample.html" />
     <Content Include="Test\WContextMenu\sample.html" />
-    <Content Include="Test\WGrid\test.html" />
-    <Content Include="Test\WGrid\test.js" />
+    <Content Include="Test\WRequiredIf\test.html" />
+    <Content Include="Test\WRequiredIf\test.js" />
     <Content Include="Test\WInputFile\sample.html" />
     <Content Include="Test\WLoader\sample.html" />
     <Content Include="Test\WMultiSelect\sample.html" />
@@ -138,8 +138,8 @@
     <Content Include="Src\WGrid\images\show-more.png" />
     <Content Include="Src\WGrid\images\wgrid-header-bg.png" />
     <Content Include="Src\WGrid\images\wgrid-status-bg.png" />
-    <Content Include="Src\WGrid\jquery.wgrid.css" />
-    <Content Include="Src\WGrid\jquery.wgrid.js" />
+    <Content Include="Src\WGrid\wgrid.css" />
+    <Content Include="Src\WGrid\wgrid.js" />
     <Content Include="Src\WInputFile\images\1.png" />
     <Content Include="Src\WInputFile\images\2.png" />
     <Content Include="Src\WInputFile\images\3.png" />
@@ -186,12 +186,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="3rd\jquery\1.7.1\" />
-    <Folder Include="App_Data\" />
-    <Folder Include="NewFolder1\" />
     <Folder Include="Properties\" />
-    <Folder Include="Test\ActionBox\" />
-    <Folder Include="Test\WRequiredIf\" />
+    <Folder Include="Test\WActionBox\" />
+    <Folder Include="Test\WGrid\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

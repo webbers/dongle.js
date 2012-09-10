@@ -1,6 +1,6 @@
 .wsimplegrid-filter-icon, .wsimplegrid-filter-icon-active
 {
-	background: url('img/filter-icon.png') no-repeat;
+	background: url('images/filter-icon.png') no-repeat;
 	width: 12px;
 	height: 13px;
 	display: inline-block;
@@ -14,7 +14,7 @@
 }
 .wsimplegrid-filter-icon-active
 {
-	background: url('img/filter-icon-active.png') no-repeat;
+	background: url('images/filter-icon-active.png') no-repeat;
 }
 .wsimplegrid-filter-panel
 {
