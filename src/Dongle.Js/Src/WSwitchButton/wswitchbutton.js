@@ -78,12 +78,12 @@
 
             if (!disabledButton)
             {
-                if (checked && $element.is(':checked') == false)
+                if (checked && $element.attr('checked') == false)
                 {
                     $element.attr('checked', true);
                     $element.triggerHandler('change');
                 }
-                else if (!checked && $element.is(':checked') == true)
+                else if (!checked && $element.attr('checked') == true)
                 {
                     $element.attr('checked', false);
                     $element.triggerHandler('change');

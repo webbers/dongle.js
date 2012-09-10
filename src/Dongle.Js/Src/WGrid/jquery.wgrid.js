@@ -1075,7 +1075,7 @@
 
         $element.find('.wgrid-checkbox-all').click(function ()
         {
-            var isChecked = $(this).is(":checked");
+            var isChecked = $(this).attr("checked");
             var allLines = $element.find('.wgrid-table tr');
             $element.find('.wgrid-checkbox-item').attr('checked', isChecked);
 
