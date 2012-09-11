@@ -303,13 +303,13 @@ test("getQuerystring", function ()
     equal($('.wgrid').wgrid('getQuerystring').split('&').length >= 2, true, "getQuerystring generates more than 2 query strings");
 });
 
-test("getQuerystring", function ()
-{
-    equal(typeof $('.wgrid').wgrid('getHeaderColumnIndex', 'field1'), "number", "getHeaderColumnIndex is returning a numeric value");
-    equal($('.wgrid').wgrid('getHeaderColumnIndex', 'field1'), 0, "getHeaderColumnIndex(field1) returning the correct number of column index(0)");
-    equal($('.wgrid').wgrid('getHeaderColumnIndex', 'field2'), 1, "getHeaderColumnIndex(field2) returning the correct number of column index(1)");
-    equal($('.wgrid').wgrid('getHeaderColumnIndex', 'field3'), 2, "getHeaderColumnIndex(field2) returning the correct number of column index(2)");
-});
+    test("getHeaderColumnIndex", function ()
+    {
+        equal(typeof $('.wgrid').wgrid('getHeaderColumnIndex', 'field1'), "number", "getHeaderColumnIndex is returning a numeric value");
+        equal($('.wgrid').wgrid('getHeaderColumnIndex', 'field1'), 0, "getHeaderColumnIndex(field1) returning the correct number of column index(0)");
+        equal($('.wgrid').wgrid('getHeaderColumnIndex', 'field2'), 1, "getHeaderColumnIndex(field2) returning the correct number of column index(1)");
+        equal($('.wgrid').wgrid('getHeaderColumnIndex', 'field3'), 2, "getHeaderColumnIndex(field2) returning the correct number of column index(2)");
+    });
 
 test("getRowsData", function ()
 {
