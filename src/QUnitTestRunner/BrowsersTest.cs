@@ -5,7 +5,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
@@ -44,8 +44,10 @@ namespace QUnitTestRunner
 
        [TestMethod, DeploymentItem("IEDriverServer.exe")]
         public void TestIe()
-        {
-            using (var driver = new InternetExplorerDriver())
+       {
+           var options = new InternetExplorerOptions();
+           options.IntroduceInstabilityByIgnoringProtectedModeSettings = true;
+            using (var driver = new InternetExplorerDriver(options))
             {
                 RunTests(_files, driver);
             }
