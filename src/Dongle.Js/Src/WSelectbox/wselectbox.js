@@ -1,11 +1,15 @@
-/*!
-* jQuery Selectbox plugin 0.1.3
+/*
+* WSelectbox
+* Copyright (c) 2012 Webers
 *
-* Copyright 2011, Dimitar Ivanov (http://www.bulgaria-web-developers.com/projects/javascript/wselectbox/)
-* Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
-* 
-* Date: Wed Jul 29 23:20:57 2011 +0200
+* Depends:
+*   - jQuery 1.4.2+
+*
+*   Licensed under MIT
+*   http://en.wikipedia.org/wiki/MIT_License
+*
 */
+
 (function ($, undefined)
 {
     var propName = 'wselectbox';
@@ -123,14 +127,14 @@
             }
 
             var wselectboxholder = $("<a>", {
-                "href": "#",
+                "href": "javascript:void(0)",
                 "id": "wselectbox-holder_" + inst.uid,
                 "class": inst.settings.classHolder
             });
 
             var wselectboxselector = $("<a>", {
                 "id": "wselectbox-selector_" + inst.uid,
-                "href": "#",
+                "href": "javascript:void(0)",
                 "class": inst.settings.classSelector,
                 "click": function (e)
                 {
@@ -150,7 +154,7 @@
 
             var wselectboxtoggle = $("<a>", {
                 "id": "wselectbox-toggle_" + inst.uid,
-                "href": "#",
+                "href": "javascript:void(0)",
                 "class": inst.settings.classToggle,
                 "click": function (e)
                 {

@@ -28,7 +28,19 @@
     </select>
     
     
-     <select name="country_id" id="Select1">
+    <select name="Select1" id="Select1">
+        <option value="">Mais opções...</option>
+        <optgroup>
+            <option value="1">Adicionar vários</option>
+            <option value="9">Excluir</option>
+        </optgroup>
+        <optgroup>
+            <option value="2">Importar...</option>
+            <option value="3">Exportar...</option>
+        </optgroup>
+    </select>
+    
+      <select name="Select2" id="Select2">
         <option value="">Mais opções...</option>
         <optgroup>
             <option value="1">Adicionar vários</option>
@@ -47,7 +59,9 @@
         {
             $("#country_id").wselectbox({ showFirst: false });
             $("#Select1").wselectbox({ showFirst: false });
-           // $("#Select1").wselectbox('disable');
+
+            $("#Select2").wselectbox({ showFirst: true });
+            $("#Select2").wselectbox('disable');
         });
     </script>
 </body>
