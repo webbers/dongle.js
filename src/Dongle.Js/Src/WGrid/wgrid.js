@@ -68,20 +68,20 @@
             complete: null,
             dictionary:
             {
-                yes: "Sim",
-                no: "Não",
-                filter: "Filtro",
-                advancedOptions: "Opções avançadas",
-                removeFilter: "Remover filtro",
-                exactlyEqual: "Exatamente igual",
-                contain: "Contém",
-                startWith: "Inicia com",
-                endWith: "Termina com",
-                of: "de",
-                items: "itens",
-                showing: "Mostrando",
-                reload: "Recarregar",
-                many: "muitos"
+                yes: "Yes",
+                no: "No",
+                filter: "Filter",
+                advancedOptions: "Advanced options",
+                removeFilter: "Remove filter",
+                exactlyEqual: "Equals",
+                contain: "Contains",
+                startWith: "Starts with",
+                endWith: "Ends with",
+                of: "of",
+                items: "items",
+                showing: "Showing",
+                reload: "Reload",
+                many: "many"
             }
         };
 
