@@ -4,6 +4,8 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 
+using Dongle.System.IO;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using OpenQA.Selenium.Chrome;
@@ -16,25 +18,58 @@ namespace QUnitTestRunner
     [TestClass]
     public class BrowsersTest
     {
-        private readonly List<string> _files = new List<string>();
+        private static List<string> _files = new List<string>();
 
-        public BrowsersTest()
+        private static WebDevServer _webServer;
+
+        private static bool _initialized;
+
+        [ClassInitialize]
+        public static void AssemblyInit(TestContext context)
         {
-            var html = this.GetUrlContent("http://localhost:55128/Test");
+            if (_initialized)
+            {
+                return;
+            }
+            _initialized = true;
+
+            var root = new DirectoryInfo(ApplicationPaths.RootDirectory);
+            var closest = root.Closest("temp");
+
+            var dir = "";
+            if (closest != null)
+            {
+                dir = root.Parent.Parent.FullName + "/../../../Dongle/_PublishedWebsites/Dongle.Js";
+            }
+            else
+            {
+                dir = root.Parent.Parent.Parent.FullName + "/Dongle.Js";
+            }
+
+            _webServer = new WebDevServer(1111, dir);
+            _webServer.Start();
+
+            var html = GetUrlContent("http://localhost:1111/Test");
             var matches = Regex.Matches(html, @"&lt;dir&gt;\s+<A\s+href=""(\w+)");
 
             foreach (Match match in matches)
             {
-                var html2 = this.GetUrlContent("http://localhost:55128/Test/" + match.Groups[1].Value);
-                if(Regex.IsMatch(html2, @"href=""test.html"))
+                var html2 = GetUrlContent("http://localhost:1111/Test/" + match.Groups[1].Value);
+                if (Regex.IsMatch(html2, @"href=""test.html"))
                 {
-                    _files.Add("Test/" +  match.Groups[1].Value + "/test.html");
+                    _files.Add("Test/" + match.Groups[1].Value + "/test.html");
                 }
             }
         }
 
-        [TestMethod]
-        public  void TestFirefox()
+        [AssemblyCleanup]
+        public static void AssemblyCleanup()
+        {
+            _webServer.StopIfRunning();
+        }
+
+        [TestMethod, DeploymentItem("WebDev.WebServer40.EXE")]
+        public void TestFirefox()
         {
             using (var driver = new FirefoxDriver())
             {
@@ -42,7 +77,7 @@ namespace QUnitTestRunner
             }
         }
 
-       [TestMethod, DeploymentItem("IEDriverServer.exe")]
+        /*[TestMethod, DeploymentItem("IEDriverServer.exe"), DeploymentItem("WebDev.WebServer40.EXE")]
         public void TestIe()
         {
             using (var driver = new InternetExplorerDriver())
@@ -51,8 +86,8 @@ namespace QUnitTestRunner
             }
         }
 
-        [TestMethod, DeploymentItem("chromedriver.exe")]
-        public  void TestChrome()
+        [TestMethod, DeploymentItem("chromedriver.exe"), DeploymentItem("WebDev.WebServer40.EXE")]
+        public void TestChrome()
         {
             var options = new ChromeOptions();
             options.AddArgument("--start-maximized");
@@ -64,7 +99,7 @@ namespace QUnitTestRunner
             {
                 RunTests(_files, driver);
             }
-        }
+        }*/
 
         private static void RunTests(IEnumerable<string> files, RemoteWebDriver driver)
         {
@@ -98,7 +133,7 @@ namespace QUnitTestRunner
             driver.Close();
         }
 
-        private string GetUrlContent(string url)
+        private static string GetUrlContent(string url)
         {
             var myRequest = (HttpWebRequest)WebRequest.Create(url);
             myRequest.Method = "GET";
