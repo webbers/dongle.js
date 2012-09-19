@@ -48,22 +48,22 @@ module.exports = function( grunt ) {
         },
         build: {
             "dist/dongle.js": [
-                "src/Dongle.Js/Src/WActionBox/wactionbox.js",
-                "src/Dongle.Js/Src/WContextMenu/wcontextmenu.js",
-                "src/Dongle.Js/Src/WGrid/wgrid.js",
-                "src/Dongle.Js/Src/WInputFile/winputfile.js",
-                "src/Dongle.Js/Src/WSelectbox/wselectbox.js",
-                "src/Dongle.Js/Src/WSimpleGrid/wsimplegrid.js",
-                "src/Dongle.Js/Src/WSwitchButton/wswitchbutton.js"
+                "src/WActionBox/wactionbox.js",
+                "src/WContextMenu/wcontextmenu.js",
+                "src/WGrid/wgrid.js",
+                "src/WInputFile/winputfile.js",
+                "src/WSelectbox/wselectbox.js",
+                "src/WSimpleGrid/wsimplegrid.js",
+                "src/WSwitchButton/wswitchbutton.js"
             ],
             "dist/dongle.unobstrusive.js": [
-                "src/Dongle.Js/Src/WButton/wbutton.unobstrusive.js",
-                "src/Dongle.Js/Src/WMultiSelect/wmultiselect.unobstrusive.js",
-                "src/Dongle.Js/Src/WLoader/wloader.unobstrusive.js",
-                "src/Dongle.Js/Src/WRequiredIf/wrequiredif.unobstrusive.js",
-                "src/Dongle.Js/Src/WSlider/wslider.unobstrusive.js",
-                "src/Dongle.Js/Src/WSpinButton/wspinbutton.unobstrusive.js",
-                "src/Dongle.Js/Src/WSwitchButton/wswitchbutton.unobstrusive.js"
+                "src/WButton/wbutton.unobstrusive.js",
+                "src/WMultiSelect/wmultiselect.unobstrusive.js",
+                "src/WLoader/wloader.unobstrusive.js",
+                "src/WRequiredIf/wrequiredif.unobstrusive.js",
+                "src/WSlider/wslider.unobstrusive.js",
+                "src/WSpinButton/wspinbutton.unobstrusive.js",
+                "src/WSwitchButton/wswitchbutton.unobstrusive.js"
             ]
         },
         min: {
@@ -72,7 +72,7 @@ module.exports = function( grunt ) {
         },
 
         lint: {
-            dist: "src/Dongle.Js/Src/**/*.js",
+            dist: "src/**/*.js",
             grunt: "grunt.js",
             tests: "test/unit/**/*.js"
         },

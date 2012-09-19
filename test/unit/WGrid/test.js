@@ -1,4 +1,4 @@
-﻿/*module("CSS");
+/*module("CSS");
 test("Initial Tests", function ()
 {
     $(".wgrid-table tr:eq(0) td:eq(1)").text("Teste");

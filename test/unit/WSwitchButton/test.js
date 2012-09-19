@@ -1,4 +1,4 @@
-﻿module('Method tests');
+module('Method tests');
 test("Check and Unckeck tests", function ()
 {
     

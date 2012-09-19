@@ -1,4 +1,4 @@
-﻿test("Basic Tests", function ()
+test("Basic Tests", function ()
 {
     ok($('form').valid(), "must validate because conditional field is blank and either destiny field");
 
