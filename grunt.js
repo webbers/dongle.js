@@ -76,6 +76,12 @@ module.exports = function( grunt ) {
 			grunt: "grunt.js",
 			tests: "test/unit/**/*.js"
 		},
+		
+		jshint: {
+			options: {
+				//evil: true
+			}
+		},
 
 		//jshint: (function() {
 		//	function jshintrc( path ) {

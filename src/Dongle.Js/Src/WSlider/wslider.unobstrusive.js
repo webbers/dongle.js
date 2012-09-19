@@ -44,7 +44,7 @@
 			if (!element)
 			{
 				element = sliderItems.find('.selected + li');
-				if (element.length == 0)
+				if (element.length === 0)
 				{
 					element = sliderItems.find('li').first();
 				}
@@ -131,7 +131,7 @@
     {
         return this.each(function ()
         {
-            if (undefined == $(this).data('wslider'))
+            if (undefined === $(this).data('wslider'))
             {
                 var plugin = new $.WSlider(this, options);
                 $(this).data('wslider', plugin);

@@ -107,7 +107,7 @@
 
                 if (action !== null)
                 {
-                    if (action.ajax != null && action.dataHandler != null)
+                    if (action.ajax !== null && action.dataHandler !== null)
                     {
                         action.ajax.data = action.dataHandler(hashInfo);
                         jQuery.ajax(action.ajax);

@@ -20,11 +20,11 @@
         var $menu = $('#' + plugin.settings.menu);
         $element.data('menu', $menu);
 
-        if (plugin.settings.inSpeed == 0)
+        if (plugin.settings.inSpeed === 0)
         {
             plugin.settings.inSpeed = -1;
         }
-        if (plugin.settings.outSpeed == 0)
+        if (plugin.settings.outSpeed === 0)
         {
             plugin.settings.outSpeed = -1;
         }
@@ -44,7 +44,7 @@
                 {
                     plugin.settings.beforeOpen($element);
 
-                    // Oculta menus que estão sendo exibidos
+                    // Oculta menus que estao sendo exibidos
                     $(".contextMenu").hide();
 
                     // Detecta a largura do menu
@@ -52,7 +52,7 @@
                     
                     if ($element.hasClass('disabled')) return false;
 
-                    // Detecta posição do mouse
+                    // Detecta posicao do mouse
                     var d = {}, x, y;
                     if (self.innerHeight)
                     {
@@ -144,26 +144,26 @@
                         {
                             case 38:
                                 // up
-                                if ($menu.find('LI.hover').size() == 0)
+                                if ($menu.find('LI.hover').size() === 0)
                                 {
                                     $menu.find('LI:last').addClass('hover');
                                 }
                                 else
                                 {
                                     $menu.find('LI.hover').removeClass('hover').prevAll('LI:not(.disabled)').eq(0).addClass('hover');
-                                    if ($menu.find('LI.hover').size() == 0) $menu.find('LI:last').addClass('hover');
+                                    if ($menu.find('LI.hover').size() === 0) $menu.find('LI:last').addClass('hover');
                                 }
                                 break;
                             case 40:
                                 // down
-                                if ($menu.find('LI.hover').size() == 0)
+                                if ($menu.find('LI.hover').size() === 0)
                                 {
                                     $menu.find('LI:first').addClass('hover');
                                 }
                                 else
                                 {
                                     $menu.find('LI.hover').removeClass('hover').nextAll('LI:not(.disabled)').eq(0).addClass('hover');
-                                    if ($menu.find('LI.hover').size() == 0) $menu.find('LI:first').addClass('hover');
+                                    if ($menu.find('LI.hover').size() === 0) $menu.find('LI:first').addClass('hover');
                                 }
                                 break;
                             case 13:
@@ -177,7 +177,7 @@
                         }
                     });
 
-                    // Quando os itens estão selecionados
+                    // Quando os itens estao selecionados
                     $menu.find('A').unbind('click');
                     $menu.find('LI A').click(function ()
                     {
@@ -208,8 +208,23 @@
                         });
                     }, 0);
 
-                    (mouseUpEvent.pageX) ? x = mouseUpEvent.pageX : x = mouseUpEvent.clientX + d.scrollLeft;
-                    (mouseUpEvent.pageY) ? y = mouseUpEvent.pageY : y = mouseUpEvent.clientY + d.scrollTop;
+                    if (mouseUpEvent.pageX)
+                    {
+                        x = mouseUpEvent.pageX;
+                    }
+                    else
+                    {
+                        x = mouseUpEvent.clientX + d.scrollLeft;
+                    }
+                    
+                    if (mouseUpEvent.pageY)
+                    {
+                        y = mouseUpEvent.pageY;
+                    }
+                    else
+                    {
+                        y = mouseUpEvent.clientY + d.scrollTop;
+                    }
 
                     // Mostra o menu
                     $(document).unbind('click');
@@ -246,7 +261,7 @@
             });
         });
 
-        // Desasbilita seleção de texto
+        // Desasbilita selecao de texto
         if ($.browser.mozilla)
         {
             $menu.each(function ()
@@ -286,7 +301,7 @@
                 //Hide context menu items on the fly
                 hideItems: function (o)
                 {
-                    if (o == undefined)
+                    if (o === undefined)
                     {
                         // Disable all
                         $(this).data('menu').find('LI').hide();
@@ -294,7 +309,7 @@
                     }
                     $(this).each(function ()
                     {
-                        if (o != undefined)
+                        if (o !== undefined)
                         {
                             var d = o.split(',');
                             for (var i = 0; i < d.length; i++)
@@ -359,7 +374,7 @@
                 //Hide context menu items on the fly
                 showItems: function (o)
                 {
-                    if (o == undefined)
+                    if (o === undefined)
                     {
                         // Disable all
                         $(this).data('menu').find('LI').show();
@@ -367,7 +382,7 @@
                     }
                     $(this).each(function ()
                     {
-                        if (o != undefined)
+                        if (o !== undefined)
                         {
                             var d = o.split(',');
                             for (var i = 0; i < d.length; i++)
@@ -382,7 +397,7 @@
                 // Disable context menu items on the fly
                 disableItems: function (o)
                 {
-                    if (o == undefined)
+                    if (o === undefined)
                     {
                         // Disable all
                         $(this).data('menu').find('LI').addClass('disabled');
@@ -390,7 +405,7 @@
                     }
                     $(this).each(function ()
                     {
-                        if (o != undefined)
+                        if (o !== undefined)
                         {
                             var d = o.split(',');
                             for (var i = 0; i < d.length; i++)
@@ -406,7 +421,7 @@
                 // Enable context menu items on the fly
                 enableItems: function (o)
                 {
-                    if (o == undefined)
+                    if (o === undefined)
                     {
                         // Enable all
                         $(this).data('menu').find('LI.disabled').removeClass('disabled');
@@ -414,7 +429,7 @@
                     }
                     $(this).each(function ()
                     {
-                        if (o != undefined)
+                        if (o !== undefined)
                         {
                             var d = o.split(',');
                             for (var i = 0; i < d.length; i++)
@@ -474,7 +489,7 @@
             {
                 return plugin.methods[options].apply(this, Array.prototype.slice.call(args, 1));
             }
-            if (plugin == undefined)
+            if (plugin === undefined)
             {
                 return new $.WContextMenu(this, options);
             }

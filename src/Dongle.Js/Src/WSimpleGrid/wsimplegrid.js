@@ -58,7 +58,7 @@
                     var changeIcon = function (to, indexColumnRemove, toRemove) {
                         var $filterIconToChange = $columnClass.eq(indexColumnRemove);
                         var $filterIconToChangeRemove = $columnClass.eq(toRemove);
-                        if (to == true) {
+                        if (to === true) {
                             $filterIconToChange.find('.wsimplegrid-filter-icon').addClass('wsimplegrid-filter-icon-active');
                             $filterIconToChange.find('.wsimplegrid-filter-icon').removeClass('wsimplegrid-filter-icon');
                             remove = true;
@@ -77,9 +77,9 @@
                         .css('left', (e.pageX + 5) + 'px');
 
                     filterButton.click(function () {
-                        if (filterInput.val() != '') {
+                        if (filterInput.val() !== '') {
                             $(".wsimplegrid-filter-icon-fix").eq(indexClassArray).parent().removeAttr('filter-key');
-                            if ($($element).find('thead th[filter-key]').length == 0) {
+                            if ($($element).find('thead th[filter-key]').length === 0) {
                                 allRowsTable.show();
                             }
                             $(".wsimplegrid-filter-icon-fix").eq(indexClassArray).parent().attr('filter-key', filterInput.val());
@@ -95,17 +95,17 @@
                     });
                     removeFilterButton.click(function () {
                         var indexToRemove = $(this).parent().attr('index-filter');
-                        if (filterInput.attr('filter-input-key') != '') {
+                        if (filterInput.attr('filter-input-key') !== '') {
                             $('.' + data.columnClass + ':eq(' + $('.wsimplegrid-item').eq(indexToRemove).index('.wsimplegrid-item') + ')').removeAttr('filter-key');
                             var p = 0;
-                            if ($($element).find('thead th[filter-key]').length == 0) {
+                            if ($($element).find('thead th[filter-key]').length === 0) {
                                 allRowsTable.show();
                             }
                             else {
                                 $($element).find('thead th[filter-key]').each(function () {
                                     var indexColumnRemove = $(this).index();
                                     var filterKeyToRefilter = $(this).attr('filter-key');
-                                    if (p == 0) {
+                                    if (p === 0) {
                                         $($element).find('tbody tr:hidden').each(function () {
                                             if ($(this).find('td:eq(' + indexColumnRemove + ')').text().indexOf(filterKeyToRefilter) >= 0) {
                                                 $(this).find('td:eq(' + indexColumnRemove + '):contains(' + filterKeyToRefilter + ')').parent().show();

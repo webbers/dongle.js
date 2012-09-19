@@ -13,8 +13,6 @@
 (function ($, undefined)
 {
     var propName = 'wselectbox';
-    FALSE = false,
-		TRUE = true;
     /**
     * Selectbox manager.
     * Use the singleton instance of this class, $.wselectbox, to interact with the select box.
@@ -127,14 +125,18 @@
             }
 
             var wselectboxholder = $("<a>", {
-                "href": "javascript:void(0)",
+                "href": "#",
                 "id": "wselectbox-holder_" + inst.uid,
-                "class": inst.settings.classHolder
+                "class": inst.settings.classHolder,
+                "click": function()
+                {
+                    return false;
+                }
             });
 
             var wselectboxselector = $("<a>", {
                 "id": "wselectbox-selector_" + inst.uid,
-                "href": "javascript:void(0)",
+                "href": "#",
                 "class": inst.settings.classSelector,
                 "click": function (e)
                 {
@@ -148,13 +150,14 @@
                     {
                         self._openSelectbox(target);
                     }
+                    return false;
                 }
             });
 
 
             var wselectboxtoggle = $("<a>", {
                 "id": "wselectbox-toggle_" + inst.uid,
-                "href": "javascript:void(0)",
+                "href": "#",
                 "class": inst.settings.classToggle,
                 "click": function (e)
                 {
@@ -168,6 +171,7 @@
                     {
                         self._openSelectbox(target);
                     }
+                    return false;
                 }
             });
             wselectboxtoggle.appendTo(wselectboxholder);
@@ -182,7 +186,7 @@
 
             $target.children().each(function (index)
             {
-                if (index == 0 && (!inst.settings.showFirst || $target.is('.wselectbox-menu'))) return;
+                if (index === 0 && (!inst.settings.showFirst || $target.is('.wselectbox-menu'))) return;
                 var that = $(this), li, config = {};
                 if (that.is("option"))
                 {
@@ -206,12 +210,12 @@
             function getOptions()
             {
                 var sub = arguments[1] && arguments[1].sub ? true : false,
-					disabled = arguments[1] && arguments[1].disabled ? true : false;
+                    disabled = arguments[1] && arguments[1].disabled ? true : false;
                 arguments[0].each(function (i)
                 {
                     var that = $(this),
-						li = $("<li>"),
-						child;
+                        li = $("<li>"),
+                        child;
                     if (that.is(":selected"))
                     {
                         wselectboxselector.text(that.text());
@@ -293,7 +297,7 @@
         _changeSelectbox: function (target, value, text, isMenu)
         {
             var inst = this._getInst(target),
-				onChange = this._get(inst, 'onChange');
+                onChange = this._get(inst, 'onChange');
 
             var completeSelect = "#wselectbox-selector_" + inst.uid;
 
@@ -378,12 +382,12 @@
                 return;
             }
             var el = $("#wselectbox-options_" + inst.uid),
-				viewportHeight = parseInt($(window).height(), 10),
-				offset = $("#wselectbox-holder_" + inst.uid).offset(),
-				scrollTop = $(window).scrollTop(),
-				height = el.prev().height(),
-				diff = viewportHeight - (offset.top - scrollTop) - height / 2,
-				onOpen = this._get(inst, 'onOpen');
+                viewportHeight = parseInt($(window).height(), 10),
+                offset = $("#wselectbox-holder_" + inst.uid).offset(),
+                scrollTop = $(window).scrollTop(),
+                height = el.prev().height(),
+                diff = viewportHeight - (offset.top - scrollTop) - height / 2,
+                onOpen = this._get(inst, 'onOpen');
             el.css({
                 "maxHeight": (diff - height) + "px"
             });
@@ -393,7 +397,15 @@
                 el.css('right', '0px');
             }
 
-            inst.settings.effect === "fade" ? el.fadeIn(inst.settings.speed) : el.slideDown(inst.settings.speed);
+            if(inst.settings.effect === "fade")
+            {
+                el.fadeIn(inst.settings.speed);
+            }
+            else
+            {
+                el.slideDown(inst.settings.speed);
+            }
+            
             $("#wselectbox-holder_" + inst.uid).addClass(inst.settings.classToggleOpen);
 
             this._state[inst.uid] = true;
@@ -418,7 +430,14 @@
                 return;
             }
             var onClose = this._get(inst, 'onClose');
-            inst.settings.effect === "fade" ? $("#wselectbox-options_" + inst.uid).fadeOut(inst.settings.speed) : $("#wselectbox-options_" + inst.uid).slideUp(inst.settings.speed);
+            if(inst.settings.effect === "fade")
+            {
+                $("#wselectbox-options_" + inst.uid).fadeOut(inst.settings.speed);
+            }
+            else
+            {
+                $("#wselectbox-options_" + inst.uid).slideUp(inst.settings.speed);
+            }
             $("#wselectbox-holder_" + inst.uid).removeClass(inst.settings.classToggleOpen);
             this._state[inst.uid] = false;
             inst.isOpen = false;
@@ -436,7 +455,7 @@
         */
         _newInst: function (target)
         {
-            var id = target[0].id.replace(/([^A-Za-z0-9_-])/g, '\\\\$1');
+            var id = target[0].id.replace(/([^A-Za-z0-9_\-])/g, '\\\\$1');
             return {
                 id: id,
                 input: target,
@@ -498,9 +517,14 @@
 
         return this.each(function ()
         {
-            typeof options == 'string' ?
-				$.wselectbox['_' + options + 'Selectbox'].apply($.wselectbox, [this].concat(otherArgs)) :
-				$.wselectbox._attachSelectbox(this, options);
+            if(typeof options == 'string')
+            {   
+                $.wselectbox['_' + options + 'Selectbox'].apply($.wselectbox, [this].concat(otherArgs));
+            }
+            else
+            {
+                $.wselectbox._attachSelectbox(this, options);
+            }
         });
     };
 

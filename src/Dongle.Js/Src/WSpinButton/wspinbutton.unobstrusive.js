@@ -12,58 +12,21 @@
 */
 (function ($)
 {
-    var calcFloat = {
-        get: function (num)
-        {
-            num = num.toString();
-            if (num.indexOf('.') == -1) return [0, eval(num)];
-            var nn = num.split('.');
-            var po = nn[1].length;
-            var st = nn.join('');
-            var sign = '';
-            if (st.charAt(0) == '-')
-            {
-                st = st.substr(1);
-                sign = '-';
-            }
-            for (var i = 0; i < st.length; ++i) if (st.charAt(0) == '0') st = st.substr(1, st.length);
-            st = sign + st;
-            return [po, eval(st)];
-        },
-        getInt: function (num, figure)
-        {
-            var d = Math.pow(10, figure);
-            var n = this.get(num);
-            var v1 = eval('num * d');
-            var v2 = eval('n[1] * d');
-            if (this.get(v1)[1] == v2) return v1;
-            return (n[0] == 0 ? v1 : eval(v2 + '/Math.pow(10, n[0])'));
-        },
-        sum: function (v1, v2)
-        {
-            var n1 = this.get(v1);
-            var n2 = this.get(v2);
-            var figure = (n1[0] > n2[0] ? n1[0] : n2[0]);
-            v1 = this.getInt(v1, figure);
-            v2 = this.getInt(v2, figure);
-            return eval('v1 + v2') / Math.pow(10, figure);
-        }
-    };
     $.extend({
         spin:
-		{
-		    step: 1,
-		    max: null,
-		    min: 0,
-		    timestep: 200,
-		    timeBlink: 100,
-		    locked: false,
-		    decimal: null,
-		    beforeChange: null,
-		    changed: null,
-		    buttonUp: null,
-		    buttonDown: null
-		}
+        {
+            step: 1,
+            max: null,
+            min: 0,
+            timestep: 200,
+            timeBlink: 100,
+            locked: false,
+            decimal: null,
+            beforeChange: null,
+            changed: null,
+            buttonUp: null,
+            buttonDown: null
+        }
     });
     $.fn.extend({
         wspinbutton: function (o)
@@ -108,7 +71,7 @@
                     }
                     if (!isNaN(val))
                     {
-                        val = calcFloat.sum(val, vector * options.step);
+                        val = parseFloat(val) + parseFloat(vector * options.step);
                         if (options.min !== null && val < options.min) val = options.min;
                         if (options.max !== null && val > options.max) val = options.max;
                         if (val != $element.val())
@@ -121,7 +84,7 @@
                                 if ($.isFunction(options.changed))
                                 {
                                     options.changed.apply($element, [val]);
-                                };
+                                }
                                 $element.change();
 
                                 if (vector > 0)
@@ -182,27 +145,27 @@
 
 $(document).ready(function()
 {
-	$('.wspinbutton').each(function()
-	{
-		var opt = {};
-		var max = $(this).attr('max');
-		var min = $(this).attr('min');
-		var step = $(this).attr('step');
-		opt.locked = $(this).attr('locked') !== undefined;
+    $('.wspinbutton').each(function()
+    {
+        var opt = {};
+        var max = $(this).attr('max');
+        var min = $(this).attr('min');
+        var step = $(this).attr('step');
+        opt.locked = $(this).attr('locked') !== undefined;
 
-		if (max)
-		{
-			opt.max = max;
-		}
-		if (min)
-		{
-			opt.min = min;
-		}
-		if (step)
-		{
-			opt.step = step;
-		}
+        if (max)
+        {
+            opt.max = max;
+        }
+        if (min)
+        {
+            opt.min = min;
+        }
+        if (step)
+        {
+            opt.step = step;
+        }
 
-		$(this).wspinbutton(opt);
-	});
+        $(this).wspinbutton(opt);
+    });
 });

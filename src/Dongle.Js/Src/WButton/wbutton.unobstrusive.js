@@ -163,7 +163,7 @@
     {
         return this.each(function ()
         {
-            if ($(this).data('wbutton') == undefined || typeof (options) == "string")
+            if ($(this).data('wbutton') === undefined || typeof (options) == "string")
             {
                 var plugin = new $.Wbutton(this, options);
                 $(this).data('wbutton', plugin);

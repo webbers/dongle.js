@@ -12,14 +12,14 @@
 */
 $(function () {
     jQuery.validator.unobtrusive.adapters.add('wrequiredif', ['conditionalproperty', 'conditionalvalue'], function (options) {
-        options.rules['wrequiredif'] = options.params;
+        options.rules.wrequiredif = options.params;
         if (options.message) {
-            options.messages['wrequiredif'] = options.message;
+            options.messages.wrequiredif = options.message;
         }
     });
 
     jQuery.validator.addMethod("wrequiredif", function (value, element, param) {
-        if (param.conditionalproperty == null && param.conditionalvalue == null) {
+        if (param.conditionalproperty === null && param.conditionalvalue === null) {
             return true;
         }
 
@@ -36,12 +36,10 @@ $(function () {
             propertyValue = $element.val();
         }
 
-
-
         if (propertyValue != param.conditionalvalue) {
             return true;
         }
 
-        return value != null && value != '';
+        return value !== null && value !== '';
     });
 } (jQuery));

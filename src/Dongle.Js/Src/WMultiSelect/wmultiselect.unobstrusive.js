@@ -40,7 +40,7 @@
     {
         return this.each(function ()
         {
-            if (undefined == $(this).data('wmultiselect'))
+            if (undefined === $(this).data('wmultiselect'))
             {
                 var plugin = new $.WMultiSelect(this, options);
                 $(this).data('wmultiselect', plugin);
@@ -53,4 +53,4 @@
 $(document).ready(function () {
     $('.wmultiselect').wmultiselect();
     $('.wmultiselect-opened').wmultiselect({stillOpen:true});
-})
+});
