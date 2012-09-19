@@ -1,4 +1,4 @@
-﻿/*
+/*
 * WMultiSelect 1.0
 * Copyright (c) 2011 Webers
 *

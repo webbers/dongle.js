@@ -46,6 +46,7 @@ local.properties
 [Rr]elease/
 [Tt]emp
 [Pp]ub
+node_modules
 *_i.c
 *_p.c
 *.ilk

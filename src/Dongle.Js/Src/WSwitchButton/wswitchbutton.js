@@ -1,4 +1,4 @@
-﻿/*
+/*
 * WSwitchButton 1.1
 * Copyright (c) 2011 Webers
 *
@@ -78,12 +78,12 @@
 
             if (!disabledButton)
             {
-                if (checked && $element.is(':checked') == false)
+                if (checked && $element.is(':checked') === false)
                 {
                     $element.attr('checked', true);
                     $element.triggerHandler('change');
                 }
-                else if (!checked && $element.is(':checked') == true)
+                else if (!checked && $element.is(':checked') === true)
                 {
                     $element.attr('checked', false);
                     $element.triggerHandler('change');
@@ -106,16 +106,17 @@
             plugin.settings = $.extend({}, defaults, options);
             var $control = $('<div class="wswitchbutton-control"></div>');
             var $noLabel = $('<div class="left" unselectable="on">' + plugin.settings.no + '</div>');
+            var $button;
 
             var $yesLabel = $('<div class="right" unselectable="on">' + plugin.settings.yes + '</div>');
             var disabledButton = $element.attr('disabled');
             if (disabledButton)
             {
-                var $button = $('<div class="button button-disabled" disabled="disabled"></div>');
+                $button = $('<div class="button button-disabled" disabled="disabled"></div>');
             }
             else
             {
-                var $button = $('<div class="button"></div>');
+                $button = $('<div class="button"></div>');
             }
 
             $control.append($noLabel);
@@ -179,7 +180,7 @@
                 if (dragging && !disabledButton)
                 {
                     var offset = e.pageX - $button[0].offsetLeft;
-                    moved = (offset - downPos) != 0;
+                    moved = (offset - downPos) !== 0;
                     var pos = initBgPos + offset - downPos;
 
                     pos = pos < uncheckedPos ? uncheckedPos : pos;
@@ -251,7 +252,7 @@
         return this.each(function ()
         {
             var objectData = $(this).data('WSwitchButton');
-            if (objectData == undefined)
+            if (objectData === undefined)
             {
                 var plugin = new $.WSwitchbutton(this, options);
                 $(this).data('WSwitchButton', plugin);
@@ -282,7 +283,7 @@ function selectStyle(sel)
     $(document.styleSheets).each(function (i, v)
     {
         var attrClassTest;
-        if (attrClassTest = selectAttr(sel, v))
+        if (attrClassTest == selectAttr(sel, v))
         {
             attrClass = attrClassTest;
         }
@@ -290,12 +291,12 @@ function selectStyle(sel)
 
     if (!attrClass)
     {
-        attrClass = Array();
+        attrClass = [];
     }
 
     var objStyle = {};
 
-    if (attrClass == "")
+    if (attrClass === "")
     {
         return false;
     }
@@ -311,7 +312,7 @@ function selectStyle(sel)
 
     $(attrClass).each(function (i, v)
     {
-        if (v != "")
+        if (v !== "")
         {
             v = v.split(":");
             if (v[1])

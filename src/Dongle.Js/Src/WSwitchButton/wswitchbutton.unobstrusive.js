@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
     $('.wswitchbutton').each(function () {
         var opt = {};
         var yes = $(this).attr('yes');

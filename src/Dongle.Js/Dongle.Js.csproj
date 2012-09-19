@@ -185,6 +185,9 @@
     <Content Include="Src\WSwitchButton\wswitchbutton.unobstrusive.js" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Build.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Compile Include="Data.aspx.cs">
       <DependentUpon>Data.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
