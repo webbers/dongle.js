@@ -68,20 +68,20 @@
             complete: null,
             dictionary:
             {
-                yes: "Yes",
-                no: "No",
-                filter: "Filter",
-                advancedOptions: "Advanced options",
-                removeFilter: "Remove filter",
-                exactlyEqual: "Equals",
-                contain: "Contains",
-                startWith: "Starts with",
-                endWith: "Ends with",
-                of: "of",
-                items: "items",
-                showing: "Showing",
-                reload: "Reload",
-                many: "many"
+                yes: "Sim",
+                no: "Não",
+                filter: "Filtro",
+                advancedOptions: "Opções avançadas",
+                removeFilter: "Remover filtro",
+                exactlyEqual: "Exatamente igual",
+                contain: "Contém",
+                startWith: "Inicia com",
+                endWith: "Termina com",
+                of: "de",
+                items: "itens",
+                showing: "Mostrando",
+                reload: "Recarregar",
+                many: "muitos"
             }
         };
 
@@ -150,7 +150,7 @@
                 querystring = querystring + "&keyColumn=" + plugin.settings.keyColumn;
             }
 
-            if (plugin.settings.orderby != "" || plugin.settings.orderby != null)
+            if (plugin.settings.orderby != "" && plugin.settings.orderby != null && plugin.settings.orderby != undefined)
             {
                 orderby = plugin.settings.orderby;
             }
@@ -302,11 +302,18 @@
 
                         totalDisplayingItems += totalInserted;
 
-                        //totalItems = json.TotalCount != null ? json.TotalCount : totalItems;
+                        var totalParsed = parseInt(plugin.settings.statusPanel.find('.wgrid-total').text());
+                        if (typeof totalParsed == "number" && totalParsed != -1)
+                        {
+                            totalItems = plugin.settings.statusPanel.find('.wgrid-total').text();
+                        }
+                        else
+                        {
+                            totalItems = json.TotalCount;
+                        }
 
-                        totalItems = json.TotalCount;
                         data.tableRows = $element.find('.wgrid-table tr');
-                        if (totalDisplayingItems >= totalItems && totalItems != null)
+                        if ((totalDisplayingItems >= totalItems && totalItems != null) || typeof (totalItems) == "undefined")
                         {
                             hideMoreItems();
                         }
@@ -317,7 +324,6 @@
                     }
                     reloadTotalsDisplays(totalInserted);
                     loadingHide();
-                    //plugin.settings.statusPanel.find('.reload-button').wbutton('enable');
 
                     if (typeof callback == 'function')
                     {
@@ -433,7 +439,7 @@
             data.tableRows = data.table.find('tr');
             totalDisplayingItems = totalDisplayingItems - $(selectedRowsElements).length;
 
-            if (removeFromTotal)
+            if (removeFromTotal && totalItems != null)
             {
                 totalItems = totalItems - $(selectedRowsElements).length;
             }
@@ -540,14 +546,14 @@
             loadingShow();
             plugin.settings.statusPanel.find('.wgrid-displaying').html(totalDisplayingItems);
 
-            var totalItemsText = totalItems == null ? plugin.settings.dictionary.many : totalItems;
+            var totalItemsText = totalItems == null || totalItems == undefined ? plugin.settings.dictionary.many : totalItems;
 
-            if (totalItems == null && totalDisplayingItems < plugin.settings.listItemCount)
+            if (totalDisplayingItems < plugin.settings.listItemCount && totalItems != null)
             {
                 totalItemsText = totalDisplayingItems;
             }
 
-            if (totalInserted != null || totalInserted != undefined)
+            if ((totalInserted != null || totalInserted != undefined))
             {
                 if (totalInserted < plugin.settings.listItemCount)
                 {
@@ -745,7 +751,7 @@
                 '<div id="retrieve-more-items-bar" class="wgrid-bar">' +
                     '<div class="get-more-items">' +
                         plugin.settings.dictionary.showing + ' <span class="wgrid-displaying">100</span> ' + plugin.settings.dictionary.of + ' ' +
-                        '<span class="wgrid-total">1000</span> ' + plugin.settings.dictionary.items +
+                        '<span class="wgrid-total">-1</span> ' + plugin.settings.dictionary.items +
                         '<div class="more-items-button">&nbsp;</div>' +
                     '</div>' +
                     '<div class="reload-items">' +
@@ -864,9 +870,9 @@
                         var filterAdvancedButton;
                         var optionAdvancedFilter;
                         var filterButton = $('<div class="wgrid-filter-panel-apply-button">&nbsp;</div>');
-                        if (filterType != 'list' && filterType != 'bool')
+                        if (filterType.toLowerCase() != 'list' && filterType.toLowerCase() != 'bool')
                         {
-                            if (filterType != 'datetime' && filterType != 'hexaid' && filterType != 'bool')
+                            if (filterType.toLowerCase() != 'datetime' && filterType.toLowerCase() != 'hexaid' && filterType.toLowerCase() != 'bool' && filterType.toLowerCase() != 'machineid')
                             {
                                 optionAdvancedFilter = $('<div class="hide advanced-options"> <input type="radio" name="advancedFilter" value="equals" checked=checked>' + plugin.settings.dictionary.exactlyEqual + ' <br /><input type="radio" name="advancedFilter" value="contains">' + plugin.settings.dictionary.contain + '<br /><input type="radio" name="advancedFilter" value="startsWith">' + plugin.settings.dictionary.startWith + '<br /><input type="radio" name="advancedFilter" value="endsWith">' + plugin.settings.dictionary.endWith + ' </div>');
                                 filterAdvancedButton = $('<div class="wgrid-filter-advanced">+ ' + plugin.settings.dictionary.advancedOptions + '</div>');
@@ -997,6 +1003,7 @@
                             }
                             filterPanel.show();
                             filterPanel.width(filterPanel.width() + 3);
+                            filterPanel.width('auto');
                         }, 50);
 
 
@@ -1141,6 +1148,10 @@
         //Statuspanel functions
         plugin.settings.statusPanel.find('.more-items-button').click(function ()
         {
+            if ($.browser.version == '8.0')
+            {
+                $('.wgrid-loader-overlay').css('position', 'absolute').css('float', 'left').css('display', 'block');
+            }
             retrieveMoreItems();
         });
 

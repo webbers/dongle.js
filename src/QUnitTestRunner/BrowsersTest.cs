@@ -80,9 +80,11 @@ namespace QUnitTestRunner
         /*[TestMethod, DeploymentItem("IEDriverServer.exe"), DeploymentItem("WebDev.WebServer40.EXE")]
         public void TestIe()
        {
-           var options = new InternetExplorerOptions();
-           options.IntroduceInstabilityByIgnoringProtectedModeSettings = true;
-            using (var driver = new InternetExplorerDriver(options))
+           var options = new InternetExplorerOptions
+                             {
+                                 IntroduceInstabilityByIgnoringProtectedModeSettings = true
+                             };
+           using (var driver = new InternetExplorerDriver(options))
             {
                 RunTests(_files, driver);
             }
