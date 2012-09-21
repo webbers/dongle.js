@@ -2,7 +2,7 @@ dongle.net - A boosted util library
 ===================================
 * Conjunto de funções úteis que são uma mão na roda no dia-a-dia do programador Javascript.
 
-O que voc� precisa para compilar o dongle.js
+O que você precisa para compilar o dongle.js
 --------------------------------------------
 Usuários Windows:
 
