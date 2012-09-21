@@ -1,41 +1,41 @@
 dongle.net - A boosted util library
 ===================================
-* Conjunto de funções úteis que são uma mão na roda no dia-a-dia do programador .NET
+* Conjunto de funï¿½ï¿½es ï¿½teis que sï¿½o uma mï¿½o na roda no dia-a-dia do programador Javascript.
 
-O que você precisa para compilar o dongle.js
+O que vocï¿½ precisa para compilar o dongle.js
 --------------------------------------------
-Usuários Windows:
+Usuï¿½rios Windows:
 
-1. Instalar o [msysgit](https://code.google.com/p/msysgit/) (não esquecer de colocar a pasta bin na variável de ambiente PATH);
+1. Instalar o [msysgit](https://code.google.com/p/msysgit/) (nï¿½o esquecer de colocar a pasta bin na variï¿½vel de ambiente PATH);
 2. Instalar o [Node.js](http://nodejs.org/).
 
 Como compilar o dongle.js
 ----------------------------
 
-Primeiro faça um clone do repositório:
+Primeiro faï¿½a um clone do repositï¿½rio:
 
 ```bash
 git clone https://github.com/webbers/dongle.js.git
 ```
 
-Entre no diretório que foi clonado e instale as dependências do Node:
+Entre no diretï¿½rio que foi clonado e instale as dependï¿½ncias do Node:
 
 ```bash
 cd dongle.js
 npm install
 ```
 
-Tenha certeza que você tem o grunt instalado com o seguinte teste:
+Tenha certeza que vocï¿½ tem o grunt instalado com o seguinte teste:
 
 ```bash
 grunt.cmd -version
 ```
 
 
-Então para rodar o build completo do dongle.js digite o seguinte:
+Entï¿½o para rodar o build completo do dongle.js digite o seguinte:
 
 ```bash
 grunt.cmd deploy
 ```
 
-A versão compilada e minificada do dongle.js estarão no subdiretório `dist/`.
+A versï¿½o compilada e minificada do dongle.js estarï¿½o no subdiretï¿½rio `dist/`.
