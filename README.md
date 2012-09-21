@@ -8,6 +8,7 @@ Usuários Windows:
 
 1. Instalar o [msysgit](https://code.google.com/p/msysgit/) (não esquecer de colocar a pasta bin na variável de ambiente PATH);
 2. Instalar o [Node.js](http://nodejs.org/).
+3. Baixar o [PhantomJs](http://phantomjs.org/download.html), Descompactar em um diretório e inserir este diretório na variável de ambiente PATH
 
 Como compilar o dongle.js
 ----------------------------
