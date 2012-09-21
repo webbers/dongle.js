@@ -29,14 +29,14 @@ npm install
 Tenha certeza que você tem o grunt instalado com o seguinte teste:
 
 ```bash
-grunt.cmd -version
+node_modules\.bin\grunt.cmd -version
 ```
 
 
 Então para rodar o build completo do dongle.js digite o seguinte:
 
 ```bash
-grunt.cmd deploy
+node_modules\.bin\grunt.cmd deploy
 ```
 
 A versão compilada e minificada do dongle.js estarão no subdiretório `dist/`.
