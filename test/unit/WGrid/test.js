@@ -1,299 +1,14 @@
-/*module("CSS");
-test("Initial Tests", function ()
+var obj = {"rownum": "1","field1": "1","field2": "1","field3": "/Date(1224043200000)/", "field4": "Lorem ipsum dolor sit amet","field5": "Lorem ipsum dolor sit amet"};
+
+function clone(obj)
 {
-    $(".wgrid-table tr:eq(0) td:eq(1)").text("Teste");
-    $('.reload-items').click();
-    var heigth = $('#wgrid-teste').closest('.wgrid').height();
-    if (heigth >= 200)
-    {
-        heigth = true;
+    if (null === obj || "object" != typeof obj) return obj;
+    var copy = obj.constructor();
+    for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
     }
-    var position = $('#wgrid-teste').closest('.wgrid').css('position');
-    var widthError = 0;
-    $("#wgrid-teste tr th").each(function ()
-    {
-        var index = $(this).index();
-        if ($(".wgrid-table tr:eq(0) td:eq(" + index + ")").width() != $(this).width())
-        {
-            widthError += 1;
-        }
-    });
-
-    if ($('.wgrid-check-container').css('position') == "absolute" && $('.wgrid-header-container').css('position') == "absolute" && $('.wgrid-container').css('position') == "absolute" && $('.wgrid-status-panel').css('position') == "absolute")
-    {
-        ok(true, "All wgrid main elements has position absolute");
-    }
-    equal(widthError, 0, "All <TH> width's is equals of respective <TD> width");
-    equal(heigth, true, "Wgrid is greather than 200px");
-    equal(position, "relative", "Wgrid have position relative");
-    deepEqual($(window).width() >= $('.wgrid').width(), true, 'Wgrid is not more larger than window');
-});
-
-module("Records");
-test("Listing like ListItemCount", function ()
-{
-    var qtd = $(".wgrid-table tbody tr").length;
-    deepEqual(qtd != 0, true, "Listing items when load Wgrid in first time like listItemCount");
-});
-
-test("Disable Handling", function ()
-{
-    expect(0);
-    $("#wgrid-teste th[disable_handling=true]").each(function ()
-    {
-        var filter = $(this).find('.wgrid-filter-button');
-        var order = $(this).find('.wgrid-order-button');
-
-        if (filter.length > 0 || order.length > 0)
-        {
-            ok(false, "There is some column with disable handling true but still showing filter or order icon");
-        }
-    });
-});
-
-module("Global");
-test("Checkboxes tests", function ()
-{
-    expect(4);
-    if (!$('.wgrid-checkbox-all').is(':checked'))
-    {
-        $('.wgrid-checkbox-all').attr('checked', true);
-        $('.wgrid-checkbox-all').trigger('click');
-        $('.wgrid-checkbox-all').attr('checked', true);
-        deepEqual($(".wgrid-checkbox-all").is(':checked') == true && $(".wgrid-checkbox-item:checked").length == $(".wgrid-displaying").text(), true, "All checkboxes checked when click to select all");
-    }
-    if ($('.wgrid-checkbox-all').is(':checked'))
-    {
-        $('.wgrid-checkbox-all').attr('checked', false);
-        $('.wgrid-checkbox-all').trigger('click');
-        $('.wgrid-checkbox-all').attr('checked', false);
-        deepEqual($(".wgrid-checkbox-all").is(':checked') == false && $(".wgrid-checkbox-item:checked").length == 0, true, "All checkboxes unchecked when click to unselect all");
-    }
-
-    var correctCheck = true;
-    $('.wgrid-checkbox-item').each(function ()
-    {
-        var indexRow = $(this).index();
-
-        $(this).attr('checked', true);
-        $(this).trigger('click');
-        $(this).attr('checked', true);
-        if ($(this).is(':checked') && $(".wgrid-table tr:eq(" + indexRow + ")").css('background-color') == "rgba(0, 0, 0, 0)")
-        {
-            correctCheck = false;
-        }
-
-    });
-    equal(correctCheck, true, "All checkboxes check their respective row in table");
-
-    var correctUncheck = true;
-    $('.wgrid-checkbox-item').each(function ()
-    {
-        var indexRow = $(this).index();
-
-        $(this).attr('checked', false);
-        $(this).trigger('click');
-        $(this).attr('checked', false);
-        if (!$(this).is(':checked') && $(".wgrid-table tr:eq(" + indexRow + ")").css('background-color') != "rgba(0, 0, 0, 0)")
-        {
-            correctCheck = false;
-        }
-
-    });
-    equal(correctUncheck, true, "All checkboxes uncheck their respective row in table");
-});
-
-test("Re-order test", function ()
-{
-    var firstValue = $(".wgrid-table tr:eq(0) td:eq(0)").text();
-    $('.wgrid-order-button').click();
-    deepEqual(ajaxReturnValue($(".wgrid-table tr:eq(0) td:eq(0)")) != firstValue, true, "Reordering records!");
-});
-
-test("Paging", function ()
-{
-    $(".more-items-button").click();
-    stop(1);
-    setTimeout(function ()
-    {
-        var total = $(".wgrid-total").text();
-        var displaying = $(".wgrid-displaying").text();
-        var moreItemsButtonShow = $(".more-items-button").is(":visible");
-        equal(moreItemsButtonShow, false, "More items buttons hiding when showing all records");
-        deepEqual(total == displaying, true, "Get-more-items bar is showing corret number of records");
-        deepEqual($(".wgrid-table tr").length == total, true, "Wgrid is showing all " + total + " records");
-        start();
-    }, 700);
-});
-
-module('Filters');
-test("StartsWith", function ()
-{
-    $('.wgrid-filter-button').click();
-    stop();
-    setTimeout(function ()
-    {
-        var checkValue = 2;
-        $('input[name=filter-field1]').val(checkValue);
-        $('input[type=radio][value=startsWith]').click();
-        $('input[type=radio][value=startsWith]').attr('checked', 'checked');
-        $('.wgrid-filter-panel-apply-button').click();
-        stop();
-        setTimeout(function ()
-        {
-            deepEqual($(".wgrid-table tr:eq(0) td:eq(0):contains('" + checkValue + "')").length > 0, true, "Showing row(s) with value(s) starts with filter value");
-            start();
-        }, 200);
-        start();
-    }, 200);
-});
-
-test("EndsWith", function ()
-{
-    $('.wgrid-filter-button').click();
-    stop(1);
-    setTimeout(function ()
-    {
-        var checkValue = 6;
-        $('input[name=filter-field1]').val(checkValue);
-        $('input[type=radio][value=endsWith]').click();
-        $('input[type=radio][value=endsWith]').attr('checked', 'checked');
-        $('.wgrid-filter-panel-apply-button').click();
-        stop();
-        setTimeout(function ()
-        {
-            deepEqual($(".wgrid-table tr:eq(0) td:eq(0):contains('" + checkValue + "')").length > 0, true, "Showing row(s) with value(s) ends with filter value");
-            start();
-        }, 200);
-        start();
-    }, 200);
-});
-
-test("Contains", function ()
-{
-    $('.wgrid-filter-button').click();
-    stop(1);
-    setTimeout(function ()
-    {
-        var checkValue = 1;
-        $('input[name=filter-field1]').val(checkValue);
-        $('input[type=radio][value=contains]').click();
-        $('input[type=radio][value=contains]').attr('checked', 'checked');
-        $('.wgrid-filter-panel-apply-button').click();
-        stop();
-        setTimeout(function ()
-        {
-            deepEqual($(".wgrid-table tr:eq(0) td:eq(0):contains('" + checkValue + "')").length > 0, true, "Showing row(s) with value(s) contains filter value");
-            start();
-        }, 200);
-        start();
-    }, 200);
-});
-
-test("Equals", function ()
-{
-    $('.wgrid-filter-button').click();
-    stop(1);
-    setTimeout(function ()
-    {
-        var checkValue = 20;
-        $('input[name=filter-field1]').val(checkValue);
-        $('input[type=radio][value=equals]').trigger('click');
-        $('input[type=radio][value=equals]').attr('checked', 'checked');
-        $('.wgrid-filter-panel-apply-button').click();
-        stop();
-        setTimeout(function ()
-        {
-            deepEqual($(".wgrid-table tr:eq(0) td:eq(0)").text() == checkValue, true, "Showing row(s) with value(s) equals filter value");
-            start();
-        }, 200);
-        start();
-    }, 200);
-
-});
-
-test("Equals with no result", function ()
-{
-    $('.wgrid-filter-button').click();
-    stop(1);
-    setTimeout(function ()
-    {
-        var checkValue = 99;
-        $('input[name=filter-field1]').val(checkValue);
-        $('input[type=radio][value=equals]').trigger('click');
-        $('input[type=radio][value=equals]').attr('checked', 'checked');
-        $('.wgrid-filter-panel-apply-button').click();
-        stop();
-        setTimeout(function ()
-        {
-            deepEqual($(".wgrid-table tr:eq(0) td:eq(0)").text() == "", true, "Show no results when filters doens't find any record");
-            start();
-        }, 200);
-        start();
-    }, 200);
-
-});
-
-module("Wgrid functions");
-test("loaderShow", function ()
-{
-    $('.wgrid').wgrid('loaderShow');
-    equal($('.wgrid-loader-overlay').is(':visible'), true, "Showing loader overlay");
-});
-
-test("loaderHide", function ()
-{
-    $('.wgrid').wgrid('loaderHide');
-    equal($('.wgrid-loader-overlay').is(':visible'), false, "Hiding loader overlay");
-});
-
-test("getFilters", function ()
-{
-    equal(typeof ($('.wgrid').wgrid('getFilters')), "object", "getFilter is returning a object");
-});
-
-test("getOrderAndSort", function ()
-{
-    equal(typeof ($('.wgrid').wgrid('getOrderAndSort')), "object", "getOrderAndSort is returning a object");
-});
-
-test("clearGrid", function ()
-{
-    $('.wgrid').wgrid('clearGrid');
-    equal($('.wgrid .wgrid-table').html(), "", "clearGrid is clearing grid");
-});
-
-test("getHeaderColumns", function ()
-{
-    var getHeaderColumns = $('.wgrid').wgrid('getHeaderColumns');
-    equal(typeof (getHeaderColumns), "object", "getHeaderColumns generates a object");
-    equal($(getHeaderColumns[0]).is('th'), true, "getHeaderColumns[0] is a th(column) element");
-});
-
-test("getQuerystring", function ()
-{
-    var getQuerystring = $('.wgrid').wgrid('getQuerystring');
-    equal(typeof (getQuerystring), "string", "getQuerystring generates a string");
-    equal($('.wgrid').wgrid('getQuerystring').split('&').length >= 2, true, "getQuerystring generates more than 2 query strings");
-});
-
-test("getHeaderColumnIndex", function ()
-{
-    equal(typeof $('.wgrid').wgrid('getHeaderColumnIndex', 'field1'), "number", "getHeaderColumnIndex is returning a numeric value");
-    equal($('.wgrid').wgrid('getHeaderColumnIndex', 'field1'), 0, "getHeaderColumnIndex(field1) returning the correct number of column index(0)");
-    equal($('.wgrid').wgrid('getHeaderColumnIndex', 'field2'), 1, "getHeaderColumnIndex(field2) returning the correct number of column index(1)");
-    equal($('.wgrid').wgrid('getHeaderColumnIndex', 'field3'), 2, "getHeaderColumnIndex(field2) returning the correct number of column index(2)");
-});
-
-test("getRowsData", function ()
-{
-    equal(typeof $('.wgrid').wgrid('getRowsData'), "object", "getRowsData is returning a object");
-    deepEqual($('.wgrid').find('.wgrid-table tr').length == $('.wgrid').wgrid('getRowsData').length, true, "getRowsData is returning the correct number of data");
-});
-
-$("#testButton").remove();
-$("#tests").fadeIn();
-
+    return copy;
+}
 
 function ajaxReturnValue($selector)
 {
@@ -313,4 +28,485 @@ function sleep(milliseconds)
             break;
         }
     }
-}*/
+}
+
+var items = [];
+for(var i = 0; i < 5; i++)
+{
+    var newObj = clone(obj);
+    newObj.rownum = i+1;
+    newObj.field1 = i+1;
+    items.push(newObj);
+}
+
+//Hack. Thanks to jQuery bug
+function checkboxClick($element)
+{
+    if($element.is(':checked'))
+    {
+        $element.removeAttr('checked');
+        $element.trigger('click');
+        $element.removeAttr('checked');
+    }
+    else
+    {
+        $element.attr('checked', true);
+        $element.trigger('click');
+        $element.attr('checked', true);
+    }
+}
+
+
+//Ajax inicial
+$.mockjax({
+    url: 'data.json?skip=0&orderby=undefined&sort=undefined&eventFilter=undefined',
+    responseTime: 0,
+    responseText: {"Data": items,"TotalCount":10}
+});
+
+//Ajax order by desc
+$.mockjax({
+    url: 'data.json?skip=0&orderby=field1&sort=desc&eventFilter=undefined',
+    responseTime: 0,
+    responseText: {"Data": items.reverse(),"TotalCount":10}
+});
+
+//Ajax order by field1 asc
+$.mockjax({
+    url: 'data.json?skip=0&orderby=field1&sort=asc&eventFilter=undefined',
+    responseTime: 0,
+    responseText: {"Data": items.reverse(),"TotalCount":10}
+});
+
+//Ajax order by field1 asc
+var items2 = [];
+for( var i = 0; i < items.length; i++ )
+{
+    var newObj = items[i];
+    newObj.rownum = (5 + i);
+    items2.push(newObj);
+}
+$.mockjax({
+    url: 'data.json?skip=5&orderby=undefined&sort=undefined&lastId=9&eventFilter=undefined',
+    responseTime: 0,
+    responseText: {"Data": items2,"TotalCount":10}
+});
+
+//StartsWith
+$.mockjax({
+    url: 'data.json?skip=0&field1=numeric%7CstartsWith%7C2&orderby=undefined&sort=undefined&eventFilter=undefined',
+    responseTime: 0,
+    responseText: {"Data": [items[1]],"TotalCount":10}
+});
+
+//EndsWith
+$.mockjax({
+    url: 'data.json?skip=0&field1=numeric%7CendsWith%7C4&orderby=undefined&sort=undefined&eventFilter=undefined',
+    responseTime: 0,
+    responseText: {"Data": [items[3]],"TotalCount":10}
+});
+
+//Contains
+$.mockjax({
+    url: 'data.json?skip=0&field1=numeric%7Ccontains%7C3&orderby=undefined&sort=undefined&eventFilter=undefined',
+    responseTime: 0,
+    responseText: {"Data": [items[2]],"TotalCount":10}
+});
+
+//Equals
+$.mockjax({
+    url: 'data.json?skip=0&field1=numeric%7Cequals%7C5&orderby=undefined&sort=undefined&eventFilter=undefined',
+    responseTime: 0,
+    responseText: {"Data": [items[4]],"TotalCount":10}
+});
+
+//Equals with no result
+$.mockjax({
+    url: 'data.json?skip=0&field1=numeric%7Cequals%7C10&orderby=undefined&sort=undefined&eventFilter=undefined',
+    responseTime: 0,
+    responseText: {"Data": [],"TotalCount":10}
+});
+
+function createHtml(id)
+{
+    var html = '<table id="'+ id + '"><thead><tr><th field_type="numeric" field_name="field1" field_value="" disable_handling="">ID</th><th field_type="int" field_name="field2" field_value="" disable_handling="true">INTEIRO</th><th field_type="datetime" field_name="field3" field_value="" disable_handling="true">DATA</th><th field_name="field4" field_value="" disable_handling="true">TESTE</th><th field_type="text" field_name="field5" disable_handling="true">TESTE DE COLUNA MEGAMENTE GIGANTESCA E GROTESCA</th></tr></thead></table>';
+    $('#container').append(html);
+}
+
+window.running = false;
+
+function createWGrid(test)
+{
+    var id = "wgrid-" + parseInt(Math.random() * 100, 10); 
+    
+    var completed = false;
+    
+    createHtml(id);
+    $('#' + id).wgrid({
+        full: true,
+        jsonUrl: 'data.json',
+        method: "GET",
+        totalItems: 20,
+        keyColumn: "",
+        showStatusIcon: false,
+        classRowObjectField: "EventTypeLevel",
+        colorizeItems: true,
+        listItemCount: 10,
+        useUrlQuerystring: true,
+        getId: function(line)
+        {
+            return line.rownum;
+        },        
+        complete: function()
+        {
+            if(completed === false)
+            {
+                completed = true;
+                test($('#' + id).closest(".wgrid"), $('#' + id));
+            }
+        },
+        itemClick: function (selectedItems)
+        {
+            $('.wgrid').after('<div id="clicked">Cliked</div>');
+            $("#clicked").fadeOut(1000);
+        }
+    });
+    $('#' + id).closest('.wgrid').css({ position: 'relative', height: '300px' });
+}
+
+module("CSS");
+createWGrid(function($wgrid)
+{
+    test("Initial Tests", function ()
+    {
+        //1
+        $wgrid.find('.reload-items').click();
+        var heigth = $wgrid.closest('.wgrid').height();
+        if (heigth >= 200)
+        {
+            heigth = true;
+        }
+        equal(heigth, true, "Wgrid is greather than 200px");
+                
+        //2
+        var position = $wgrid.css('position');
+        equal(position, "relative", "Wgrid have position relative");
+        
+        //3
+        var widthError = 0;
+        $wgrid.find("tr th").each(function ()
+        {
+            var index = $(this).index();
+            if ($wgrid.find(".wgrid-table tr:eq(0) td:eq(" + index + ")").width() != $(this).width())
+            {
+                widthError += 1;
+            }
+        });
+        equal(widthError, 0, "All <TH> width's is equals of respective <TD> width");
+
+        //4
+        ok($wgrid.find('.wgrid-check-container').css('position') == "absolute" &&
+        $wgrid.find('.wgrid-header-container').css('position') == "absolute" && 
+        $wgrid.find('.wgrid-container').css('position') == "absolute" &&
+        $wgrid.find('.wgrid-status-panel').css('position') == "absolute",
+        "All wgrid main elements has position absolute");
+        
+        //5
+        deepEqual($(window).width() >= $('.wgrid').width(), true, 'Wgrid is not more larger than window');
+    });
+});
+
+module("Records");
+createWGrid(function($wgrid)
+{
+    test("Listing like ListItemCount", function ()
+    {
+        var qtd = $wgrid.find(".wgrid-table tbody tr").length;
+        notDeepEqual(qtd, 0, "Listing items when load Wgrid in first time like listItemCount");
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("Disable Handling", function ()
+    {
+        $innerGrid.find("th[disable_handling=true]").each(function ()
+        {
+            var filter = $(this).find('.wgrid-filter-button');
+            var order = $(this).find('.wgrid-order-button');
+
+            ok(filter.length === 0 && order.length === 0, "There is some column with disable handling true but still showing filter or order icon");
+        });
+    });
+});
+
+module("Global");
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("Checkboxes tests", function ()
+    {
+        var $all = $wgrid.find('.wgrid-checkbox-all');
+        
+        checkboxClick($all);
+        
+        ok($all.is(':checked'), "Checkbox all is checked");
+        equal($wgrid.find(".wgrid-displaying").text(), $wgrid.find(".wgrid-checkbox-item:checked").length, "All other checkboxes checked when click to select all");
+        
+        checkboxClick($all);
+
+        ok($all.is(':checked')===false, "Checkbox all is not checked");
+        equal(0, $wgrid.find(".wgrid-checkbox-item:checked").length, "All other checkboxes is not checked when click to select all");
+
+        var correctCheck = true;
+        $wgrid.find('.wgrid-checkbox-item').each(function ()
+        {
+            var indexRow = $(this).index();
+
+            checkboxClick($(this));
+            if ($(this).is(':checked') && $wgrid.find(".wgrid-table tr:eq(" + indexRow + ")").css('background-color') == "rgba(0, 0, 0, 0)")
+            {
+                correctCheck = false;
+            }
+        });
+        equal(correctCheck, true, "All checkboxes check their respective row in table");
+        
+        var correctUncheck = true;
+        $wgrid.find('.wgrid-checkbox-item').each(function ()
+        {
+            var indexRow = $(this).index();
+
+            checkboxClick($(this));
+            if (!$(this).is(':checked') && $wgrid.find(".wgrid-table tr:eq(" + indexRow + ")").css('background-color') != "rgba(0, 0, 0, 0)")
+            {
+                correctCheck = false;
+            }
+        });
+        equal(correctUncheck, true, "All checkboxes uncheck their respective row in table");
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("Re-order test", function ()
+    {
+        var firstValue = $wgrid.find(".wgrid-table tr:eq(0) td:eq(0)").text();
+        $wgrid.find('.wgrid-order-button:eq(0)').click();
+        
+        var value  = $wgrid.find(".wgrid-table tr:eq(0) td:eq(0)").text();
+        
+        notEqual(value, firstValue, "Reordering records!");
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("Paging", function ()
+    {
+        $wgrid.find(".more-items-button").click();
+        var total = $wgrid.find(".wgrid-total").text();
+        var displaying = $wgrid.find(".wgrid-displaying").text();
+        var moreItemsButtonShow = $wgrid.find(".more-items-button").is(":visible");
+        equal(moreItemsButtonShow, false, "More items buttons hiding when showing all records");
+        equal(total, displaying, "Get-more-items bar is showing corret number of records");
+        equal($wgrid.find(".wgrid-table tr").length, total, "Wgrid is showing all " + total + " records");
+    });
+});
+
+module('Filters');
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("StartsWith", function ()
+    {
+        stop();
+        $(document.body).hide();
+        $wgrid.find('.wgrid-filter-button:eq(0)').click();
+        
+        var checkValue = 2;
+        $('input[name=filter-field1]').val(checkValue);
+        
+        checkboxClick($('input[type=radio][value=startsWith]'));
+        $('.wgrid-filter-panel-apply-button').click();
+        
+        $(document.body).show();
+        
+        setTimeout(function()
+        {
+            start();
+            equal($wgrid.find(".wgrid-table tr:eq(0) td:eq(0)").html(), checkValue, "Showing row(s) with value(s) starts with filter value");
+        }, 100);
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("EndsWith", function ()
+    {
+        stop();
+        $(document.body).hide();
+        $wgrid.find('.wgrid-filter-button:eq(0)').click();
+        
+        var checkValue = 4;
+        $('input[name=filter-field1]').val(checkValue);
+        
+        checkboxClick($('input[type=radio][value=endsWith]'));
+        $('.wgrid-filter-panel-apply-button').click();
+        
+        $(document.body).show();
+        
+        setTimeout(function()
+        {
+            start();
+            equal($wgrid.find(".wgrid-table tr:eq(0) td:eq(0)").html(), checkValue, "Showing row(s) with value(s) ends with filter value");
+        }, 100);
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("Contains", function ()
+    {
+        stop();
+        $(document.body).hide();
+        $wgrid.find('.wgrid-filter-button:eq(0)').click();
+        
+        var checkValue = 3;
+        $('input[name=filter-field1]').val(checkValue);
+        
+        checkboxClick($('input[type=radio][value=contains]'));
+        $('.wgrid-filter-panel-apply-button').click();
+        
+        $(document.body).show();
+        
+        setTimeout(function()
+        {
+            start();
+            equal($wgrid.find(".wgrid-table tr:eq(0) td:eq(0)").html(), checkValue, "Showing row(s) with value(s) contains filter value");
+        }, 100);
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("Equals", function ()
+    {
+        stop();
+        $(document.body).hide();
+        $wgrid.find('.wgrid-filter-button:eq(0)').click();
+        
+        var checkValue = 5;
+        $('input[name=filter-field1]').val(checkValue);
+        
+        checkboxClick($('input[type=radio][value=equals]'));
+        $('.wgrid-filter-panel-apply-button').click();
+        
+        $(document.body).show();
+        
+        setTimeout(function()
+        {
+            start();
+            equal($wgrid.find(".wgrid-table tr:eq(0) td:eq(0)").html(), checkValue, "Showing row(s) with value(s) equals filter value");
+        }, 100);
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("Equals with no result", function ()
+    {
+        stop();
+        $(document.body).hide();
+        $wgrid.find('.wgrid-filter-button:eq(0)').click();
+        
+        var checkValue = 10;
+        $('input[name=filter-field1]').val(checkValue);
+        
+        checkboxClick($('input[type=radio][value=equals]'));
+        $('.wgrid-filter-panel-apply-button').click();
+        
+        $(document.body).show();
+        
+        setTimeout(function()
+        {
+            start();
+            deepEqual($wgrid.find(".wgrid-table tr").length, 0, "Show no results when filters doens't find any record");
+        }, 100);
+    });
+});
+
+module("Wgrid functions");
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("loader test", function ()
+    {
+        $innerGrid.wgrid('loaderShow');
+        ok($('.wgrid-loader-overlay').is(':visible'), "Showing loader overlay");
+        
+        $innerGrid.wgrid('loaderHide');
+        ok($('.wgrid-loader-overlay').is(':visible') === false, "Hiding loader overlay");
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("getFilters", function ()
+    {
+        equal(typeof ($innerGrid.wgrid('getFilters')), "object", "getFilter is returning a object");
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("getOrderAndSort", function ()
+    {
+        equal(typeof ($innerGrid.wgrid('getOrderAndSort')), "object", "getOrderAndSort is returning a object");
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("clearGrid", function ()
+    {
+        $('.wgrid').wgrid('clearGrid');
+        equal($wgrid.find('.wgrid-table').html(), "", "clearGrid is clearing grid");
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("getHeaderColumns", function ()
+    {
+        var getHeaderColumns = $innerGrid.wgrid('getHeaderColumns');
+        equal(typeof (getHeaderColumns), "object", "getHeaderColumns generates a object");
+        equal($(getHeaderColumns[0]).is('th'), true, "getHeaderColumns[0] is a th(column) element");
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("getQuerystring", function ()
+    {
+        var getQuerystring = $innerGrid.wgrid('getQuerystring');
+        equal(typeof (getQuerystring), "string", "getQuerystring generates a string");
+        equal(getQuerystring.split('&').length >= 2, true, "getQuerystring generates more than 2 query strings");
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("getHeaderColumnIndex", function ()
+    {
+        equal(typeof $innerGrid.wgrid('getHeaderColumnIndex', 'field1'), "number", "getHeaderColumnIndex is returning a numeric value");
+        equal($innerGrid.wgrid('getHeaderColumnIndex', 'field1'), 0, "getHeaderColumnIndex(field1) returning the correct number of column index(0)");
+        equal($innerGrid.wgrid('getHeaderColumnIndex', 'field2'), 1, "getHeaderColumnIndex(field2) returning the correct number of column index(1)");
+        equal($innerGrid.wgrid('getHeaderColumnIndex', 'field3'), 2, "getHeaderColumnIndex(field2) returning the correct number of column index(2)");
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("getRowsData", function ()
+    {
+        equal(typeof $innerGrid.wgrid('getRowsData'), "object", "getRowsData is returning a object");
+        deepEqual($wgrid.find('.wgrid-table tr').length == $wgrid.wgrid('getRowsData').length, true, "getRowsData is returning the correct number of data");
+    });
+});

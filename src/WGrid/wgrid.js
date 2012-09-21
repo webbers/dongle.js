@@ -82,6 +82,10 @@
                 reload: "Reload",
                 many: "many",
                 dateFormat: "mm/dd/yyyy"
+            },
+            getId: function(elementData)
+            {
+                return elementData;
             }
         };
 
@@ -145,11 +149,6 @@
             var filterParams = $.param(filters);
             var querystring = "?skip=" + skip;
 
-            if (plugin.settings.keyColumn !== "" || plugin.settings.keyColumn !== null)
-            {
-                querystring = querystring + "&keyColumn=" + plugin.settings.keyColumn;
-            }
-
             if (plugin.settings.orderby !== '' && plugin.settings.orderby !== null && plugin.settings.orderby !== undefined)
             {
                 orderby = plugin.settings.orderby;
@@ -187,12 +186,7 @@
 
         var getElementId = function (elementData)
         {
-            var elementId = elementData.Id;
-            if (elementId === null)
-            {
-                elementId = elementData.rownum;
-            }
-            return elementId;
+            return plugin.settings.getId(elementData);
         };
 
         var getRowClass = function (elementData)
@@ -296,7 +290,7 @@
                             var elementData = jsonData[i];
                             rowsDataArray.push(elementData);
 
-                            lastId = elementData.Id > lastId ? elementData.Id : lastId;
+                            lastId = getElementId(elementData) > lastId ? getElementId(elementData) : lastId;
                             rowsToInsert.push(getTableRow(elementData));
                             checkRowsToInsert.push(getCheckTableRow(elementData));
                         }
@@ -710,7 +704,7 @@
             },
             updateRow: function (elementData)
             {
-                var elementId = elementData.Id;
+                var elementId = getElementId(elementData);
                 var elementRow = data.table.find('tr[item-id=' + elementId + ']');
                 var updatedRow = $(getTableRow(elementData));
                 updatedRow.addClass('wgrid-selected-line');
@@ -813,7 +807,7 @@
         //Para sumir com o filtro quando clica fora
         $(document).bind('click', function (e)
         {
-            if (e.srcElement !== null)
+            if (e.srcElement !== null && e.srcElement !== undefined )
             {
                 e.stopPropagation();
                 if (($(e.srcElement).closest('.wgrid-filter-panel').length === 0) &&

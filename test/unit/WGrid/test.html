@@ -1,148 +1,21 @@
 ﻿<html>
     <head>
         <title>Wgrid</title>
-        
-
-        <link type="text/css" href="../../Src/WGrid/wgrid.css" rel="stylesheet" media="all" />
-        <link type="text/css" href="../../3rd/jquery.ui/1.8.16/jquery.ui.css" rel="stylesheet" media="all" />
-        <script type="text/javascript" src="../../3rd/jquery/1.5.1/jquery.js"></script>
-        <script type="text/javascript" src="../../3rd/jquery.ui/1.8.16/jquery.ui.js"></script>
-        <script type="text/javascript" src="../../Src/WGrid/wgrid.js"></script>
-        <script type="text/javascript" src="../../3rd/qunit/1.9.0/qunit.js"></script>
-        <link type="text/css" href="../../3rd/qunit/1.9.0/qunit.css" rel="stylesheet" media="all" />
-        <script type="text/javascript" src="test.js"></script>
-        <script type="text/javascript" src="../../../../test/data/jquery.mockjax.js"></script>
-                
-        <script type="text/javascript">
-            /*jQuery.ajaxMock.register('http://teste.com/data.json', {
-              responseText:{},
-              statusCode:200,
-              status:'OK',
-              delay: 1000 // optional
-            });*/
-            
-            var obj = {"rownum": "1","field1": "1","field2": "1","field3": "/Date(1224043200000)/", "field4": "Lorem ipsum dolor sit amet","field5": "Lorem ipsum dolor sit amet","field6": "Lorem ipsum dolor sit amet","field7": "Lorem ipsum dolor sit amet","field8": "Lorem ipsum dolor sit amet","field9": "Lorem ipsum dolor sit amet","field10": "Lorem ipsum dolor sit amet","field11": "Lorem ipsum dolor sit amet","field12": "Lorem ipsum dolor sit amet","field13": "Lorem ipsum dolor sit amet","field14": "Lorem ipsum dolor sit amet","field15": "Lorem ipsum dolor sit amet","field16": "Lorem ipsum dolor sit amet","field17": "Lorem ipsum dolor sit amet","field18": "Lorem ipsum dolor sit amet","field19": "Lorem ipsum dolor sit amet","field20": "Lorem ipsum dolor sit amet"};
-            
-            var items = [];
-            for(var i = 0; i < 5; i++)
-            {
-                obj.rownum = i+1;
-                items.push(obj);
-            }
-            
-            $.mockjax({
-                url: 'data.json?skip=0&keyColumn=&orderby=undefined&sort=undefined&eventFilter=undefined',
-                responseTime: 100,
-                responseText: {"Data": items,"TotalCount":10}
-            });
-            
-            $.mockjax({
-                url: 'data.json?skip=0&keyColumn=&orderby=undefined&sort=desc&eventFilter=undefined',
-                responseTime: 100,
-                responseText: {"Data": items,"TotalCount":10}
-            });
-            
-            $.mockjax({
-                url: 'data.json?skip=0&keyColumn=&orderby=field1&sort=desc&eventFilter=undefined',
-                responseTime: 100,
-                responseText: {"Data": items,"TotalCount":10}
-            });
-        
-        
-            $(document).ready(function ()
-            {
-                $('#wgrid-teste').wgrid({
-                    full: true,
-                    jsonUrl: 'data.json',
-                    method: "GET",
-                    totalItems: 20,
-                    keyColumn: "",
-                    showStatusIcon: false,
-                    classRowObjectField: "EventTypeLevel",
-                    colorizeItems: true,
-                    listItemCount: 10,
-                    useUrlQuerystring: true,
-                    itemClick: function (selectedItems)
-                    {
-                        $('.wgrid').after('<div id="clicked">Cliked</div>');
-                        $("#clicked").fadeOut(1000);
-                    }
-                });
-                $('#wgrid-teste').closest('.wgrid').css({ position: 'relative', height: '600px' });
-            });
-        </script>
+        <link type="text/css" href="../../../Src/WGrid/wgrid.css" rel="stylesheet" media="all" />
+        <link type="text/css" href="../../../3rd/jquery.ui/1.8.16/jquery.ui.css" rel="stylesheet" media="all" />
+        <script type="text/javascript" src="../../../3rd/jquery/1.5.1/jquery.js"></script>
+        <script type="text/javascript" src="../../../3rd/jquery.ui/1.8.16/jquery.ui.js"></script>
+        <script type="text/javascript" src="../../../Src/WGrid/wgrid.js"></script>
+        <script type="text/javascript" src="../../../3rd/qunit/1.9.0/qunit.js"></script>
+        <link type="text/css" href="../../../3rd/qunit/1.9.0/qunit.css" rel="stylesheet" media="all" />
+        <script type="text/javascript" src="../../data/jquery.mockjax.js"></script>
     </head>
     <body>
-	
-        <table id="wgrid-teste">
-            <thead>
-                <tr>
-                    <th field_type="numeric" field_name="field1" field_value="" disable_handling="">
-                        ID
-                    </th>
-                    <th field_type="int" field_name="field2" field_value="" disable_handling="true">
-                        INTEIRO
-                    </th>
-                    <th field_type="datetime" field_name="field3" field_value="" disable_handling="true">
-                        DATA
-                    </th>
-                    <th field_name="field4" field_value="" disable_handling="true">
-                        TESTE
-                    </th>
-                    <th field_type="text" field_name="field5" disable_handling="true">
-                        TESTE DE COLUNA MEGAMENTE GIGANTESCA E GROTESCA
-                    </th>
-                    <th field_type="text" field_name="field6" disable_handling="true">
-                        TESTE
-                    </th>
-                    <th field_type="text" field_name="field7" disable_handling="true">
-                        TESTE
-                    </th>
-                    <th field_type="text" field_name="field8" disable_handling="true">
-                        TESTE
-                    </th>
-                    <th field_type="text" field_name="field9" disable_handling="true">
-                        TESTE
-                    </th>
-                    <th field_type="text" field_name="field10" disable_handling="true">
-                        TESTE
-                    </th>
-                    <th field_type="text" field_name="field11" disable_handling="true">
-                        TESTE
-                    </th>
-                    <th field_type="text" field_name="field12" disable_handling="true">
-                        TESTE
-                    </th>
-                    <th field_type="text" field_name="field13" disable_handling="true">
-                        TESTE
-                    </th>
-                    <th field_type="text" field_name="field14" disable_handling="true">
-                        TESTE
-                    </th>
-                    <th field_type="text" field_name="field15" disable_handling="true">
-                        TESTE
-                    </th>
-                    <th field_type="text" field_name="field16" disable_handling="true">
-                        TESTE
-                    </th>
-                    <th field_type="text" field_name="field17" disable_handling="true">
-                        TESTE
-                    </th>
-                    <th field_type="text" field_name="field18" disable_handling="true">
-                        TESTE
-                    </th>
-                    <th field_type="text" field_name="field19" disable_handling="true">
-                        TESTE
-                    </th>
-                    <th field_type="text" field_name="field20" disable_handling="true">
-                        TESTE
-                    </th>
-                </tr>
-            </thead>
-        </table>
+        <div id="container"></div>     
         <div id="tests">
             <div id="qunit"></div>
             <div id="qunit-fixture"></div>
         </div>
-	</body>
+    </body>
+    <script type="text/javascript" src="test.js"></script>
 </html>
