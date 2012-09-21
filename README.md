@@ -1,4 +1,4 @@
-dongle.net - A boosted util library
+dongle.js - A boosted util library
 ===================================
 * Conjunto de funções úteis que são uma mão na roda no dia-a-dia do programador Javascript.
 
@@ -6,7 +6,7 @@ O que você precisa para compilar o dongle.js
 --------------------------------------------
 Usuários Windows:
 
-1. Instalar o [msysgit](https://code.google.com/p/msysgit/) (não esquecer de colocar a pasta bin na vari�vel de ambiente PATH);
+1. Instalar o [msysgit](https://code.google.com/p/msysgit/) (não esquecer de colocar a pasta bin na variável de ambiente PATH);
 2. Instalar o [Node.js](http://nodejs.org/).
 
 Como compilar o dongle.js
