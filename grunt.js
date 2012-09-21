@@ -100,7 +100,7 @@ module.exports = function( grunt ) {
         },*/
         
         qunit: {
-            all: ['src/Dongle.Js/Test/WGrid/test.html']
+            files: ['test/unit/**/*-test.html']
         },
         
         server: {
@@ -128,8 +128,8 @@ module.exports = function( grunt ) {
     grunt.registerTask( "deploy", "build lint qunit min" );
 
     // Load grunt tasks from NPM packages
-    grunt.loadNpmTasks( "grunt-compare-size" );
-    grunt.loadNpmTasks( "grunt-git-authors" );
+    /*grunt.loadNpmTasks( "grunt-compare-size" );
+    grunt.loadNpmTasks( "grunt-git-authors" );*/
 
     grunt.registerTask( "testswarm", function( commit, configFile ) {
         var testswarm = require( "testswarm" ),

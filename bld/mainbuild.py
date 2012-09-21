@@ -9,7 +9,7 @@ from steps.delstep import *
 from steps.svnupdatedirstep import *
 from test import *
 from steps.csprojectbuildstep import *
-from steps.runcsunitteststep import *
+from steps.runcommandstep import *
 from steps.batchfilereplacestep import *
 from steps.copyfilteredfilesstep import *
 from steps.copydirstep import *
@@ -26,15 +26,10 @@ class MainBuild( Builder ):
         Builder.__init__( self, "dongle.js Main Build" )
 
     def build( self ):
-        tempDir  = os.path.join( os.path.dirname( __file__ ), '../temp' )
-        consoleTempDir  = os.path.join( os.path.dirname( __file__ ), '../temp/Dongle/' )
-        pubDir = os.path.join( os.path.dirname( __file__ ), '../pub' )
-        resDir = os.path.join( os.path.dirname( __file__ ), '../res' )
-        consoleProjectPath = os.path.join( os.path.dirname( __file__ ), '../src/Dongle.js.sln' )
-		
+        tempDir  = os.path.join( os.path.dirname( __file__ ), '../dist' )
+        rootDir  = os.path.join( os.path.dirname( __file__ ), '../' )
+
         self.addStep( DelTreeStep( tempDir ) )        
-        self.addStep( CsProjectBuildStep( consoleProjectPath, consoleTempDir ) )        
-        self.addStep( RunCsUnitTestStep( consoleTempDir + 'QUnitTestRunner.dll' ) )
-        
+        self.addStep( RunCommandStep( "grunt.cmd deploy", rootDir ) )        
                 
         return Builder.build(self)
