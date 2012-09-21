@@ -30,6 +30,6 @@ class MainBuild( Builder ):
         rootDir  = os.path.join( os.path.dirname( __file__ ), '../' )
 
         self.addStep( DelTreeStep( tempDir ) )        
-        self.addStep( RunCommandStep( "grunt.cmd deploy", rootDir ) )        
+        self.addStep( RunCommandStep( "node_modules\.bin\grunt.cmd deploy", rootDir ) )        
                 
         return Builder.build(self)
