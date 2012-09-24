@@ -27,11 +27,11 @@ class MainBuild( Builder ):
 
     def build( self ):
         tempDir  = os.path.join( os.path.dirname( __file__ ), '../dist' )
-        rootDir  = os.path.join( os.path.dirname( __file__ ), '..\\node_modules\\.bin\\' )
+        rootDir  = os.path.join( os.path.dirname( __file__ ), '..\\' )
         
         print rootDir
 
         self.addStep( DelTreeStep( tempDir ) )        
-        self.addStep( RunCommandStep( "grunt.cmd deploy", rootDir ) )        
+        self.addStep( RunCommandStep( 'grunt.cmd deploy' ) )        
                 
         return Builder.build(self)
