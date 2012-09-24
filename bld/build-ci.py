@@ -21,9 +21,9 @@ class WebUtilsFileFilter(FileFilter):
 projectRootDir = os.path.abspath( os.path.join( os.path.dirname( __file__ ), '../' ) )
 assemblyPath = os.path.abspath( os.path.join( os.path.dirname( __file__ ), '../package.json' ) )
 pubDir = os.path.abspath( os.path.join( os.path.dirname( __file__ ), '../pub' ) )
-tempDir = os.path.abspath( os.path.join( os.path.dirname( __file__ ), '../temp' ) )
+distDir = os.path.abspath( os.path.join( os.path.dirname( __file__ ), '../dist' ) )
 resDir = os.path.abspath( os.path.join( os.path.dirname( __file__ ), '../res' ) )
-repoUrl = 'http://cronos:9090/gasrd/Web/pub/Dongle.Js/trunk'
+repoUrl = 'http://cronos:9090/gasrd/Web/pub/dongle.js/trunk'
 
 #--------------------------------------------------------------------
 bp = Builder( "Dongle.Js" )
@@ -33,9 +33,8 @@ bp.addStep( MainBuild() )
 bp.addStep( SvnDeleteStep(repoUrl))
 bp.addStep( DelTreeStep( pubDir ) )
 
-bp.addStep( DelTreeStep( tempDir + '\\Dongle\\testresults' ) )  
-bp.addStep( CopyFilteredFilesStep( WebUtilsFileFilter(), tempDir + "\\Dongle\_PublishedWebsites\Dongle.Js\Src", pubDir ) )
-bp.addStep( DelTreeStep( tempDir ) ) 
+bp.addStep( CopyFilteredFilesStep( WebUtilsFileFilter(), distDir, pubDir ) )
+bp.addStep( DelTreeStep( distDir ) ) 
 bp.addStep( SvnImportDirStep( pubDir, repoUrl ) )
 
 if not bp.build():
