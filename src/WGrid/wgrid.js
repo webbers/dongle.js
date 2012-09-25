@@ -105,7 +105,7 @@
 
         var loadingHide = function ()
         {
-            var $loading = $element.find('.wgrid-loader-overlay');
+            var $loading = $('.wgrid-loader-overlay');
             $loading.hide();
         };
 
@@ -523,23 +523,6 @@
                 }
             });
             return exists;
-        };
-
-        var fixRightAndBottom = function ($selector)
-        {
-            $selector.each(function ()
-            {
-                var closest = $(this).parent().closest('.wgrid');
-
-                if ($(this).css('right') != 'auto')
-                {
-                    $(this).width(closest.attr('clientWidth') - parseInt($(this).css('right'), 10) - parseInt($(this).css('left'), 10));
-                }
-                if ($(this).css('bottom') != 'auto')
-                {
-                    $(this).height(closest.attr('clientHeight') - parseInt($(this).css('bottom'), 10) - parseInt($(this).css('top'), 10));
-                }
-            });
         };
 
         var reloadTotalsDisplays = function (totalInserted)
