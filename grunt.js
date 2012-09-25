@@ -47,8 +47,7 @@ module.exports = function( grunt ) {
             files: distpaths
         },
         build: {
-            "dist/dongle.js": [
-                "src/WActionBox/wactionbox.js",
+            "dist/dongle.components.js": [
                 "src/WContextMenu/wcontextmenu.js",
                 "src/WGrid/wgrid.js",
                 "src/WInputFile/winputfile.js",
@@ -56,7 +55,7 @@ module.exports = function( grunt ) {
                 "src/WSimpleGrid/wsimplegrid.js",
                 "src/WSwitchButton/wswitchbutton.js"
             ],
-            "dist/dongle.unobstrusive.js": [
+            "dist/dongle.components.unobstrusive.js": [
                 "src/WButton/wbutton.unobstrusive.js",
                 "src/WMultiSelect/wmultiselect.unobstrusive.js",
                 "src/WSlider/wslider.unobstrusive.js",
@@ -68,12 +67,18 @@ module.exports = function( grunt ) {
             ],
             "dist/dongle.loader.js": [
                 "src/WLoader/wloader.unobstrusive.js"
+            ],
+            "dist/dongle.actionbox.js": [
+                "src/WActionBox/wactionbox.js"
             ]
+            
         },
         min: {
-            "dist/dongle.min.js": [ "<banner>", "dist/dongle.js" ],
-            "dist/dongle.unobstrusive.min.js": [ "<banner>", "dist/dongle.unobstrusive.js" ],
-            "dist/dongle.loader.min.js": [ "<banner>", "dist/dongle.loader.js" ]
+            "dist/dongle.components.min.js": [ "<banner>", "dist/dongle.components.js" ],
+            "dist/dongle.components.unobstrusive.min.js": [ "<banner>", "dist/dongle.components.unobstrusive.js" ],
+            "dist/dongle.loader.min.js": [ "<banner>", "dist/dongle.loader.js" ],
+            "dist/dongle.actionbox.min.js": [ "<banner>", "dist/dongle.actionbox.js" ],
+            "dist/dongle.validators.min.js": [ "<banner>", "dist/dongle.validators.js" ]
         },
 
         lint: {
