@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr" id="html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Dongle Test Suite</title>
+    
+    <link type="text/css" href="../3rd/qunit/1.9.0/qunit.css" rel="stylesheet" media="all" />
+    <link type="text/css" href="../3rd/jquery.ui/1.8.16/jquery.ui.css" rel="stylesheet" media="all" />
+    
+    <link type="text/css" href="../Src/WGrid/wgrid.css" rel="stylesheet" media="all" />
+    <link type="text/css" href="../Src/WSwitchButton/wswitchbutton.css" rel="stylesheet" media="all" />
+
+    <!-- Includes -->
+    <script type="text/javascript" src="../3rd/jquery/1.5.1/jquery.js"></script>
+    <script type="text/javascript" src="../3rd/jquery.ui/1.8.16/jquery.ui.js"></script>
+    <script type="text/javascript" src="../3rd/qunit/1.9.0/qunit.js"></script>
+    <script type="text/javascript" src="../3rd/Mockjax/1.5.1/jquery.mockjax.js"></script>
+</head>
+
+<body id="body">
+    <h1 id="qunit-header"><a href="/jquery/test/index.html">Dongle Test Suite</a></h1>
+    <h2 id="qunit-banner"></h2>
+    <div id="qunit-testrunner-toolbar"></div>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+    
+    <!--SwitchButton-->
+    <label for="yesno">
+        First switch label</label>
+    <input type="checkbox" name="yesno" id="yesno" class="wswitchbutton-default" yes="yes yes"
+        no="oh no!" /><br />
+    <label for="yesno2">
+        Second switch label</label>
+    <input type="checkbox" name="yesno2" id="yesno2" class="wswitchbutton-default" /><br />
+    <label for="yesno3">
+        Third switch label</label>
+    <input type="checkbox" name="yesno3" id="yesno3" checked class="wswitchbutton-default" yes="bahhh" /><br />
+    <label for="yesno4">
+        Fourth switch label</label>
+    <input type="checkbox" name="yesno4" id="yesno4" checked disabled="disabled" class="wswitchbutton-default"
+        yes="check disabled" /><br />
+    <label for="yesno5">
+        Fiveth switch label</label>
+    <input type="checkbox" name="yesno5" id="yesno5" disabled="disabled" class="wswitchbutton-default"
+        yes="disabled" /><br />
+    <label for="yesno6">
+        Sixth switch label</label>
+    <input type="checkbox" name="yesno6" id="yesno6" class="wswitchbutton-persona" /><br />
+    <label for="yesno7">
+        Seventh switch label</label>
+    <input type="checkbox" name="yesno7" id="yesno7" class="wswitchbutton-persona" checked="false" /><br />
+    <label for="yesno8">
+        Eigth switch label</label>
+    <input type="checkbox" name="yesno8" id="yesno8" class="wswitchbutton-persona" checked="false" /><br />
+    <hr />
+    <span>Change event detect</span> <span id="change-detect"></span>
+    
+    <!--RequiredIf-->
+    <form>
+        <input type="text" name="check" id="check" />
+        <input data-val="true" data-val-wrequiredif="Campo obrigat&amp;#243;rio" data-val-wrequiredif-conditionalproperty="check"
+            data-val-wrequiredif-conditionalvalue="1" id="title" name="title" type="text">
+        <span class="field-validation-error" data-valmsg-for="title" data-valmsg-replace="true"></span>
+        <input type="submit" />
+    </form>
+</body>
+
+<!--<script type="text/javascript" src="../Src/WGrid/wgrid.js"></script>
+<script type="text/javascript" src="../Src/WSwitchButton/wswitchbutton.js"></script>
+<script type="text/javascript" src="../Src/WSwitchButton/wswitchbutton.unobstrusive.js"></script>-->
+
+<script src="../dist/dongle.min.js"></script>
+<script src="../dist/dongle.unobstrusive.min.js"></script>
+
+<script src="unit/wgrid.js"></script>
+<script src="unit/wswitchbutton.js"></script>
+</html>

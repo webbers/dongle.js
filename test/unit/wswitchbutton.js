@@ -1,7 +1,45 @@
-module('Method tests');
+$(document).ready(function ()
+{
+    var change = 0;
+    $('input[type=checkbox]').change(function ()
+    {
+        change++;
+        $("#change-detect").html('<br />Change ' + change + ' vezes');
+    });
+
+    $('.wswitchbutton-persona').each(function ()
+    {
+        var opt =
+        {
+            speed: 1
+        };
+        var yes = 'Sim personalizado';
+        var no = 'Nao personalzado';
+
+        if (yes)
+        {
+            opt.yes = yes;
+        }
+        if (no)
+        {
+            opt.no = no;
+        }
+        $(this).wswitchbutton(opt);
+    });
+    
+    $('.wswitchbutton-default').each(function ()
+    {
+        var opt =
+        {
+            speed: 1
+        };
+        $(this).wswitchbutton(opt);
+    });
+});
+
+module('SwitchButton');
 test("Check and Unckeck tests", function ()
 {
-    
     $("#yesno").wswitchbutton('check');
     equal($("#yesno").is(':checked'), true, "Element being checked");
 
@@ -15,56 +53,76 @@ test("Check and Unckeck tests", function ()
     equal($("#yesno4").is(':checked'), true, "Element disabled can't be unchecked");
 });
 
-module('Events tests');
-test("Background uncheck changes", function ()
+function getPosition($element)
 {
-    stop(1);
-    var bg;
-    var result;
-    if (navigator.appName != 'Microsoft Internet Explorer')
+   if (navigator.appName != 'Microsoft Internet Explorer')
     {
-        bg = $("#yesno3").next().find('.button').css('background-position');
-        result = "0px 50%";
+        var result = $element.next().find('.button').css('background-position').split(' ');
+        for(var i = 0; i < result.length; i++ )
+        {
+            result[i] = parseInt(result[i], 10);
+        } 
+        return result;
     }
     else
     {
-        bg = $("#yesno3").next().find('.button').css('background-position-y');
-        bg += " " + $("#yesno3").next().find('.button').css('background-position-x');
-        result = "0px 0px";
+        return [
+            parseInt( $element.next().find('.button').css('background-position-y'), 10),
+            parseInt( $element.next().find('.button').css('background-position-x'), 10)
+        ];
+    } 
+}
+
+test("Background uncheck changes", function ()
+{
+    var expected;
+
+    stop();
+    
+    var result = getPosition($('#yesno3'));
+    
+    if (navigator.appName != 'Microsoft Internet Explorer')
+    {
+        expected = [0, 50];
+    }
+    else
+    {
+        expected = [0, 0];
     }
     $("#yesno3").wswitchbutton('uncheck');
+    
     setTimeout(function ()
     {
-        deepEqual(bg != $("#yesno3").next().find('.button').css('background-position'), true, "Element has changed background");
-        deepEqual(bg, result, "Element is with correct background when unchecked");
+        var newPosition = getPosition($('#yesno3'));
+        notDeepEqual(newPosition, result, "Element has changed background");
+        deepEqual(result, expected, "Element is with correct background when unchecked");
         start();
-    }, 750);
+    }, 100);
 });
 
 test("Background uncheck changes", function ()
 {
-    stop(1);
-    var bg;
-    var result;
+    stop();
+
+    var expected;
+    var result = getPosition($('#yesno3'));
+    
     if (navigator.appName != 'Microsoft Internet Explorer')
     {
-        bg = $("#yesno3").next().find('.button').css('background-position');
-        result = "-25px 50%";
-
+        expected = [-25, 50];
     }
     else
     {
-        bg = $("#yesno3").next().find('.button').css('background-position-y');
-        bg += " " + $("#yesno3").next().find('.button').css('background-position-x');
-        result = "0px -25px";
+        expected = [0, -25];
     }
     $("#yesno3").wswitchbutton('check');
     setTimeout(function ()
     {
-        deepEqual(bg != $("#yesno3").next().find('.button').css('background-position'), true, "Element has changed background");
-        deepEqual(bg, result, "Element is with correct background when checked");
+        var newPosition = getPosition($('#yesno3'));
+        notDeepEqual(newPosition, result, "Element has changed background");
+        deepEqual(result, expected, "Element is with correct background when checked");
         start();
-    }, 750);
+    }, 100);
 });
 
 test("Background no changes", function ()
@@ -95,7 +153,6 @@ test("Background no changes", function ()
 
 });
 
-module('Click events');
 test("No label click", function ()
 {
     stop(1);
@@ -128,7 +185,7 @@ test("No label click", function ()
         equal(bgAfter != bgBefore, true, "Element is with correct background when unchecked with click on no label");
         equal($("#yesno6").is(':checked'), false, "Element is unchecked when clicked on no label");
         start();
-    }, 750);
+    }, 100);
 
 });
 test("Yes label click", function ()
@@ -153,7 +210,7 @@ test("Yes label click", function ()
         equal(bgAfter != bgBefore, true, "Element is with correct background when checked with click on yes label");
         equal($("#yesno2").is(':checked'), true, "Element is checked when clicked on yes label");
         start();
-    }, 750);
+    }, 100);
 
 });
 

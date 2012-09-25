@@ -130,7 +130,7 @@ $.mockjax({
 function createHtml(id)
 {
     var html = '<table id="'+ id + '"><thead><tr><th field_type="numeric" field_name="field1" field_value="" disable_handling="">ID</th><th field_type="int" field_name="field2" field_value="" disable_handling="true">INTEIRO</th><th field_type="datetime" field_name="field3" field_value="" disable_handling="true">DATA</th><th field_name="field4" field_value="" disable_handling="true">TESTE</th><th field_type="text" field_name="field5" disable_handling="true">TESTE DE COLUNA MEGAMENTE GIGANTESCA E GROTESCA</th></tr></thead></table>';
-    $('#container').append(html);
+    $(document.body).append(html);
 }
 
 window.running = false;
@@ -174,9 +174,9 @@ function createWGrid(test)
     $('#' + id).closest('.wgrid').css({ position: 'relative', height: '300px' });
 }
 
-module("CSS");
 createWGrid(function($wgrid)
 {
+    module("WGrid");
     test("Initial Tests", function ()
     {
         //1
@@ -216,7 +216,6 @@ createWGrid(function($wgrid)
     });
 });
 
-module("Records");
 createWGrid(function($wgrid)
 {
     test("Listing like ListItemCount", function ()
@@ -240,7 +239,6 @@ createWGrid(function($wgrid, $innerGrid)
     });
 });
 
-module("Global");
 createWGrid(function($wgrid, $innerGrid)
 {
     test("Checkboxes tests", function ()
@@ -312,7 +310,6 @@ createWGrid(function($wgrid, $innerGrid)
     });
 });
 
-module('Filters');
 createWGrid(function($wgrid, $innerGrid)
 {
     test("StartsWith", function ()
@@ -433,7 +430,6 @@ createWGrid(function($wgrid, $innerGrid)
     });
 });
 
-module("Wgrid functions");
 createWGrid(function($wgrid, $innerGrid)
 {
     test("loader test", function ()
@@ -466,7 +462,7 @@ createWGrid(function($wgrid, $innerGrid)
 {
     test("clearGrid", function ()
     {
-        $('.wgrid').wgrid('clearGrid');
+        $innerGrid.wgrid('clearGrid');
         equal($wgrid.find('.wgrid-table').html(), "", "clearGrid is clearing grid");
     });
 });

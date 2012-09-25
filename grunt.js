@@ -59,22 +59,27 @@ module.exports = function( grunt ) {
             "dist/dongle.unobstrusive.js": [
                 "src/WButton/wbutton.unobstrusive.js",
                 "src/WMultiSelect/wmultiselect.unobstrusive.js",
-                "src/WLoader/wloader.unobstrusive.js",
-                "src/WRequiredIf/wrequiredif.unobstrusive.js",
                 "src/WSlider/wslider.unobstrusive.js",
                 "src/WSpinButton/wspinbutton.unobstrusive.js",
                 "src/WSwitchButton/wswitchbutton.unobstrusive.js"
+            ],
+            "dist/dongle.validators.js": [
+                "src/WRequiredIf/wrequiredif.unobstrusive.js"
+            ],
+            "dist/dongle.loader.js": [
+                "src/WLoader/wloader.unobstrusive.js"
             ]
         },
         min: {
             "dist/dongle.min.js": [ "<banner>", "dist/dongle.js" ],
-            "dist/dongle.unobstrusive.min.js": [ "<banner>", "dist/dongle.unobstrusive.js" ]
+            "dist/dongle.unobstrusive.min.js": [ "<banner>", "dist/dongle.unobstrusive.js" ],
+            "dist/dongle.loader.min.js": [ "<banner>", "dist/dongle.loader.js" ]
         },
 
         lint: {
             dist: "src/**/*.js",
             grunt: "grunt.js",
-            tests: "test/unit/**/*.js"
+            tests: "test/unit/*.js"
         },
         
         jshint: {
@@ -100,7 +105,7 @@ module.exports = function( grunt ) {
         },*/
         
         qunit: {
-            files: ['test/unit/**/*-test.html']
+            files: ['test/index.html']
         },
         
         server: {
@@ -125,7 +130,7 @@ module.exports = function( grunt ) {
     grunt.registerTask( "ps", "lint qunit" );
     
     //Tests
-    grunt.registerTask( "deploy", "build lint qunit min" );
+    grunt.registerTask( "deploy", "build min lint qunit" );
 
     // Load grunt tasks from NPM packages
     /*grunt.loadNpmTasks( "grunt-compare-size" );
