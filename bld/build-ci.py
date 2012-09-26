@@ -27,7 +27,6 @@ repoUrl = 'http://cronos:9090/gasrd/Web/pub/dongle.js/trunk'
 
 #--------------------------------------------------------------------
 bp = Builder( "Dongle.Js" )
-bp.addStep( IncrementBuildVersionStep( assemblyPath, projectRootDir ) )
 bp.addStep( MainBuild() )
 
 bp.addStep( SvnDeleteStep(repoUrl))

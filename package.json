@@ -30,7 +30,8 @@
         "grunt": "~0.3.9"
     },
     "scripts": {
-        "test": "grunt travis --verbose"
+        "test-windows": "grunt.cmd default --verbose",
+        "test": "grunt default --verbose"
     },
     "keywords": []
 }

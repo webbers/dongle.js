@@ -28,9 +28,9 @@ class MainBuild( Builder ):
     def build( self ):
         tempDir  = os.path.join( os.path.dirname( __file__ ), '../dist' )
         rootDir  = os.path.join( os.path.dirname( __file__ ), '..\\' )
-        #gruntDir = os.environ['APPDATA'] + "\\npm\\";
 
-        self.addStep( DelTreeStep( tempDir ) )        
-        self.addStep( RunCommandStep( 'grunt.cmd', rootDir ))
+        self.addStep( DelTreeStep( tempDir ) )  
+        self.addStep( RunCommandStep( 'npm.cmd install', rootDir ))        
+        self.addStep( RunCommandStep( 'npm.cmd run-script test-windows', rootDir ))
                 
         return Builder.build(self)
