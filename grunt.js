@@ -47,10 +47,16 @@ module.exports = function( grunt ) {
             files: distpaths
         },
         
-        /*copy:
+        copy:
         {
-            
-        },*/
+            dist:
+            {
+                files:
+                {
+                    "dist/images/": "src/images/*.*"
+                }
+            }
+        },
         
         concat:
         {
@@ -62,7 +68,7 @@ module.exports = function( grunt ) {
                       "src/js/wselectbox.js",
                       "src/js/wsimplegrid.js",
                       "src/js/wswitchbutton.js"],
-                dest: "dist/dongle.components.js"
+                dest: "dist/js/dongle.components.js"
             },
             "components.unobstrusive":
             {
@@ -71,22 +77,22 @@ module.exports = function( grunt ) {
                       "src/js/wslider.unobstrusive.js",
                       "src/js/wspinbutton.unobstrusive.js",
                       "src/js/wswitchbutton.unobstrusive.js"],
-                dest: "dist/dongle.components.unobstrusive.js"
+                dest: "dist/js/dongle.components.unobstrusive.js"
             },
             "validators":
             {
                 src: ["src/js/wrequiredif.unobstrusive.js"],
-                dest: "dist/dongle.validators.js"
+                dest: "dist/js/dongle.validators.js"
             },
             "loader":
             {
                 src: ["src/js/wloader.unobstrusive.js"],
-                dest: "dist/dongle.loader.js"
+                dest: "dist/js/dongle.loader.js"
             },
             "actionbox":
             {
                 src: ["src/js/wactionbox.js"],
-                dest: "dist/dongle.actionbox.js"
+                dest: "dist/js/dongle.actionbox.js"
             },
             "components-css":
             {
@@ -99,27 +105,27 @@ module.exports = function( grunt ) {
                       "src/css/wsimplegrid.css",
                       "src/css/wspinbutton.css",
                       "src/css/wswitchbutton.css"],
-                dest: "dist/dongle.components.css"
+                dest: "dist/css/dongle.components.css"
             },
             "loader-css":
             {
                 src: ["src/css/wloader.css"],
-                dest: "dist/dongle.loader.css"
+                dest: "dist/css/dongle.loader.css"
             }             
         },  
 
         min: {
-            "dist/dongle.components.min.js": [ "<banner>", "dist/dongle.components.js" ],
-            "dist/dongle.components.unobstrusive.min.js": [ "<banner>", "dist/dongle.components.unobstrusive.js" ],
-            "dist/dongle.loader.min.js": [ "<banner>", "dist/dongle.loader.js" ],
-            "dist/dongle.actionbox.min.js": [ "<banner>", "dist/dongle.actionbox.js" ],
-            "dist/dongle.validators.min.js": [ "<banner>", "dist/dongle.validators.js" ]
+            "dist/js/dongle.components.min.js": [ "<banner>", "dist/js/dongle.components.js" ],
+            "dist/js/dongle.components.unobstrusive.min.js": [ "<banner>", "dist/js/dongle.components.unobstrusive.js" ],
+            "dist/js/dongle.loader.min.js": [ "<banner>", "dist/js/dongle.loader.js" ],
+            "dist/js/dongle.actionbox.min.js": [ "<banner>", "dist/js/dongle.actionbox.js" ],
+            "dist/js/dongle.validators.min.js": [ "<banner>", "dist/js/dongle.validators.js" ]
         },
         
         cssmin:
         {
-            "dist/dongle.components.min.css": ["<banner>", "dist/dongle.components.css"],
-            "dist/dongle.loader.min.css": ["<banner>", "dist/dongle.loader.css"]
+            "dist/css/dongle.components.min.css": ["<banner>", "dist/css/dongle.components.css"],
+            "dist/css/dongle.loader.min.css": ["<banner>", "dist/css/dongle.loader.css"]
         },
 
         lint: {
@@ -142,6 +148,7 @@ module.exports = function( grunt ) {
     });
     
     grunt.loadNpmTasks('grunt-css');
-    grunt.registerTask( "default", "concat cssmin min lint qunit" );
-    grunt.registerTask( "travis", "concat cssmin min lint qunit" );
+    grunt.loadNpmTasks('grunt-contrib');
+    grunt.registerTask( "default", "concat copy cssmin min lint qunit" );
+    grunt.registerTask( "travis", "concat copy cssmin min lint qunit" );
 };
