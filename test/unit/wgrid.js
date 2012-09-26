@@ -61,7 +61,7 @@ function checkboxClick($element)
 $.mockjax({
     url: 'data.json?skip=0&orderby=undefined&sort=undefined&eventFilter=undefined',
     responseTime: 0,
-    responseText: {"Data": items,"TotalCount":10}
+    responseText: {"Data": "s","TotalCount":10}
 });
 
 //Ajax order by desc
