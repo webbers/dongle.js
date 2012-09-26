@@ -27,7 +27,7 @@ npm install -g grunt
 Tenha certeza que você tem o grunt instalado com o seguinte teste:
 
 ```bash
-grunt.cmd -version
+grunt.cmd -version 
 ```
 
 Então para rodar o build completo do dongle.js digite o seguinte:
