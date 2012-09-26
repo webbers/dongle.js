@@ -1,4 +1,6 @@
 dongle.js - A boosted util library
+[![Build Status](https://secure.travis-ci.org/webbers/dongle.js.png)](http://travis-ci.org/webbers/dongle.js)
+
 ===================================
 * Conjunto de funções úteis que são uma mão na roda no dia-a-dia do programador Javascript.
 
