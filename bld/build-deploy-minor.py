@@ -15,7 +15,7 @@ from filters.csbinaryfilefiltertests import *
 from steps.svndeletestep import *
 from steps.movefilesstep import *
 
-class WebUtilsFileFilter(FileFilter):
+class DongleFileFilter(FileFilter):
     def __init__( self ):
         FileFilter.__init__( self, ['*\\.svn\\*', '\\uploads' ], ['*Test*', '*Compiler*', 'Ploe*', 'Moq*', 'System*', 'mscorlib*', '*esults*' ], ['.pdb','.nlp']  )
 
@@ -38,7 +38,7 @@ bp.addStep( DelTreeStep( pubDir ) )
 bp.addStep( SvnUpdateDirStep( projectRootDir ))
 
 bp.addStep( DelTreeStep( tempDir + '\\WebUtils\\testresults' ) )  
-bp.addStep( CopyFilteredFilesStep( WebUtilsFileFilter(), tempDir + "\\WebUtils", pubDir ) )
+bp.addStep( CopyFilteredFilesStep( DongleFileFilter(), tempDir + "\\WebUtils", pubDir ) )
 bp.addStep( DelTreeStep( tempDir ) ) 
 bp.addStep( SvnImportDirStep( pubDir, repoUrl ) )
 bp.addStep( SvnCommitDirStep( assemblyDir, 1, sys.argv[1], sys.argv[2]  ) )

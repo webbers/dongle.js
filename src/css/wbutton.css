@@ -38,14 +38,14 @@
 {
     padding-left: 12px;
     padding-top: 1px;
-    background: url('images/wbutton.png') no-repeat;
+    background: url('../images/wbutton.png') no-repeat;
 }
 
 .wbutton .final-content
 {
     width: 10px;
     height: 35px;
-    background: url('images/wbutton.png') no-repeat right top;
+    background: url('../images/wbutton.png') no-repeat right top;
 }
 
 .wbutton .icon
@@ -61,12 +61,12 @@
 
 .wbutton .icon-default
 {
-    background-image: url('images/default-icon.png');
+    background-image: url('../images/default-icon.png');
 }
 
 .wbutton .icon-default-dark
 {
-    background-image: url('images/default-dark-icon.png');
+    background-image: url('../images/default-dark-icon.png');
 }
 
 /********** GRAY BUTTON ***********/

@@ -43,7 +43,7 @@
     padding-left: 0px;
     padding-top: 1px;
     padding-right: 10px;
-    background: url('images/wbutton.png') no-repeat;
+    background: url('../images/wselectbox.png') no-repeat;
 }
 /* firefox hack */
 @-moz-document url-prefix() { 
@@ -75,7 +75,7 @@
     float: right;
     width: 23px;
     height: 35px;
-    background: url('images/wbutton.png') no-repeat right top;
+    background: url('../images/wselectbox.png') no-repeat right top;
 }
 .wselectbox-holder:hover .wselectbox-toggle{
     background-position: right -35px;

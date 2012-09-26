@@ -9,7 +9,7 @@ from steps.deltreestep import *
 import re
 
 #--------------------------------------------------------------------
-bp = Builder( "WebUtils" )
+bp = Builder( "Dongle.Js" )
 
 rootPath = os.path.join( os.path.dirname( __file__ ), '../' )
 bp.addStep( MainBuild() )

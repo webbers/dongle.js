@@ -38,7 +38,7 @@ img
     color: #fff;
     width: 100%;
     height: 100%;
-    background: url(images/loader.gif) center center no-repeat #333;
+    background: url(../images/loader.gif) center center no-repeat #333;
     margin: 0;
     padding: 0;
 }
@@ -103,7 +103,7 @@ img
 }
 .wslider .bullets div
 {
-    background-image: url(images/bullet.png);
+    background-image: url(../images/bullet.png);
     display: block;
     width: 16px;
     height: 16px;
@@ -112,7 +112,7 @@ img
 }
 .wslider .bullets .selected div
 {
-    background-image: url(images/bullet-selected.png);
+    background-image: url(../images/bullet-selected.png);
 }
 
 .wslider p

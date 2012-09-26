@@ -22,13 +22,13 @@
 {
     width: 47px;
     height: 21px;
-    background: url(images/wswitchbutton.png);
+    background: url(../images/wswitchbutton.png);
 }
 .wswitchbutton-control .button[disabled], .wswitchbutton-control .button-disabled
 {
     width: 47px;
     height: 21px;
-    background: url(images/wswitchbutton-disabled.png);
+    background: url(../images/wswitchbutton-disabled.png);
 }
 .wswitchbutton-control .left, .wswitchbutton-control .right
 {

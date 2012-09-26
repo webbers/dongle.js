@@ -9,7 +9,7 @@
 }
 .winputfile-panel, .winputfile-panel:active
 {
-	background:url(images/1.png) 0px 0px no-repeat;
+	background:url(../images/1.png) 0px 0px no-repeat;
 	height: 26px;
 	line-height:26px;
 	padding-left:5px;
@@ -23,7 +23,7 @@
 }
 .winputfile-text, .winputfile-text:active 
 {
-	background:url(images/2.png) 0px 0px repeat-x;
+	background:url(../images/2.png) 0px 0px repeat-x;
 	color:#192940;
 	float:left;
 	padding:0 10px 0 10px;
@@ -34,7 +34,7 @@
 .winputfile-bg3, .winputfile-bg3:active
 {
 	float:left;
-	background:url(images/3.png) 0px 0px  no-repeat;
+	background:url(../images/3.png) 0px 0px  no-repeat;
 	width:5px;
 	height:26px;
 	color:#192940;
@@ -56,13 +56,13 @@
 }
 .winputfile-panel-hover
 {
-	background:url(images/1.png) 0px -26px no-repeat;
+	background:url(../images/1.png) 0px -26px no-repeat;
 }
 .winputfile-panel-hover .winputfile-text
 {
-	background:url(images/2.png) 0px -26px repeat-x;
+	background:url(../images/2.png) 0px -26px repeat-x;
 }
 .winputfile-panel-hover .winputfile-bg3
 {
-	background:url(images/3.png) 0px -26px  no-repeat;
+	background:url(../images/3.png) 0px -26px  no-repeat;
 }

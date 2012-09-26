@@ -31,6 +31,6 @@ class MainBuild( Builder ):
         #gruntDir = os.environ['APPDATA'] + "\\npm\\";
 
         self.addStep( DelTreeStep( tempDir ) )        
-        self.addStep( RunCommandStep( 'grunt.cmd deploy', rootDir ))
+        self.addStep( RunCommandStep( 'grunt.cmd', rootDir ))
                 
         return Builder.build(self)
