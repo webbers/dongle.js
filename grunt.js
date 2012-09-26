@@ -47,10 +47,10 @@ module.exports = function( grunt ) {
             files: distpaths
         },
         
-        copy:
+        /*copy:
         {
             
-        },
+        },*/
         
         concat:
         {
@@ -142,6 +142,6 @@ module.exports = function( grunt ) {
     });
     
     grunt.loadNpmTasks('grunt-css');
-    grunt.registerTask( "default", "concat copy cssmin min lint qunit" );
-    grunt.registerTask( "travis", "concat copy cssmin min lint qunit" );
+    grunt.registerTask( "default", "concat cssmin min lint qunit" );
+    grunt.registerTask( "travis", "concat cssmin min lint qunit" );
 };
