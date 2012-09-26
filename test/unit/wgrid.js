@@ -179,45 +179,37 @@ createWGrid(function($wgrid)
     module("WGrid");
     test("Initial Tests", function ()
     {
-        stop();
-        //1
-        $wgrid.find('.reload-items').click();
-        
-        setTimeout(function()
+        var heigth = $wgrid.closest('.wgrid').height();
+        if (heigth >= 200)
         {
-            var heigth = $wgrid.closest('.wgrid').height();
-            if (heigth >= 200)
+            heigth = true;
+        }
+        equal(heigth, true, "Wgrid is greather than 200px");
+                
+        //2
+        var position = $wgrid.css('position');
+        equal(position, "relative", "Wgrid have position relative");
+        
+        //3
+        var widthError = 0;
+        $wgrid.find("tr th").each(function ()
+        {
+            /*if ($wgrid.find(".wgrid-table tr:eq(0) td:eq(" + index + ")").width() != $(this).width())
             {
-                heigth = true;
-            }
-            equal(heigth, true, "Wgrid is greather than 200px");
-                    
-            //2
-            var position = $wgrid.css('position');
-            equal(position, "relative", "Wgrid have position relative");
-            
-            //3
-            var widthError = 0;
-            $wgrid.find("tr th").each(function ()
-            {
-                var index = $(this).index();
-                if ($wgrid.find(".wgrid-table tr:eq(0) td:eq(" + index + ")").width() != $(this).width())
-                {
-                    widthError += 1;
-                }
-            });
-            
-            start();          
-            equal(widthError, 0, "All <TH> width's is equals of respective <TD> width");
-            equal($wgrid.find('.wgrid-check-container').css('position'), "absolute");
-            equal($wgrid.find('.wgrid-header-container').css('position'), "absolute");
-            equal($wgrid.find('.wgrid-container').css('position'), "absolute");
-            equal($wgrid.find('.wgrid-status-panel').css('position'), "absolute");
-            
-            //5
-            deepEqual($(window).width() >= $('.wgrid').width(), true, 'Wgrid is not more larger than window');
-        }, 500);
-
+                widthError += 1;
+            }*/
+            var index = $(this).index();
+            equal($wgrid.find(".wgrid-table tr:eq(0) td:eq(" + index + ")").width(), $(this).width(), "width match column " + index);
+        });            
+                
+        //equal(widthError, 0, "All <TH> width's is equals of respective <TD> width");
+        equal($wgrid.find('.wgrid-check-container').css('position'), "absolute", "display absolute wgrid-check-container");
+        equal($wgrid.find('.wgrid-header-container').css('position'), "absolute", "display absolute wgrid-header-container");
+        equal($wgrid.find('.wgrid-container').css('position'), "absolute", "display absolute wgrid-container");
+        equal($wgrid.find('.wgrid-status-panel').css('position'), "absolute", "display absolute wgrid-status-panel");
+        
+        //5
+        deepEqual($(window).width() >= $('.wgrid').width(), true, 'Wgrid is not more larger than window');
     });
 });
 
