@@ -150,5 +150,4 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks('grunt-css');
     grunt.loadNpmTasks('grunt-contrib');
     grunt.registerTask( "default", "concat copy cssmin min lint qunit" );
-    grunt.registerTask( "travis", "concat copy cssmin min lint qunit" );
 };
