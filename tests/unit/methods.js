@@ -65,7 +65,7 @@
 		expect(1);
 	 
 		el = $("select").multiselect();
-			ok( menu().is("div.ui-multiselect-menu"), 'Widget is the menu element');
+			ok( menu().is("div.wselect-menu"), 'Widget is the menu element');
 		el.multiselect("destroy");
 	});
 	
@@ -74,7 +74,7 @@
 	 
 		el = $("select").multiselect();
 		var button = el.multiselect("getButton");
-			ok( button.is("button.ui-multiselect"), 'Button is the button element');
+			ok( button.is("button.wselect"), 'Button is the button element');
 		el.multiselect("destroy");
 	});
 	
@@ -109,7 +109,7 @@
 		expect(2);
 	 
 		el = $("select").multiselect().multiselect("destroy");
-			ok( !$(".ui-multiselect").length , 'button.ui-multiselect removed from the DOM');
+			ok( !$(".wselect").length , 'button.wselect removed from the DOM');
 			ok( !el.data("multiselect") , 'no more multiselect obj attached to elem');
 	});
 

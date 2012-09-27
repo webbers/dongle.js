@@ -10,7 +10,7 @@ function menu(){
 }
 
 function header(){
-	return menu().find('.ui-multiselect-header');
+	return menu().find('.wselect-header');
 }
 
 QUnit.done = function(){
@@ -25,9 +25,9 @@ QUnit.done = function(){
 		expect(6);
 	 
 		el = $("select").multiselect(), $header = header();
-		ok( $header.find('a.ui-multiselect-all').css('display') !== 'none', 'select all is visible' );
-		ok( $header.find('a.ui-multiselect-none').css('display') !== 'none', 'select none is visible' );
-		ok( $header.find('a.ui-multiselect-close').css('display') !== 'none', 'close link is visible' );
+		ok( $header.find('a.wselect-all').css('display') !== 'none', 'select all is visible' );
+		ok( $header.find('a.wselect-none').css('display') !== 'none', 'select none is visible' );
+		ok( $header.find('a.wselect-close').css('display') !== 'none', 'close link is visible' );
 		ok( menu().is(':hidden'), 'menu is hidden');
 		ok( el.is(":hidden"), 'the original select is hidden');
 		ok( el.attr('tabIndex') == 2, 'button inherited the correct tab index');
@@ -92,7 +92,7 @@ QUnit.done = function(){
 		el.multiselect();
 		
 		// finds the first input in each optgroup (assumes 2 options per optgroup)
-		el.multiselect("widget").find('.ui-multiselect-checkboxes li:not(.ui-multiselect-optgroup-label) input:even').each(function( i ){
+		el.multiselect("widget").find('.wselect-checkboxes li:not(.wselect-optgroup-label) input:even').each(function( i ){
 			this.click();
 		});
 		

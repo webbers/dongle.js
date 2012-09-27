@@ -2,7 +2,7 @@
   var el, widget, button, input;
 
   function getVisible() {
-    return widget.find(".ui-multiselect-checkboxes input:visible");
+    return widget.find(".wselect-checkboxes input:visible");
   }
 
   function getChecked() {
@@ -49,7 +49,7 @@
       el.multiselect("open");
 
       widget = el.multiselect("widget");
-      input = widget.find(".ui-multiselect-filter input");
+      input = widget.find(".wselect-filter input");
       button = el.next();
     },
 

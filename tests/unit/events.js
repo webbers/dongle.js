@@ -279,7 +279,7 @@
 		})
 		.multiselect("open");
 		
-		menu().find("li.ui-multiselect-optgroup-label a").click();
+		menu().find("li.wselect-optgroup-label a").click();
 		
 		el.multiselect("destroy").remove();
 		el = el.clone();
@@ -297,7 +297,7 @@
             }
 		}).appendTo( body );
 
-        var label = menu().find("li.ui-multiselect-optgroup-label a").click();
+        var label = menu().find("li.wselect-optgroup-label a").click();
         equals( menu().find(":input:checked").length, 0, "when returning false inside the optgrouptoggle handler, no checkboxes are checked" );
         el.multiselect("destroy").remove();
 	});
@@ -327,7 +327,7 @@
 		.multiselect("open");
 		
 		// trigger native click event on optgroup
-		menu().find("li.ui-multiselect-optgroup-label a").click();
+		menu().find("li.wselect-optgroup-label a").click();
 		equals(menu().find(":input:checked").length, 2, "both checkboxes are actually checked" );
 
 		equals(menu().find("input").first().is(":focus"), true, "The first input has focus");

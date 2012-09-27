@@ -135,12 +135,12 @@
 		var height = 234;
 		
 		el = $("select").multiselect({ height: height }).multiselect("open");
-		equals( height, menu().find("ul.ui-multiselect-checkboxes").height(), 'height after opening propertly set to '+height );
+		equals( height, menu().find("ul.wselect-checkboxes").height(), 'height after opening propertly set to '+height );
 		
 		// change height and re-test
 		height = 333;
 		el.multiselect("option", "height", height);
-		equals( height, menu().find("ul.ui-multiselect-checkboxes").height(), 'changing value through api to '+height );
+		equals( height, menu().find("ul.wselect-checkboxes").height(), 'changing value through api to '+height );
 		
 		el.multiselect("destroy");
 	});
@@ -172,12 +172,12 @@
 		var text = "foo";
 		
 		el = $("select").multiselect({ checkAllText:text });
-		equals( text, menu().find(".ui-multiselect-all").text(), 'check all link reads '+text );
+		equals( text, menu().find(".wselect-all").text(), 'check all link reads '+text );
 		
 		// set through option
 		text = "bar";
 		el.multiselect("option","checkAllText","bar");
-		equals( text, menu().find(".ui-multiselect-all").text(), 'check all link reads '+text );
+		equals( text, menu().find(".wselect-all").text(), 'check all link reads '+text );
 		
 		el.multiselect("destroy");
 	});
@@ -187,12 +187,12 @@
 		var text = "foo";
 		
 		el = $("select").multiselect({ uncheckAllText:text });
-		equals( text, menu().find(".ui-multiselect-none").text(), 'check all link reads '+text );
+		equals( text, menu().find(".wselect-none").text(), 'check all link reads '+text );
 		
 		// set through option
 		text = "bar";
 		el.multiselect("option","uncheckAllText","bar");
-		equals( text, menu().find(".ui-multiselect-none").text(), 'changing value through api to '+text );
+		equals( text, menu().find(".wselect-none").text(), 'changing value through api to '+text );
 		
 		el.multiselect("destroy");
 	});
@@ -220,9 +220,9 @@
 		// get some references
 		var $menu = menu(), $header = header();
 		
-		ok( $header.find('a.ui-multiselect-all').is(':hidden'), 'select all link is hidden' );
-		ok( $header.find('a.ui-multiselect-none').is(':hidden'), 'select none link is hidden' );
-		ok( $header.find('a.ui-multiselect-close').css('display') !== 'hidden', 'close link is visible' );
+		ok( $header.find('a.wselect-all').is(':hidden'), 'select all link is hidden' );
+		ok( $header.find('a.wselect-none').is(':hidden'), 'select none link is hidden' );
+		ok( $header.find('a.wselect-close').css('display') !== 'hidden', 'close link is visible' );
 		ok( !$menu.find(":checkbox").length, 'no checkboxes are present');
 		ok( $menu.find(":radio").length > 0, 'but radio boxes are');
 		
@@ -244,7 +244,7 @@
 		equals( $menu.find("input:radio:checked").length, 0, 'After uncheckAll method nothing is checked');
 		
 		// check/uncheck all links
-		equals( $menu.find(".ui-multiselect-all, ui-multiselect-none").filter(":visible").length, 0, "Check/uncheck all links don't exist");
+		equals( $menu.find(".wselect-all, wselect-none").filter(":visible").length, 0, "Check/uncheck all links don't exist");
 		
 		el.multiselect("destroy");
 	});
@@ -258,12 +258,12 @@
 		
 		el.multiselect("option", "multiple", false);
 		equals(el[0].multiple, false, "When changing a multiple select to a single select, the select element no longer has the multiple property");
-		equals(menu().hasClass("ui-multiselect-single"), true, "...and the menu now has the single select class");
+		equals(menu().hasClass("wselect-single"), true, "...and the menu now has the single select class");
 		equals(menu().find('input[type="radio"]').length, 1, "...and the checkbox is now a radio button");
 
 		el.multiselect("option", "multiple", true);
 		equals(el[0].multiple, true, "When changing a single select to a multiple select, the select element has the multiple property");
-		equals(menu().hasClass("ui-multiselect-single"), false, "...and the menu doesn't have the single select class");
+		equals(menu().hasClass("wselect-single"), false, "...and the menu doesn't have the single select class");
 		equals(menu().find('input[type="checkbox"]').length, 1, "...and the radio button is now a checkbox");
 
 		el.multiselect("destroy").remove();
