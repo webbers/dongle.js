@@ -21,6 +21,12 @@ Primeiro faça um clone do repositório:
 git clone https://github.com/webbers/dongle.js.git
 ```
 
+Entre na pasta dongle.js e execute o comnando para instalar as dependências:
+```bash
+cd dongle.js
+npm install
+```
+
 Depois instale o grunt para que ele funcione através do path do windows:
 ```bash
 npm install -g grunt
