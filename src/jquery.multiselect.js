@@ -50,7 +50,7 @@ $.widget("ech.multiselect", {
         this._isOpen = false; // assume no
 
         var
-            button = (this.button = $('<div type="button"><span class="wselect-final-content"></span></div>'))
+            button = (this.button = $('<button><span class="wselect-final-content"></span></button>'))
                 .addClass('wselect')
                 .addClass( o.classes )
                 .attr({ 'title':el.attr('title'), 'aria-haspopup':true, 'tabIndex':el.attr('tabIndex') })
@@ -386,7 +386,7 @@ $.widget("ech.multiselect", {
 
     // set button width
     _setButtonWidth: function(){
-        /*var width = this.element.outerWidth(),
+        var width = this.element.outerWidth(),
             o = this.options;
 
         if( /\d/.test(o.minWidth) && width < o.minWidth){
@@ -394,7 +394,12 @@ $.widget("ech.multiselect", {
         }
 
         // set widths
-        this.button.width( width );*/
+        this.button.width( width );
+        
+        var finalContent = this.button.find('.wselect-final-content');        
+        var content = this.button.find('.wselect-content');
+        content.width(0);
+        content.width(width - content.outerWidth() - finalContent.outerWidth());
     },
 
     // set menu width

@@ -27,6 +27,8 @@
     -ms-user-select: none;
     user-select: none;
     zoom: 1;
+    box-sizing: initial;
+    padding: 0;
 }
 
 .wselect span.wselect-icon
@@ -139,10 +141,11 @@
     overflow: hidden;
     text-indent: 10px;
     font-size: 13px;
-    top: 0;
-    padding-left: 0px;
+    padding: 0;
+    padding-left: 10px;
     padding-top: 1px;
-    padding-right: 10px;
+    padding-right: 0px;
+    text-align: left;
     background: url('images/wselectbox.png') no-repeat;
 }
 

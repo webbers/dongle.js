@@ -304,7 +304,7 @@
 		ok(header().is(':hidden'), "after changing header option on default config: header is no longer visible" );
 		
 		// test for all links within the default header
-		equals(countLinks(), 3, "number of links in the default header config");
+		equals(countLinks(), 2, "number of links in the default header config");
 		
 		el.multiselect("destroy");
 		
@@ -319,7 +319,7 @@
 		// create again, this time custom header
 		el = $("select").multiselect({ header:"hai guyz", autoOpen:true });
 		equals(header().text(), "hai guyz", "header equals custom text");
-		equals(countLinks(), 1, "number of links in the custom header config (should be close button)");
+		equals(countLinks(), 0, "number of links in the custom header config (should be close button)");
 		
 		el.multiselect("destroy");
 	});

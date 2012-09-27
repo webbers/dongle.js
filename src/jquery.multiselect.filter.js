@@ -3,7 +3,7 @@
  * jQuery MultiSelect UI Widget Filtering Plugin 1.4
  * Copyright (c) 2012 Eric Hynds
  *
- * http://www.erichynds.com/jquery/jquery-ui-multiselect-widget/
+ * http://www.erichynds.com/jquery/jquery-wselect-widget/
  *
  * Depends:
  *   - jQuery UI MultiSelect widget
@@ -31,10 +31,10 @@
 				instance = (this.instance = $(this.element).data("multiselect")),
 				
 				// store header; add filter class so the close/check all/uncheck all links can be positioned correctly
-				header = (this.header = instance.menu.find(".ui-multiselect-header").addClass("ui-multiselect-hasfilter")),
+				header = (this.header = instance.menu.find(".wselect-header").addClass("wselect-hasfilter")),
 				
 				// wrapper elem
-				wrapper = (this.wrapper = $('<div class="ui-multiselect-filter">'+(opts.label.length ? opts.label : '')+'<input placeholder="'+opts.placeholder+'" type="search"' + (/\d/.test(opts.width) ? 'style="width:'+opts.width+'px"' : '') + ' /></div>').prependTo( this.header ));
+				wrapper = (this.wrapper = $('<div class="wselect-filter">'+(opts.label.length ? opts.label : '')+'<input placeholder="'+opts.placeholder+'" type="search"' + (/\d/.test(opts.width) ? 'style="width:'+opts.width+'px"' : '') + ' /></div>').prependTo( this.header ));
 
 			// reference to the actual inputs
 			this.inputs = instance.menu.find('input[type="checkbox"], input[type="radio"]');
@@ -127,9 +127,9 @@
 			}
 
 			// show/hide optgroups
-			this.instance.menu.find(".ui-multiselect-optgroup-label").each(function(){
+			this.instance.menu.find(".wselect-optgroup-label").each(function(){
 				var $this = $(this);
-				var isVisible = $this.nextUntil('.ui-multiselect-optgroup-label').filter(function(){
+				var isVisible = $this.nextUntil('.wselect-optgroup-label').filter(function(){
 				  return $.css(this, "display") !== 'none';
 				}).length;
 				
@@ -143,7 +143,7 @@
 		
 		updateCache: function(){
 			// each list item
-			this.rows = this.instance.menu.find(".ui-multiselect-checkboxes li:not(.ui-multiselect-optgroup-label)");
+			this.rows = this.instance.menu.find(".wselect-checkboxes li:not(.wselect-optgroup-label)");
 			
 			// cache
 			this.cache = this.element.children().map(function(){
