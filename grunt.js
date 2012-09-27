@@ -62,10 +62,12 @@ module.exports = function( grunt ) {
         {
             "components":
             {
-                src: ["src/js/wcontextmenu.js",
+                src: ["src/js/components.core.js",
+                      "src/js/wcontextmenu.js",
                       "src/js/wgrid.js",
                       "src/js/winputfile.js",
-                      "src/js/wselectbox.js",
+                      "src/js/wselect.js",
+                      "src/js/wselect.filter.js",
                       "src/js/wsimplegrid.js",
                       "src/js/wswitchbutton.js"],
                 dest: "dist/js/dongle.components.js"
@@ -73,7 +75,6 @@ module.exports = function( grunt ) {
             "components.unobstrusive":
             {
                 src: ["src/js/wbutton.unobstrusive.js",
-                      "src/js/wmultiselect.unobstrusive.js",
                       "src/js/wslider.unobstrusive.js",
                       "src/js/wspinbutton.unobstrusive.js",
                       "src/js/wswitchbutton.unobstrusive.js"],
@@ -99,8 +100,8 @@ module.exports = function( grunt ) {
                 src: ["src/css/wcontextmenu.css",
                       "src/css/wgrid.css",
                       "src/css/winputfile.css",
-                      "src/css/wmultiselect.css",
                       "src/css/wselectbox.css",
+                      "src/css/wselectbox.filters.css",
                       "src/css/wslider.css",
                       "src/css/wsimplegrid.css",
                       "src/css/wspinbutton.css",
@@ -141,7 +142,7 @@ module.exports = function( grunt ) {
         },
         
         qunit: {
-            files: ['test/index.html']
+            files: ['test/*.html']
         },
         
         uglify: {}

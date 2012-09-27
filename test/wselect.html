@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>WSelect Unit Tests</title>
+<link type="text/css" href="../3rd/qunit/1.9.0/qunit.css" rel="stylesheet" media="all" />
+<link rel="stylesheet" href="../src/css/wselect.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../src/css/wselect.filter.css" type="text/css" media="screen" />
+
+</head>
+
+<body>
+<h1 id="qunit-header">WSelect Unit Tests</h1>
+<h2 id="qunit-banner"></h2>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+
+<select title="WSelect" multiple="multiple" tabindex="2">
+<optgroup label="Optgroup One">
+	<option value="1">One</option>
+	<option value="2">Two</option>
+	<option value="3">Three</option>
+</optgroup>
+<optgroup label="Optgroup two">
+	<option value="4">Four</option>
+	<option value="5">Five</option>
+	<option value="6">Six</option>
+	<option value="7">Seven</option>
+</optgroup>
+<optgroup label="Optgroup three" class="optgroupClass">
+	<option value="8">Eight</option>
+	<option value="9" class="optionClass">Nine</option>
+</optgroup>
+</select>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.js"></script>
+<script type="text/javascript" src="../dist/js/dongle.components.js"></script>
+
+<script type="text/javascript" src="../3rd/qunit/1.9.0/qunit.js"></script>
+<script type="text/javascript" src="unit/wselect/core.js"></script>
+<script type="text/javascript" src="unit/wselect/options.js"></script>
+<script type="text/javascript" src="unit/wselect/events.js"></script>
+<script type="text/javascript" src="unit/wselect/methods.js"></script>
+<script type="text/javascript" src="unit/wselect/html.js"></script>
+<script type="text/javascript" src="unit/wselect/filter.js"></script>
+
+</body>
+</html>
