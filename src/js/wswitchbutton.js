@@ -23,6 +23,7 @@
         var plugin = this;
         plugin.settings = {};
         var $element = $(element);
+		$element.hide();
 
         if (typeof (options) == "string")
         {
