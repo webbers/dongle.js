@@ -15,14 +15,15 @@
     $.WSwitchbutton = function (element, options)
     {
         var defaults = {
-            yes: 'sim',
-            no: 'não',
+            yes: 'yes',
+            no: 'no',
             speed: 0.125
         };
 
         var plugin = this;
         plugin.settings = {};
         var $element = $(element);
+		$element.hide();
 
         if (typeof (options) == "string")
         {
@@ -104,20 +105,22 @@
         plugin.init = function ()
         {
             plugin.settings = $.extend({}, defaults, options);
-            var $control = $('<div class="wswitchbutton-control"></div>');
-            var $noLabel = $('<div class="left" unselectable="on">' + plugin.settings.no + '</div>');
-            var $button;
+			var disabledButton = $element.attr('disabled');
+			
+			var $control, $button;
 
-            var $yesLabel = $('<div class="right" unselectable="on">' + plugin.settings.yes + '</div>');
-            var disabledButton = $element.attr('disabled');
             if (disabledButton)
             {
+				$control = $('<div class="wswitchbutton-control wswitchbutton-disabled" disabled="disabled"></div>');
                 $button = $('<div class="button button-disabled" disabled="disabled"></div>');
             }
             else
             {
+				$control = $('<div class="wswitchbutton-control"></div>');
                 $button = $('<div class="button"></div>');
             }
+			var $noLabel = $('<div class="left" unselectable="on">' + plugin.settings.no + '</div>');
+			var $yesLabel = $('<div class="right" unselectable="on">' + plugin.settings.yes + '</div>');
 
             $control.append($noLabel);
             $control.append($button);

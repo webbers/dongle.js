@@ -24,12 +24,13 @@
     height: 21px;
     background: url(../images/wswitchbutton.png);
 }
-.wswitchbutton-control .button[disabled], .wswitchbutton-control .button-disabled
+.wswitchbutton-disabled
 {
-    width: 47px;
-    height: 21px;
-    background: url(../images/wswitchbutton-disabled.png);
+    cursor: default !important;
+    opacity: .35;
+    filter:Alpha(Opacity=35);
 }
+
 .wswitchbutton-control .left, .wswitchbutton-control .right
 {
     padding: 0 5px;
@@ -48,16 +49,6 @@
 }
 
 .wswitchbutton-unchecked
-{
-    background-position: -25px;
-}
-
-.wswitchbutton-checked[disabled=disabled]
-{
-    background-position: 0px;
-}
-
-.wswitchbutton-unchecked[disabled=disabled]
 {
     background-position: -25px;
 }

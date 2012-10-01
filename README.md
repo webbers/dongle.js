@@ -41,7 +41,7 @@ grunt.cmd -version
 Então para rodar o build completo do dongle.js digite o seguinte:
 
 ```bash
-grunt.cmd deploy
+grunt.cmd
 ```
 
 A versão compilada e minificada do dongle.js estarão no subdiretório `dist/`.

@@ -97,11 +97,12 @@ module.exports = function( grunt ) {
             },
             "components-css":
             {
-                src: ["src/css/wcontextmenu.css",
+                src: ["src/css/wbutton.css",
+                      "src/css/wcontextmenu.css",
                       "src/css/wgrid.css",
                       "src/css/winputfile.css",
-                      "src/css/wselectbox.css",
-                      "src/css/wselectbox.filters.css",
+                      "src/css/wselect.css",
+                      "src/css/wselect.filter.css",
                       "src/css/wslider.css",
                       "src/css/wsimplegrid.css",
                       "src/css/wspinbutton.css",

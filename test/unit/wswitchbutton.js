@@ -38,6 +38,12 @@ $(document).ready(function ()
 });
 
 module('SwitchButton');
+
+test("Element must be hidden", function ()
+{
+	ok($("#yesno").is(':visible')===false);	
+});
+
 test("Check and Unckeck tests", function ()
 {
     $("#yesno").wswitchbutton('check');
