@@ -145,10 +145,23 @@ module.exports = function( grunt ) {
             files: ['test/*.html']
         },
         
+        //"qunit-cov":
+        //{
+        //    test:
+        //    {
+        //        minimum: 0.8,
+        //        srcDir: 'dist',
+        //        outDir: 'coverage',
+        //        files: ['test/*.html']
+        //    }
+        //},
+        
         uglify: {}
     });
     
+    grunt.loadTasks('qunit-cov');
     grunt.loadNpmTasks('grunt-css');
     grunt.loadNpmTasks('grunt-contrib');
     grunt.registerTask( "default", "concat copy cssmin min lint qunit" );
+    grunt.registerTask( "full", "concat copy cssmin min lint qunit qunit-cov" );
 };
