@@ -63,11 +63,14 @@ module.exports = function( grunt ) {
             "components":
             {
                 src: ["src/js/components.core.js",
+                      "src/js/wbutton.js",
                       "src/js/wcontextmenu.js",
                       "src/js/wgrid.js",
                       "src/js/winputfile.js",
                       "src/js/wselect.js",
                       "src/js/wselect.filter.js",
+                      "src/js/wslider.js",
+                      "src/js/wspinbutton.js",
                       "src/js/wsimplegrid.js",
                       "src/js/wswitchbutton.js"],
                 dest: "dist/js/dongle.components.js"
