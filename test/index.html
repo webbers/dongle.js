@@ -15,6 +15,13 @@
     <script type="text/javascript" src="../3rd/mockjax/1.5.1/jquery.mockjax.js"></script>
     <script type="text/javascript" src="../3rd/jquery.validate/1.8.0/jquery.validate.js"></script>
     <script type="text/javascript" src="../3rd/jquery.validate/1.8.0/jquery.validate.unobstrusive.js"></script>
+	
+	<link type="text/css" href="../dist/css/dongle.components.css" rel="stylesheet" media="all" />
+
+	<script src="../dist/js/dongle.components.min.js"></script>
+	<script src="../dist/js/dongle.components.unobstrusive.js"></script>
+	<script src="../dist/js/dongle.validators.min.js"></script>
+
 </head>
 
 <body id="body">
@@ -55,6 +62,11 @@
     <hr />
     <span>Change event detect</span> <span id="change-detect"></span>
     
+	<!--WButton-->
+	<div>
+		<button id="wbutton-default" class="wbutton">Teste</button>
+	</div>
+	
     <!--RequiredIf-->
     <form>
         <input type="text" name="check" id="check" />
@@ -63,16 +75,12 @@
         <span class="field-validation-error" data-valmsg-for="title" data-valmsg-replace="true"></span>
         <input type="submit" />
     </form>
+	
+
 </body>
-
-
-<link type="text/css" href="../dist/css/dongle.components.css" rel="stylesheet" media="all" />
-
-<script src="../dist/js/dongle.components.min.js"></script>
-<script src="../dist/js/dongle.components.unobstrusive.min.js"></script>
-<script src="../dist/js/dongle.validators.min.js"></script>
 
 <script src="unit/wgrid.js"></script>
 <script src="unit/wswitchbutton.js"></script>
 <script src="unit/wrequiredif.js"></script>
+<script src="unit/wbutton.js"></script>
 </html>
