@@ -177,8 +177,14 @@ module.exports = function(grunt)
         testFiles = this.data.testFiles;
         // Reset status.
         
-        fs.mkdirSync(outDir);
-        fs.mkdirSync(outDir + '/in/');
+        if(!fs.existsSync(outDir))
+        {
+            fs.mkdirSync(outDir);
+        }
+        if(!fs.existsSync(outDir + '/in/'))
+        {
+            fs.mkdirSync(outDir + '/in/');
+        }
         for(var i = 0; i < depDirs.length; i++)
         {
             var dir = depDirs[i];
