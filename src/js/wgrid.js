@@ -65,7 +65,7 @@
             showStatusIcon: true,
             statusPanel: null,
             complete: null,
-            showPaging: false,
+            showPaging: true,
             dictionary:
             {
                 yes: "Sim",
@@ -547,6 +547,9 @@
 
             if (!plugin.settings.showPaging)
             {
+                if ($("#more-margin").length > 0) {
+                    moreMargin.remove();
+                }
                 plugin.settings.statusPanel.find('.more-items-button').before(moreMargin).hide();
             }
         };
