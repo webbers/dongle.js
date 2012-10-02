@@ -177,6 +177,10 @@ module.exports = function(grunt)
         testFiles = this.data.testFiles;
         // Reset status.
         
+        if(fs.existsSync(outDir))
+        {
+            rmdirSyncRecursive(outDir);
+        }
         if(!fs.existsSync(outDir))
         {
             fs.mkdirSync(outDir);
@@ -185,6 +189,7 @@ module.exports = function(grunt)
         {
             fs.mkdirSync(outDir + '/in/');
         }
+        
         for(var i = 0; i < depDirs.length; i++)
         {
             var dir = depDirs[i];
@@ -215,7 +220,7 @@ module.exports = function(grunt)
                     grunt.verbose.subhead('Testing ' + basename).or.write('Testing ' + basename);
 
                     // Create temporary file to be used for grunt-phantom communication.
-                    var tempfile = outDir + '/out.temp';
+                    var tempfile = outDir + '/out/out.temp';
                     if(fs.existsSync(tempfile))
                     {
                         fs.unlinkSync(tempfile);
@@ -418,6 +423,8 @@ module.exports = function(grunt)
         var totalCovered = 0, totalUncovered = 0;
         var coverageBase = grunt.file.read('qunit-cov\\qunit-cov\\cov.tmpl', 'utf8').toString();
         
+        var filesPercent = {};
+        
         for(var key in coverageInfo)
         {
             var colorized = '';
@@ -452,11 +459,13 @@ module.exports = function(grunt)
                 }
                 var htmlLine = fileLines[idx].replace('<', '&lt;').replace('>', '&gt;');
                 colorized += '<div class="code' + hitmiss + '">' + htmlLine + '</div>\n';
-            };  
+            };
+
+            filesPercent[key] = parseInt(100 * covered / (covered+uncovered), 10);
             
             colorized = coverageBase.replace('COLORIZED_LINE_HTML', colorized);
             
-            var coverageOutputFile = outDir + '/' + key + '.htm';
+            var coverageOutputFile = outDir + '/out/' + key + '.html';
             grunt.file.write(coverageOutputFile, colorized);
             
             totalCovered += covered;
@@ -464,6 +473,13 @@ module.exports = function(grunt)
             
             grunt.log.writeln('Coverage for ' + key + ' in ' + coverageOutputFile);            
         }
+        
+        var html = '<table>';
+        for(var key in filesPercent)
+        {
+            html+= '<tr><td>' + key + '</td><td>' + filesPercent[key] + '%</td></tr>';
+        }
+        grunt.file.write(outDir + '/out/coverage.html', html);
         
         var percent = totalCovered / (totalCovered + totalUncovered);
         grunt.log.writeln('Coverage in ' + parseInt(percent*100, 10) + '%');
@@ -599,7 +615,7 @@ module.exports = function(grunt)
             var currFile = fs.lstatSync(path + "/" + files[i]);
 
             if(currFile.isDirectory()) // Recursive function back to the beginning
-                exports.rmdirSyncRecursive(path + "/" + files[i]);
+                rmdirSyncRecursive(path + "/" + files[i]);
 
             else if(currFile.isSymbolicLink()) // Unlink symlinks
                 fs.unlinkSync(path + "/" + files[i]);
@@ -626,7 +642,7 @@ module.exports = function(grunt)
 
         if (!opts || !opts.preserve) {
             try {
-                if(fs.statSync(newDirLocation).isDirectory()) exports.rmdirSyncRecursive(newDirLocation);
+                if(fs.statSync(newDirLocation).isDirectory()) rmdirSyncRecursive(newDirLocation);
             } catch(e) { }
         }
 
@@ -673,7 +689,7 @@ module.exports = function(grunt)
 
             if(currFile.isDirectory()) {
                 /*  ...and recursion this thing right on back. */
-                exports.chmodSyncRecursive(sourceDir + "/" + files[i], filemode);
+                chmodSyncRecursive(sourceDir + "/" + files[i], filemode);
             } else {
                 /*  At this point, we've hit a file actually worth copying... so copy it on over. */
                 fs.chmod(sourceDir + "/" + files[i], filemode);
@@ -699,7 +715,7 @@ module.exports = function(grunt)
 
             if(currFile.isDirectory()) {
                 /*  ...and recursion this thing right on back. */
-                exports.chownSyncRecursive(sourceDir + "/" + files[i], uid, gid);
+                chownSyncRecursive(sourceDir + "/" + files[i], uid, gid);
             } else {
                 /*  At this point, we've hit a file actually worth chowning... so own it. */
                 fs.chownSync(sourceDir + "/" + files[i], uid, gid);
