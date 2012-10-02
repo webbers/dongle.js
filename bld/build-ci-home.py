@@ -28,10 +28,5 @@ resDir = os.path.abspath( os.path.join( os.path.dirname( __file__ ), '../res' ) 
 bp = Builder( "Dongle.Js" )
 bp.addStep( MainBuild() )
 
-bp.addStep( SvnDeleteStep(repoUrl))
-bp.addStep( DelTreeStep( pubDir ) )
-
-bp.addStep( CopyFilteredFilesStep( DongleFileFilter(), distDir, pubDir ) )
-
 if not bp.build():
     sys.exit(1)
