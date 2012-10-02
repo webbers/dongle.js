@@ -238,11 +238,9 @@ module.exports = function(grunt)
                     function cleanup()
                     {
                         clearTimeout(id);
-                        /*if(fs.existsSync(tempfile))
-                        {
-                            fs.unlinkSync(tempfile);
-                        }*/
                     }
+                    
+                    grunt.log.ok('AQUI');
                     
                     // It's simple. As QUnit tests, assertions and modules begin and complete,
                     // the results are written as JSON to a temporary file. This polling loop

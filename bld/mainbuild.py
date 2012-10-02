@@ -31,6 +31,6 @@ class MainBuild( Builder ):
 
         self.addStep( DelTreeStep( tempDir ) )  
         self.addStep( RunCommandStep( 'npm.cmd install', rootDir ))        
-        self.addStep( RunCommandStep( 'npm.cmd run-script test-windows', rootDir ))
+        self.addStep( RunCommandStep( 'grunt.cmd full --verbose', rootDir ))
                 
         return Builder.build(self)

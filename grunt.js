@@ -153,7 +153,7 @@ module.exports = function( grunt ) {
         {
             test:
             {
-                minimum: 0.8,
+                minimum: 0.2,
                 srcDir: 'dist',
                 outDir: 'testResults',
                 depDirs: ['3rd', 'test'],
