@@ -25,9 +25,9 @@
         "grunt": "~0.3.14",
         "grunt-css": "0.2.0",
         "grunt-contrib": ">=0.2.0",
+        "grunt-qunit-cov": ">=0.2.0",
         "grunt-compare-size": ">=0.1.0",
-        "grunt-git-authors": ">=1.0.0",
-        "grunt": "~0.3.9"
+        "grunt-git-authors": ">=1.0.0"
     },
     "scripts": {
         "test-windows": "grunt.cmd full --verbose",
