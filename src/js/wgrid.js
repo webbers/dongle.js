@@ -383,6 +383,10 @@
             {
                 $('.wgrid-main .wgrid-layout').width('auto');
             }
+            if ($("#more-margin").length > 0)
+            {
+                $("#more-margin").remove();
+            }
         };
 
         var retrieveMoreItems = function ()
