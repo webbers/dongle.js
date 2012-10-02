@@ -30,7 +30,7 @@
         "grunt": "~0.3.9"
     },
     "scripts": {
-        "test-windows": "grunt.cmd default --verbose",
+        "test-windows": "grunt.cmd full --verbose",
         "test": "grunt default --verbose"
     },
     "keywords": []
