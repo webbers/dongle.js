@@ -50,12 +50,12 @@
         var selectedRowsElements = [];
         var selectedCheckRowsElements = [];
         var selectedRowsIndex = [];
-
         var defaults =
         {
             listItemCount: 100,
             jsonUrl: null,
             method: "POST",
+            hasMoreAfterUrl: null,
             lastId: 0,
             totalItems: 0,
             autoLoad: true,
@@ -65,27 +65,23 @@
             showStatusIcon: true,
             statusPanel: null,
             complete: null,
+            showPaging: false,
             dictionary:
             {
-                yes: "Yes",
-                no: "No",
-                filter: "Filter",
-                advancedOptions: "Advanced Options",
-                removeFilter: "Remove filter",
-                exactlyEqual: "Identical",
-                contain: "Contains",
-                startWith: "Starts with",
-                endWith: "Ends with",
-                of: "of",
-                items: "items",
-                showing: "Showing",
-                reload: "Reload",
-                many: "many",
-                dateFormat: "mm/dd/yyyy"
-            },
-            getId: function(elementData)
-            {
-                return elementData;
+                yes: "Sim",
+                no: "Não",
+                filter: "Filtro",
+                advancedOptions: "Opções avançadas",
+                removeFilter: "Remover filtro",
+                exactlyEqual: "Exatamente igual",
+                contain: "Contém",
+                startWith: "Inicia com",
+                endWith: "Termina com",
+                of: "de",
+                items: "itens",
+                showing: "Mostrando",
+                reload: "Recarregar",
+                many: "muitos"
             }
         };
 
@@ -113,7 +109,7 @@
         //plugin configurations
         plugin.settings = $.extend({}, defaults, options);
 
-        if (plugin.settings.loadOverlay !== null)
+        if (plugin.settings.loadOverlay != null)
         {
             loadingHide();
         }
@@ -149,19 +145,24 @@
             var filterParams = $.param(filters);
             var querystring = "?skip=" + skip;
 
-            if (plugin.settings.orderby !== '' && plugin.settings.orderby !== null && plugin.settings.orderby !== undefined)
+            if (plugin.settings.keyColumn != "" || plugin.settings.keyColumn != null)
+            {
+                querystring = querystring + "&keyColumn=" + plugin.settings.keyColumn;
+            }
+
+            if (plugin.settings.orderby != "" && plugin.settings.orderby != null && plugin.settings.orderby != undefined)
             {
                 orderby = plugin.settings.orderby;
             }
 
-            querystring = filterParams === "" ? querystring : querystring + "&" + filterParams;
-            querystring = orderby === null ? querystring : querystring + "&orderby=" + orderby + "&sort=" + sort;
-            querystring = lastId === 0 ? querystring : querystring + "&lastId=" + lastId;
-            querystring = eventFilter === null ? querystring : querystring + "&eventFilter=" + eventFilter;
+            querystring = filterParams == "" ? querystring : querystring + "&" + filterParams;
+            querystring = orderby == null ? querystring : querystring + "&orderby=" + orderby + "&sort=" + sort;
+            querystring = lastId == 0 ? querystring : querystring + "&lastId=" + lastId;
+            querystring = eventFilter == null ? querystring : querystring + "&eventFilter=" + eventFilter;
 
             if (plugin.settings.useUrlQuerystring)
             {
-                querystring = window.location.search.indexOf('?') === 0 ?
+                querystring = window.location.search.indexOf('?') == 0 ?
                     querystring + "&" + window.location.search.substr(1) :
                     querystring;
             }
@@ -173,30 +174,39 @@
         var checkIfNotExistsOldItems = function (itemsCount)
         {
             var moreItemsButton = plugin.settings.statusPanel.find('.more-items-button');
-            moreItemsButton.show();
-            $("#more-margin").remove();
-
-            if (itemsCount < plugin.settings.listItemCount || itemsCount === 0)
+            if (itemsCount < plugin.settings.listItemCount || itemsCount == 0)
             {
                 moreItemsButton.hide();
                 moreItemsButton.after(moreMargin);
                 return;
             }
+            else
+            {
+                moreItemsButton.show();
+            }
+            $("#more-margin").remove();
         };
 
         var getElementId = function (elementData)
         {
-            return plugin.settings.getId(elementData);
+            var elementId = elementData['Id'];
+            if (elementId == null)
+            {
+                elementId = elementData['rownum'];
+            }
+
+            return elementId;
         };
 
         var getRowClass = function (elementData)
         {
-            var rowClass = plugin.settings.classRowObjectField !== null ? elementData[plugin.settings.classRowObjectField] : "";
+            var rowClass = plugin.settings.classRowObjectField != null ? elementData[plugin.settings.classRowObjectField] : "";
 
-            if (plugin.settings.colorizeItems === false)
+            if (plugin.settings.colorizeItems == false)
             {
                 rowClass = 1;
             }
+
             return rowClass;
         };
 
@@ -206,15 +216,6 @@
             tableRow += plugin.settings.showStatusIcon ? '<td><span class="wgrid-status-icon"></span></td>' : "";
             tableRow += '</tr>';
             return tableRow;
-        };
-
-        var fromDateToString = function (date, mask)
-        {
-            if (date !== null)
-            {
-                mask = mask ? mask : plugin.settings.dictionary.dateFormat + ' HH:MM:ss';
-                return dateFormat(parseInt(date.match(/\d+/), 10), mask);
-            } return "";
         };
 
         var getTableRow = function (elementData)
@@ -234,25 +235,23 @@
 
                 columnValue = columnType == "datetime" ? fromDateToString(columnValue) : columnValue;
                 columnValue = columnType == "bool" ? (columnValue ? plugin.settings.dictionary.yes : plugin.settings.dictionary.no) : columnValue;
-                columnValue = columnType == "cron" ? $.cronText(columnValue, plugin.settings.dictionary) : columnValue;
-                columnValue = columnValue === null || columnValue === undefined ? "" : columnValue;
+                columnValue = columnValue == null || columnValue == undefined ? "" : columnValue;
 
-                if (i === 0 || column === "MachineId")
+                if (i == 0 || column == "MachineId")
                 {
                     rowToInsert.push('<td style=\"cursor:pointer\">' + columnValue + '</td>');
                     i++;
                 }
                 else
                 {
-                    var cronClass = columnType == "cron" ? "wgrid-column-cron" : "";
-                    rowToInsert.push('<td style=\"cursor:pointer\" class="' + cronClass + '" title="' + columnValue + '">' + columnValue + '</td>');
+                    rowToInsert.push('<td style=\"cursor:pointer\" title="' + columnValue + '">' + columnValue + '</td>');
                 }
             }
             rowToInsert.push("</tr>");
 
             return rowToInsert.join('');
         };
-        
+
         var hideMoreItems = function ()
         {
             var moreItemsButton = plugin.settings.statusPanel.find('.more-items-button');
@@ -277,7 +276,7 @@
                 {
                     loadingShow();
                     var jsonData = json.Data;
-                    if (jsonData !== null && jsonData.length > 0)
+                    if (jsonData != null && jsonData.length > 0)
                     {
                         totalInserted = jsonData.length;
                         var rowsToInsert = [];
@@ -290,7 +289,7 @@
                             var elementData = jsonData[i];
                             rowsDataArray.push(elementData);
 
-                            lastId = getElementId(elementData) > lastId ? getElementId(elementData) : lastId;
+                            lastId = elementData['Id'] > lastId ? elementData['Id'] : lastId;
                             rowsToInsert.push(getTableRow(elementData));
                             checkRowsToInsert.push(getCheckTableRow(elementData));
                         }
@@ -303,7 +302,7 @@
 
                         totalDisplayingItems += totalInserted;
 
-                        var totalParsed = parseInt(plugin.settings.statusPanel.find('.wgrid-total').text(), 10);
+                        var totalParsed = parseInt(plugin.settings.statusPanel.find('.wgrid-total').text());
                         if (typeof totalParsed == "number" && totalParsed != -1)
                         {
                             totalItems = plugin.settings.statusPanel.find('.wgrid-total').text();
@@ -314,10 +313,6 @@
                         }
 
                         data.tableRows = $element.find('.wgrid-table tr');
-                        if ((totalItems !== null && totalDisplayingItems >= totalItems) || typeof (totalItems) == "undefined")
-                        {
-                            hideMoreItems();
-                        }
                     }
                     else
                     {
@@ -340,7 +335,7 @@
 
         var creteTagBox = function (tags)
         {
-            if (tags === null || tags === undefined || tags.length === 0) return '';
+            if (!tags || tags.length == 0) return '';
 
             var tagBox = [];
             var colorClass = tags.length > 1 ? 'multi-color' : 'color-' + tags[0].Color;
@@ -378,9 +373,9 @@
             lastId = 0;
             totalDisplayingItems = 0;
 
-            if (plugin.settings.jsonUrl === null) { return; }
+            if (plugin.settings.jsonUrl == null) { return; }
             var completeUrl = plugin.settings.jsonUrl + getQuerystring();
-
+            plugin.settings.statusPanel.find('.wgrid-total').html(plugin.settings.dictionary.many);
             clearGrid();
             insertJsonItems(completeUrl);
             resizeColumns();
@@ -402,7 +397,7 @@
 
             skip = data.tableRows.length;
 
-            if (plugin.settings.jsonUrl === null) { return; }
+            if (plugin.settings.jsonUrl == null) { return; }
             var completeUrl = plugin.settings.jsonUrl + getQuerystring();
 
             insertJsonItems(completeUrl, function ()
@@ -440,7 +435,7 @@
             data.tableRows = data.table.find('tr');
             totalDisplayingItems = totalDisplayingItems - $(selectedRowsElements).length;
 
-            if (removeFromTotal && totalItems !== null)
+            if (removeFromTotal && totalItems != null)
             {
                 totalItems = totalItems - $(selectedRowsElements).length;
             }
@@ -476,7 +471,7 @@
             });
             data.content.width(data.table.width());
 
-            if (firstColumns.length === 0)
+            if (firstColumns.length == 0)
             {
                 data.content.width(data.headerTable.width());
             }
@@ -530,14 +525,14 @@
             loadingShow();
             plugin.settings.statusPanel.find('.wgrid-displaying').html(totalDisplayingItems);
 
-            var totalItemsText = totalItems === null || totalItems === undefined ? plugin.settings.dictionary.many : totalItems;
+            var totalItemsText = totalItems == null || totalItems == undefined ? plugin.settings.dictionary.many : totalItems;
 
-            if (totalDisplayingItems < plugin.settings.listItemCount && totalItems !== null)
+            if (totalDisplayingItems < plugin.settings.listItemCount && totalItems != null)
             {
                 totalItemsText = totalDisplayingItems;
             }
 
-            if ((totalInserted !== null || totalInserted !== undefined))
+            if ((totalInserted != null || totalInserted != undefined))
             {
                 if (totalInserted < plugin.settings.listItemCount)
                 {
@@ -549,6 +544,11 @@
 
             plugin.settings.statusPanel.find('.more-items-button>.content>span').html('+ ' + plugin.settings.listItemCount);
             loadingHide();
+
+            if (!plugin.settings.showPaging)
+            {
+                plugin.settings.statusPanel.find('.more-items-button').before(moreMargin).hide();
+            }
         };
 
         var addCheckboxColumns = function ()
@@ -593,7 +593,7 @@
             },
             getOrderAndSort: function ()
             {
-                if (orderby === null)
+                if (orderby == null)
                 {
                     return null;
                 }
@@ -645,12 +645,6 @@
             {
                 return rowsDataArray;
             },
-            removeFilters: function ()
-            {
-                filters = null;
-                filters = {};
-                reloadGrid();
-            },
             setSelectedRowsDataField: function (field, value)
             {
                 var a;
@@ -658,6 +652,12 @@
                 {
                     rowsDataArray[selectedRowsIndex[a]][field] = value;
                 }
+            },
+            removeFilters: function ()
+            {
+                filters = null;
+                filters = new Object();
+                reloadGrid();
             },
             removeSelectedRows: function (removeFromTotal)
             {
@@ -673,6 +673,10 @@
                 params = parameters;
                 reloadGrid();
             },
+            resizeColumns: function ()
+            {
+                resizeColumns();
+            },
             reloadGrid: function ()
             {
                 reloadGrid();
@@ -687,7 +691,7 @@
             },
             updateRow: function (elementData)
             {
-                var elementId = getElementId(elementData);
+                var elementId = elementData['Id'];
                 var elementRow = data.table.find('tr[item-id=' + elementId + ']');
                 var updatedRow = $(getTableRow(elementData));
                 updatedRow.addClass('wgrid-selected-line');
@@ -790,14 +794,14 @@
         //Para sumir com o filtro quando clica fora
         $(document).bind('click', function (e)
         {
-            if (e.srcElement !== null && e.srcElement !== undefined )
+            if (e.srcElement != null)
             {
                 e.stopPropagation();
-                if (($(e.srcElement).closest('.wgrid-filter-panel').length === 0) &&
+                if (($(e.srcElement).closest('.wgrid-filter-panel').length == 0) &&
                     (e.srcElement.className.indexOf('wgrid-filter-button') == -1))
                 {
-                    if (($(e.srcElement).closest('.ui-widget').length === 0) &&
-                        ($(e.srcElement).closest('.ui-datepicker-header').length === 0))
+                    if (($(e.srcElement).closest('.ui-widget').length == 0) &&
+                        ($(e.srcElement).closest('.ui-datepicker-header').length == 0))
                     {
                         $('.wgrid-filter-panel').remove();
                     }
@@ -813,10 +817,10 @@
             var fieldValue = $column.attr('field_value');
             var fieldOrderBy = $column.attr('orderby');
 
-            var fieldName = fieldValue !== null && fieldValue !== "" ? $column.attr('field_value') : $column.attr('field_name');
+            var fieldName = fieldValue != null && fieldValue != "" ? $column.attr('field_value') : $column.attr('field_name');
 
             var filterJsonData = $column.attr('filter_json_data');
-            if (filterJsonData !== null)
+            if (filterJsonData != null)
             {
                 filterJsonData = $.parseJSON(filterJsonData);
             }
@@ -836,7 +840,7 @@
             var orderbyclass = disableOrder != 'true' ? "wgrid-order-button" : "";
             var orderbyIcon = $('<div class="' + orderbyclass + '" style="float:left">' + headerName + '</div>');
 
-            if (disableManipulating == 'true' || filterType === null || filterType == "tag")
+            if (disableManipulating == 'true' || filterType == null || filterType == "tag")
             {
                 $div = $('<div class="wgrid-column-title">' + headerName + '</div>');
                 $column.html($div);
@@ -878,7 +882,7 @@
                             filterButton.click(function ()
                             {
                                 var advancedChoicedOption = $(this).siblings('.advanced-options').find('input[name=advancedFilter]:checked').val();
-                                if (advancedChoicedOption === null || advancedChoicedOption === "" || !advancedChoicedOption)
+                                if (advancedChoicedOption == null || advancedChoicedOption == "" || !advancedChoicedOption)
                                 {
                                     if (filterType == 'datetime' || filterType == 'bool')
                                     {
@@ -909,11 +913,8 @@
                                 reloadGrid();
                                 reloadTotalsDisplays();
                             });
-                            if( filters[fieldName] !== null )
-                            {
-                                filterField.val(filters[fieldName]);
-                            }
-                            
+                            filters[fieldName] != null ? filterField.val(filters[fieldName]) : "";
+
                             if (filterType == 'datetime')
                             {
                                 filterField.datepicker();
@@ -938,8 +939,8 @@
                             for (var item in filterJsonData)
                             {
                                 filterField.append($('<option value="' +
-                                    filterJsonData[item].key + '">' +
-                                    filterJsonData[item].value + '</option>'));
+                                    filterJsonData[item]["key"] + '">' +
+                                    filterJsonData[item]["value"] + '</option>'));
                             }
 
                             filterButton.click(function ()
@@ -950,11 +951,7 @@
 
                                 reloadGrid();
                             });
-                            
-                            if( filters[fieldName] !== null )
-                            {
-                                filterField.attr('value', filters[fieldName]);
-                            }
+                            filters[fieldName] != null ? filterField.attr('value', filters[fieldName]) : "";
                         }
 
                         if (filterIcon.hasClass('active'))
@@ -972,7 +969,6 @@
                                 filterIcon.removeClass('active');
                                 delete filters[fieldName];
                                 $('.wgrid-filter-panel').remove();
-
                                 reloadGrid();
                             });
                             if (optionAdvancedFilter)
@@ -1002,6 +998,8 @@
                             filterPanel.width(filterPanel.width() + 3);
                             filterPanel.width('auto');
                         }, 50);
+
+
                     });
 
             $column.hover(function ()
@@ -1017,7 +1015,7 @@
             {
                 $div.click(function ()
                 {
-                    orderby = fieldOrderBy !== "" && fieldOrderBy !== undefined ? fieldOrderBy : fieldName;
+                    orderby = fieldOrderBy != "" && fieldOrderBy != undefined ? fieldOrderBy : fieldName;
 
                     var isDesc = orderbyIcon.hasClass('desc');
 
@@ -1025,15 +1023,10 @@
                             .removeClass('desc')
                             .removeClass('asc');
 
-                    if(isDesc)
-                    {
-                        orderbyIcon.removeClass('desc').addClass('asc');
-                    }
-                    else
-                    {
-                        orderbyIcon.removeClass('asc').addClass('desc');
-                    }
+                    isDesc ? orderbyIcon.removeClass('desc').addClass('asc') : orderbyIcon.removeClass('asc').addClass('desc');
+
                     sort = orderbyIcon.hasClass('desc') ? 'desc' : 'asc';
+
                     reloadGrid();
                 });
             }
@@ -1056,17 +1049,20 @@
             data.headerContainer.scrollLeft($(this).scrollLeft());
         });
 
-        resizeColumns();
-        addCheckboxColumns();
-
-        if ($.browser.msie)
+        //if hasMoreAfterUrl not null
+        if (plugin.settings.hasMoreAfterUrl != null)
         {
-            fixRightAndBottom($('.wgrid-layout'));
-            $(window).bind('resize', function ()
+            $('body').everyTime(3000, function ()
             {
-                fixRightAndBottom($('.wgrid-layout'));
+                if (verifyIfExistsNewItems(plugin.settings.hasMoreAfterUrl, lastId))
+                {
+                    console.log("Existem novos itens disponíveis!");
+                }
             });
         }
+
+        resizeColumns();
+        addCheckboxColumns();
 
         $element.find('.wgrid-checkbox-all').click(function ()
         {
@@ -1074,14 +1070,7 @@
             var allLines = $element.find('.wgrid-table tr');
             $element.find('.wgrid-checkbox-item').attr('checked', isChecked);
 
-            if( isChecked )
-            {
-                allLines.addClass('wgrid-selected-line');
-            }
-            else
-            {
-                allLines.removeClass('wgrid-selected-line');
-            }
+            isChecked ? allLines.addClass('wgrid-selected-line') : allLines.removeClass('wgrid-selected-line');
             updateSelectedElementsArrays();
         });
 
@@ -1091,14 +1080,7 @@
             var checkTableLine = $(data.checkTable.find('tr[item-id=' + itemId + ']'));
 
             var lineCheckbox = checkTableLine.find('.wgrid-checkbox-item');
-            if( check )
-            {
-                $row.addClass('wgrid-selected-line');
-            }
-            else
-            {
-                $row.removeClass('wgrid-selected-line');
-            }
+            check ? $row.addClass('wgrid-selected-line') : $row.removeClass('wgrid-selected-line');
             lineCheckbox.attr('checked', check);
 
             updateSelectedElementsArrays();
@@ -1131,7 +1113,7 @@
 
         data.table.delegate('tr', 'click', function ()
         {
-            if (plugin.settings.itemClick !== null)
+            if (plugin.settings.itemClick != null)
             {
                 plugin.settings.itemClick(plugin.methods.getSelectedRowsData());
             }
@@ -1144,14 +1126,7 @@
             var lineIndex = $element.find('.wgrid-check-content tr').index($(this).closest('tr'));
             var gridTableLine = $(data.table.find('tr')[lineIndex]);
 
-            if( isLineChecked )
-            {
-                checkALine(gridTableLine, true);
-            }
-            else
-            {
-                checkALine(gridTableLine, false);
-            }
+            isLineChecked ? checkALine(gridTableLine, true) : checkALine(gridTableLine, false);
         });
 
         //Statuspanel functions
@@ -1167,6 +1142,7 @@
         plugin.settings.statusPanel.find('.reload-button').click(function ()
         {
             reloadGrid();
+            $("#more-margin").remove();
         });
 
         if (plugin.settings.autoLoad)
@@ -1198,7 +1174,7 @@
                 return null;
             }
 
-            if (plugin === undefined)
+            if (plugin == undefined)
             {
                 return new $.Wgrid(this, options);
             }
@@ -1206,154 +1182,3 @@
         return ret;
     };
 })(jQuery);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-* Date Format 1.2.3
-* (c) 2007-2009 Steven Levithan <stevenlevithan.com>
-* MIT license
-*
-* Includes enhancements by Scott Trenda <scott.trenda.net>
-* and Kris Kowal <cixar.com/~kris.kowal/>
-*
-* Accepts a date, a mask, or a date and a mask.
-* Returns a formatted version of the given date.
-* The date defaults to the current date/time.
-* The mask defaults to dateFormat.masks.default.
-*/
-
-var dateFormat = function ()
-{
-    var token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
-        timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[\-+]\d{4})?)\b/g,
-        timezoneClip = /[^\-+\dA-Z]/g,
-        pad = function (val, len)
-        {
-            val = String(val);
-            len = len || 2;
-            while (val.length < len) val = "0" + val;
-            return val;
-        };
-
-    // Regexes and supporting functions are cached through closure
-    return function (date, mask, utc)
-    {
-        var dF = dateFormat;
-
-        // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
-        if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date))
-        {
-            mask = date;
-            date = undefined;
-        }
-
-        // Passing date through Date applies Date.parse, if necessary
-        date = date ? new Date(date) : new Date();
-        if (isNaN(date)) throw SyntaxError("invalid date");
-
-        mask = String(dF.masks[mask] || mask || dF.masks["default"]);
-
-        // Allow setting the utc argument via the mask
-        if (mask.slice(0, 4) == "UTC:")
-        {
-            mask = mask.slice(4);
-            utc = true;
-        }
-
-        var _ = utc ? "getUTC" : "get",
-            d = date[_ + "Date"](),
-            D = date[_ + "Day"](),
-            m = date[_ + "Month"](),
-            y = date[_ + "FullYear"](),
-            H = date[_ + "Hours"](),
-            M = date[_ + "Minutes"](),
-            s = date[_ + "Seconds"](),
-            L = date[_ + "Milliseconds"](),
-            o = utc ? 0 : date.getTimezoneOffset(),
-            flags = {
-                d: d,
-                dd: pad(d),
-                ddd: dF.i18n.dayNames[D],
-                dddd: dF.i18n.dayNames[D + 7],
-                m: m + 1,
-                mm: pad(m + 1),
-                mmm: dF.i18n.monthNames[m],
-                mmmm: dF.i18n.monthNames[m + 12],
-                yy: String(y).slice(2),
-                yyyy: y,
-                h: H % 12 || 12,
-                hh: pad(H % 12 || 12),
-                H: H,
-                HH: pad(H),
-                M: M,
-                MM: pad(M),
-                s: s,
-                ss: pad(s),
-                l: pad(L, 3),
-                L: pad(L > 99 ? Math.round(L / 10) : L),
-                t: H < 12 ? "a" : "p",
-                tt: H < 12 ? "am" : "pm",
-                T: H < 12 ? "A" : "P",
-                TT: H < 12 ? "AM" : "PM",
-                Z: utc ? "UTC" : (String(date).match(timezone) || [""]).pop().replace(timezoneClip, ""),
-                o: (o > 0 ? "-" : "+") + pad(Math.floor(Math.abs(o) / 60) * 100 + Math.abs(o) % 60, 4),
-                S: ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
-            };
-
-        return mask.replace(token, function ($0)
-        {
-            return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
-        });
-    };
-} ();
-
-// Some common format strings
-dateFormat.masks = {
-    "default": "ddd mmm dd yyyy HH:MM:ss",
-    shortDate: "m/d/yy",
-    mediumDate: "mmm d, yyyy",
-    longDate: "mmmm d, yyyy",
-    fullDate: "dddd, mmmm d, yyyy",
-    shortTime: "h:MM TT",
-    mediumTime: "h:MM:ss TT",
-    longTime: "h:MM:ss TT Z",
-    isoDate: "yyyy-mm-dd",
-    isoTime: "HH:MM:ss",
-    isoDateTime: "yyyy-mm-dd'T'HH:MM:ss",
-    isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
-};
-
-// Internationalization strings
-dateFormat.i18n = {
-    dayNames: [
-        "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
-        "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-    ],
-    monthNames: [
-        "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-        "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
-    ]
-};
-
-// For convenience...
-Date.formatString = function (mask, utc)
-{
-    return dateFormat(this, mask, utc);
-};
