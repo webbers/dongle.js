@@ -239,9 +239,7 @@ module.exports = function(grunt)
                     {
                         clearTimeout(id);
                     }
-                    
-                    grunt.log.ok('AQUI');
-                    
+
                     // It's simple. As QUnit tests, assertions and modules begin and complete,
                     // the results are written as JSON to a temporary file. This polling loop
                     // checks that file for new lines, and for each one parses its JSON and
@@ -475,7 +473,7 @@ module.exports = function(grunt)
         var html = '<table>';
         for(var key in filesPercent)
         {
-            html+= '<tr><td>' + key + '</td><td>' + filesPercent[key] + '%</td></tr>';
+            html+= '<tr><td><a href="' + key + '.html">' + key + '</a></td><td>' + filesPercent[key] + '%</td></tr>';
         }
         grunt.file.write(outDir + '/out/coverage.html', html);
         
