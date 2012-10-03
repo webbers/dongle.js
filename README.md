@@ -45,3 +45,11 @@ grunt.cmd
 ```
 
 A versão compilada e minificada do dongle.js estarão no subdiretório `dist/`.
+
+## Contributing
+
+Please use the issue tracker and pull requests.
+
+## License
+Copyright (c) 2012 Webbers Team
+Licensed under the MIT license.
