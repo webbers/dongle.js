@@ -50,12 +50,12 @@
         var selectedRowsElements = [];
         var selectedCheckRowsElements = [];
         var selectedRowsIndex = [];
-
         var defaults =
         {
             listItemCount: 100,
             jsonUrl: null,
             method: "POST",
+            hasMoreAfterUrl: null,
             lastId: 0,
             totalItems: 0,
             autoLoad: true,
@@ -65,6 +65,7 @@
             showStatusIcon: true,
             statusPanel: null,
             complete: null,
+            showPaging: true,
             dictionary:
             {
                 yes: "Yes",
@@ -149,15 +150,20 @@
             var filterParams = $.param(filters);
             var querystring = "?skip=" + skip;
 
-            if (plugin.settings.orderby !== '' && plugin.settings.orderby !== null && plugin.settings.orderby !== undefined)
+            if (plugin.settings.keyColumn !== "" || plugin.settings.keyColumn !== null)
+            {
+                querystring = querystring + "&keyColumn=" + plugin.settings.keyColumn;
+            }
+
+            if (plugin.settings.orderby !== "" && plugin.settings.orderby !== null && plugin.settings.orderby !== undefined)
             {
                 orderby = plugin.settings.orderby;
             }
 
             querystring = filterParams === "" ? querystring : querystring + "&" + filterParams;
-            querystring = orderby === null ? querystring : querystring + "&orderby=" + orderby + "&sort=" + sort;
+            querystring = orderby === undefined ? querystring : querystring + "&orderby=" + orderby + "&sort=" + sort;
             querystring = lastId === 0 ? querystring : querystring + "&lastId=" + lastId;
-            querystring = eventFilter === null ? querystring : querystring + "&eventFilter=" + eventFilter;
+            querystring = eventFilter === undefined ? querystring : querystring + "&eventFilter=" + eventFilter;
 
             if (plugin.settings.useUrlQuerystring)
             {
@@ -173,20 +179,30 @@
         var checkIfNotExistsOldItems = function (itemsCount)
         {
             var moreItemsButton = plugin.settings.statusPanel.find('.more-items-button');
-            moreItemsButton.show();
-            $("#more-margin").remove();
 
-            if (itemsCount < plugin.settings.listItemCount || itemsCount === 0)
+
+			if (itemsCount < plugin.settings.listItemCount || itemsCount === 0)
             {
                 moreItemsButton.hide();
                 moreItemsButton.after(moreMargin);
                 return;
             }
+            else
+            {
+                moreItemsButton.show();
+            }
+            $("#more-margin").remove();
         };
 
         var getElementId = function (elementData)
         {
-            return plugin.settings.getId(elementData);
+            var elementId = elementData.Id;
+            if (elementId === null || elementId === undefined)
+            {
+                elementId = elementData.rownum;
+            }
+
+            return elementId;
         };
 
         var getRowClass = function (elementData)
@@ -197,6 +213,7 @@
             {
                 rowClass = 1;
             }
+
             return rowClass;
         };
 
@@ -232,9 +249,8 @@
                     columnValue = creteTagBox(columnValue);
                 }
 
-                columnValue = columnType == "datetime" ? fromDateToString(columnValue) : columnValue;
-                columnValue = columnType == "bool" ? (columnValue ? plugin.settings.dictionary.yes : plugin.settings.dictionary.no) : columnValue;
-                columnValue = columnType == "cron" ? $.cronText(columnValue, plugin.settings.dictionary) : columnValue;
+                columnValue = columnType === "datetime" ? fromDateToString(columnValue) : columnValue;
+                columnValue = columnType === "bool" ? (columnValue ? plugin.settings.dictionary.yes : plugin.settings.dictionary.no) : columnValue;
                 columnValue = columnValue === null || columnValue === undefined ? "" : columnValue;
 
                 if (i === 0 || column === "MachineId")
@@ -244,15 +260,14 @@
                 }
                 else
                 {
-                    var cronClass = columnType == "cron" ? "wgrid-column-cron" : "";
-                    rowToInsert.push('<td style=\"cursor:pointer\" class="' + cronClass + '" title="' + columnValue + '">' + columnValue + '</td>');
+                    rowToInsert.push('<td style=\"cursor:pointer\" title="' + columnValue + '">' + columnValue + '</td>');
                 }
             }
             rowToInsert.push("</tr>");
 
             return rowToInsert.join('');
         };
-        
+
         var hideMoreItems = function ()
         {
             var moreItemsButton = plugin.settings.statusPanel.find('.more-items-button');
@@ -314,10 +329,6 @@
                         }
 
                         data.tableRows = $element.find('.wgrid-table tr');
-                        if ((totalItems !== null && totalDisplayingItems >= totalItems) || typeof (totalItems) == "undefined")
-                        {
-                            hideMoreItems();
-                        }
                     }
                     else
                     {
@@ -380,13 +391,17 @@
 
             if (plugin.settings.jsonUrl === null) { return; }
             var completeUrl = plugin.settings.jsonUrl + getQuerystring();
-
+            plugin.settings.statusPanel.find('.wgrid-total').html(plugin.settings.dictionary.many);
             clearGrid();
             insertJsonItems(completeUrl);
             resizeColumns();
             if ($.browser.version == '9.0')
             {
                 $('.wgrid-main .wgrid-layout').width('auto');
+            }
+            if ($("#more-margin").length > 0)
+            {
+                $("#more-margin").remove();
             }
         };
 
@@ -549,6 +564,14 @@
 
             plugin.settings.statusPanel.find('.more-items-button>.content>span').html('+ ' + plugin.settings.listItemCount);
             loadingHide();
+
+            if (!plugin.settings.showPaging)
+            {
+                if ($("#more-margin").length > 0) {
+                    moreMargin.remove();
+                }
+                plugin.settings.statusPanel.find('.more-items-button').before(moreMargin).hide();
+            }
         };
 
         var addCheckboxColumns = function ()
@@ -672,6 +695,10 @@
             {
                 params = parameters;
                 reloadGrid();
+            },
+            resizeColumns: function ()
+            {
+                resizeColumns();
             },
             reloadGrid: function ()
             {
@@ -813,7 +840,7 @@
             var fieldValue = $column.attr('field_value');
             var fieldOrderBy = $column.attr('orderby');
 
-            var fieldName = fieldValue !== null && fieldValue !== "" ? $column.attr('field_value') : $column.attr('field_name');
+            var fieldName = fieldValue !== undefined ? $column.attr('field_value') : $column.attr('field_name');
 
             var filterJsonData = $column.attr('filter_json_data');
             if (filterJsonData !== null)
@@ -1002,6 +1029,8 @@
                             filterPanel.width(filterPanel.width() + 3);
                             filterPanel.width('auto');
                         }, 50);
+
+
                     });
 
             $column.hover(function ()
@@ -1055,19 +1084,8 @@
             data.checkContainer.scrollTop($(this).scrollTop());
             data.headerContainer.scrollLeft($(this).scrollLeft());
         });
-
         resizeColumns();
         addCheckboxColumns();
-
-        if ($.browser.msie)
-        {
-            fixRightAndBottom($('.wgrid-layout'));
-            $(window).bind('resize', function ()
-            {
-                fixRightAndBottom($('.wgrid-layout'));
-            });
-        }
-
         $element.find('.wgrid-checkbox-all').click(function ()
         {
             var isChecked = $(this).is(":checked");
@@ -1167,6 +1185,7 @@
         plugin.settings.statusPanel.find('.reload-button').click(function ()
         {
             reloadGrid();
+            $("#more-margin").remove();
         });
 
         if (plugin.settings.autoLoad)

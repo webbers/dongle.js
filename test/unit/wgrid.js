@@ -61,21 +61,24 @@ function checkboxClick($element)
 $.mockjax({
     url: 'data.json?skip=0&orderby=undefined&sort=undefined&eventFilter=undefined',
     responseTime: 0,
-    responseText: {"Data": items,"TotalCount":10}
+    responseText: {"Data": items,"TotalCount":10},
+    log: false
 });
 
 //Ajax order by desc
 $.mockjax({
     url: 'data.json?skip=0&orderby=field1&sort=desc&eventFilter=undefined',
     responseTime: 0,
-    responseText: {"Data": items.reverse(),"TotalCount":10}
+    responseText: {"Data": items.reverse(),"TotalCount":10},
+    log: false
 });
 
 //Ajax order by field1 asc
 $.mockjax({
     url: 'data.json?skip=0&orderby=field1&sort=asc&eventFilter=undefined',
     responseTime: 0,
-    responseText: {"Data": items.reverse(),"TotalCount":10}
+    responseText: {"Data": items.reverse(),"TotalCount":10},
+    log: false
 });
 
 //Ajax order by field1 asc
@@ -89,42 +92,48 @@ for( var i = 0; i < items.length; i++ )
 $.mockjax({
     url: 'data.json?skip=5&orderby=undefined&sort=undefined&lastId=9&eventFilter=undefined',
     responseTime: 0,
-    responseText: {"Data": items2,"TotalCount":10}
+    responseText: {"Data": items2,"TotalCount":10},
+    log: false
 });
 
 //StartsWith
 $.mockjax({
     url: 'data.json?skip=0&field1=numeric%7CstartsWith%7C2&orderby=undefined&sort=undefined&eventFilter=undefined',
     responseTime: 0,
-    responseText: {"Data": [items[1]],"TotalCount":10}
+    responseText: {"Data": [items[1]],"TotalCount":10},
+    log: false
 });
 
 //EndsWith
 $.mockjax({
     url: 'data.json?skip=0&field1=numeric%7CendsWith%7C4&orderby=undefined&sort=undefined&eventFilter=undefined',
     responseTime: 0,
-    responseText: {"Data": [items[3]],"TotalCount":10}
+    responseText: {"Data": [items[3]],"TotalCount":10},
+    log: false
 });
 
 //Contains
 $.mockjax({
     url: 'data.json?skip=0&field1=numeric%7Ccontains%7C3&orderby=undefined&sort=undefined&eventFilter=undefined',
     responseTime: 0,
-    responseText: {"Data": [items[2]],"TotalCount":10}
+    responseText: {"Data": [items[2]],"TotalCount":10},
+    log: false
 });
 
 //Equals
 $.mockjax({
     url: 'data.json?skip=0&field1=numeric%7Cequals%7C5&orderby=undefined&sort=undefined&eventFilter=undefined',
     responseTime: 0,
-    responseText: {"Data": [items[4]],"TotalCount":10}
+    responseText: {"Data": [items[4]],"TotalCount":10},
+    log: false
 });
 
 //Equals with no result
 $.mockjax({
     url: 'data.json?skip=0&field1=numeric%7Cequals%7C10&orderby=undefined&sort=undefined&eventFilter=undefined',
     responseTime: 0,
-    responseText: {"Data": [],"TotalCount":10}
+    responseText: {"Data": [],"TotalCount":10},
+    log: false
 });
 
 function createHtml(id)
