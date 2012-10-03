@@ -163,7 +163,7 @@
             querystring = filterParams === "" ? querystring : querystring + "&" + filterParams;
             querystring = orderby === undefined ? querystring : querystring + "&orderby=" + orderby + "&sort=" + sort;
             querystring = lastId === 0 ? querystring : querystring + "&lastId=" + lastId;
-            querystring = eventFilter === undefined ? querystring : querystring + "&eventFilter=" + eventFilter
+            querystring = eventFilter === undefined ? querystring : querystring + "&eventFilter=" + eventFilter;
 
             if (plugin.settings.useUrlQuerystring)
             {
@@ -196,10 +196,10 @@
 
         var getElementId = function (elementData)
         {
-            var elementId = elementData['Id'];
-            if (elementId == null)
+            var elementId = elementData.Id;
+            if (elementId === null || elementId === undefined)
             {
-                elementId = elementData['rownum'];
+                elementId = elementData.rownum;
             }
 
             return elementId;
@@ -207,9 +207,9 @@
 
         var getRowClass = function (elementData)
         {
-            var rowClass = plugin.settings.classRowObjectField != null ? elementData[plugin.settings.classRowObjectField] : "";
+            var rowClass = plugin.settings.classRowObjectField !== null ? elementData[plugin.settings.classRowObjectField] : "";
 
-            if (plugin.settings.colorizeItems == false)
+            if (plugin.settings.colorizeItems === false)
             {
                 rowClass = 1;
             }
@@ -249,9 +249,9 @@
                     columnValue = creteTagBox(columnValue);
                 }
 
-                columnValue = columnType == "datetime" ? fromDateToString(columnValue) : columnValue;
-                columnValue = columnType == "bool" ? (columnValue ? plugin.settings.dictionary.yes : plugin.settings.dictionary.no) : columnValue;
-                columnValue = columnValue == null || columnValue == undefined ? "" : columnValue;
+                columnValue = columnType === "datetime" ? fromDateToString(columnValue) : columnValue;
+                columnValue = columnType === "bool" ? (columnValue ? plugin.settings.dictionary.yes : plugin.settings.dictionary.no) : columnValue;
+                columnValue = columnValue === null || columnValue === undefined ? "" : columnValue;
 
                 if (i === 0 || column === "MachineId")
                 {
