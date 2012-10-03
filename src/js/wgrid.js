@@ -840,7 +840,7 @@
             var fieldValue = $column.attr('field_value');
             var fieldOrderBy = $column.attr('orderby');
 
-            var fieldName = fieldValue !== undefined ? $column.attr('field_value') : $column.attr('field_name');
+            var fieldName = fieldValue !== undefined && fieldValue !== "" ? $column.attr('field_value') : $column.attr('field_name');
 
             var filterJsonData = $column.attr('filter_json_data');
             if (filterJsonData !== null)
