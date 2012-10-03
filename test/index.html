@@ -18,10 +18,9 @@
 	
 	<link type="text/css" href="../dist/css/dongle.components.css" rel="stylesheet" media="all" />
 
-	<script src="../dist/js/dongle.components.min.js"></script>
+	<script src="../dist/js/dongle.components.js"></script>
 	<script src="../dist/js/dongle.components.unobstrusive.js"></script>
 	<script src="../dist/js/dongle.validators.min.js"></script>
-
 </head>
 
 <body id="body">
@@ -67,6 +66,12 @@
 		<button id="wbutton-default" class="wbutton">Teste</button>
 	</div>
 	
+	<!--WSPINBUTTON-->
+	<div>
+		<input id="wspinbutton-default" type="text" class="wspinbutton" min="10" max="30" step="2"></input>
+		<input id="wspinbutton-decimal" type="text" value="10"></input>
+	</div>
+		
     <!--RequiredIf-->
     <form>
         <input type="text" name="check" id="check" />
@@ -76,11 +81,46 @@
         <input type="submit" />
     </form>
 	
-
+	<!--WSIMPLEGRID-->
+	<div>
+		<table class="wsimplegrid" id="simplegrid">
+            <thead>
+                <tr>
+                    <th class="filtrar">
+                        Fruta
+                    </th>
+                    <th class="filtrar">
+                        Cor
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+				<tr>
+					<td>
+						Abacate
+					</td>
+					<td>
+						Verde
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Morango
+					</td>
+					<td>
+						Vermelho
+					</td>
+				</tr>
+            </tbody>
+        </table>
+	</div>
 </body>
 
+<script src="unit/wsimplegrid.js"></script>
 <script src="unit/wgrid.js"></script>
 <script src="unit/wswitchbutton.js"></script>
 <script src="unit/wrequiredif.js"></script>
 <script src="unit/wbutton.js"></script>
+<script src="unit/wspinbutton.js"></script>
+
 </html>

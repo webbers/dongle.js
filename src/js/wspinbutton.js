@@ -33,7 +33,6 @@
         {
             return this.each(function ()
             {
-
                 o = o || {};
                 var options = {};
                 $.each($.spin, function (k, v)
