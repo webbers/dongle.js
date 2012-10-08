@@ -1,4 +1,4 @@
-var obj = {"rownum": "1","field1": "1","field2": "1","field3": "/Date(1224043200000)/", "field4": "Lorem ipsum dolor sit amet","field5": "Lorem ipsum dolor sit amet"};
+var obj = {"rownum": "1","field1": "1","field2": "1","field3": "/Date(1224043200000)/", "field4": "Lorem ipsum dolor sit amet","field5": "text"};
 
 function clone(obj)
 {
@@ -36,6 +36,7 @@ for(var i = 0; i < 5; i++)
     var newObj = clone(obj);
     newObj.rownum = i+1;
     newObj.field1 = i+1;
+	newObj.field5 = newObj.field + i+1;
     items.push(newObj);
 }
 
@@ -98,7 +99,7 @@ $.mockjax({
 
 //StartsWith
 $.mockjax({
-    url: 'data.json?skip=0&keyColumn=&field1=numeric%7CstartsWith%7C2',
+    url: 'data.json?skip=0&keyColumn=&field5=text%7CstartsWith%7C2',
     responseTime: 0,
     responseText: {"Data": [items[1]],"TotalCount":10},
     log: false
@@ -106,7 +107,7 @@ $.mockjax({
 
 //EndsWith
 $.mockjax({
-    url: 'data.json?skip=0&keyColumn=&field1=numeric%7CendsWith%7C4',
+    url: 'data.json?skip=0&keyColumn=&field5=text%7CendsWith%7C4',
     responseTime: 0,
     responseText: {"Data": [items[3]],"TotalCount":10},
     log: false
@@ -114,7 +115,7 @@ $.mockjax({
 
 //Contains
 $.mockjax({
-    url: 'data.json?skip=0&keyColumn=&field1=numeric%7Ccontains%7C3',
+    url: 'data.json?skip=0&keyColumn=&field5=text%7Ccontains%7C3',
     responseTime: 0,
     responseText: {"Data": [items[2]],"TotalCount":10},
     log: false
@@ -138,7 +139,7 @@ $.mockjax({
 
 function createHtml(id)
 {
-    var html = '<table id="'+ id + '"><thead><tr><th field_type="numeric" field_name="field1" field_value="" disable_handling="">ID</th><th field_type="int" field_name="field2" field_value="" disable_handling="true">INTEIRO</th><th field_type="datetime" field_name="field3" field_value="" disable_handling="true">DATA</th><th field_name="field4" field_value="" disable_handling="true">TESTE</th><th field_type="text" field_name="field5" disable_handling="true">TESTE DE COLUNA MEGAMENTE GIGANTESCA E GROTESCA</th></tr></thead></table>';
+    var html = '<table id="'+ id + '"><thead><tr><th field_type="numeric" field_name="field1" field_value="" disable_handling="">ID</th><th field_type="int" field_name="field2" field_value="" disable_handling="true">INTEIRO</th><th field_type="datetime" field_name="field3" field_value="" disable_handling="true">DATA</th><th field_name="field4" field_value="" disable_handling="true">TESTE</th><th field_type="text" field_name="field5">TESTE DE COLUNA MEGAMENTE GIGANTESCA E GROTESCA</th></tr></thead></table>';
     $(document.body).append(html);
 }
 
@@ -322,10 +323,10 @@ createWGrid(function($wgrid, $innerGrid)
     {
         stop();
         $(document.body).hide();
-        $wgrid.find('.wgrid-filter-button:eq(0)').click();
+        $wgrid.find('.wgrid-filter-button:eq(1)').click();
         
         var checkValue = 2;
-        $('input[name=filter-field1]').val(checkValue);
+        $('input[name=filter-field5]').val(checkValue);
         
         checkboxClick($('input[type=radio][value=startsWith]'));
         $('.wgrid-filter-panel-apply-button').click();
@@ -346,10 +347,10 @@ createWGrid(function($wgrid, $innerGrid)
     {
         stop();
         $(document.body).hide();
-        $wgrid.find('.wgrid-filter-button:eq(0)').click();
+        $wgrid.find('.wgrid-filter-button:eq(1)').click();
         
         var checkValue = 4;
-        $('input[name=filter-field1]').val(checkValue);
+        $('input[name=filter-field5]').val(checkValue);
         
         checkboxClick($('input[type=radio][value=endsWith]'));
         $('.wgrid-filter-panel-apply-button').click();
@@ -370,10 +371,10 @@ createWGrid(function($wgrid, $innerGrid)
     {
         stop();
         $(document.body).hide();
-        $wgrid.find('.wgrid-filter-button:eq(0)').click();
+        $wgrid.find('.wgrid-filter-button:eq(1)').click();
         
         var checkValue = 3;
-        $('input[name=filter-field1]').val(checkValue);
+        $('input[name=filter-field5]').val(checkValue);
         
         checkboxClick($('input[type=radio][value=contains]'));
         $('.wgrid-filter-panel-apply-button').click();

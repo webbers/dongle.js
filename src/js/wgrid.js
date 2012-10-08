@@ -839,9 +839,11 @@
             var filterType = $column.attr('field_type');
             var fieldValue = $column.attr('field_value');
             var fieldOrderBy = $column.attr('orderby');
+			var fieldFilterBy = $column.attr('filterby');
 
             var fieldName = fieldValue !== undefined && fieldValue !== "" ? $column.attr('field_value') : $column.attr('field_name');
-
+			fieldName = fieldFilterBy !== undefined && fieldOrderBy !== "" ? fieldFilterBy : fieldName;
+			
             var filterJsonData = $column.attr('filter_json_data');
             if (filterJsonData !== null)
             {
@@ -889,7 +891,7 @@
                         var filterButton = $('<div class="wgrid-filter-panel-apply-button">&nbsp;</div>');
                         if (filterType.toLowerCase() != 'list' && filterType.toLowerCase() != 'bool')
                         {
-                            if (filterType.toLowerCase() != 'datetime' && filterType.toLowerCase() != 'hexaid' && filterType.toLowerCase() != 'bool' && filterType.toLowerCase() != 'machineid')
+                            if (filterType.toLowerCase() != 'datetime' && filterType.toLowerCase() != 'hexaid' && filterType.toLowerCase() != 'bool' && filterType.toLowerCase() != 'machineid' && filterType.toLowerCase() != 'numeric')
                             {
                                 optionAdvancedFilter = $('<div class="hide advanced-options"> <input type="radio" name="advancedFilter" value="equals" checked=checked>' + plugin.settings.dictionary.exactlyEqual + ' <br /><input type="radio" name="advancedFilter" value="contains">' + plugin.settings.dictionary.contain + '<br /><input type="radio" name="advancedFilter" value="startsWith">' + plugin.settings.dictionary.startWith + '<br /><input type="radio" name="advancedFilter" value="endsWith">' + plugin.settings.dictionary.endWith + ' </div>');
                                 filterAdvancedButton = $('<div class="wgrid-filter-advanced">+ ' + plugin.settings.dictionary.advancedOptions + '</div>');
