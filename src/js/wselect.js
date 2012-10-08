@@ -41,6 +41,7 @@ $.widget("ech.wselect", {
 
         this.speed = $.fx.speeds._default; // default speed for effects
         this._isOpen = false; // assume no
+        this._awaysOpened = false;
 
         var
             button = (this.button = $('<button><span class="wselect-final-content"></span></button>'))
@@ -92,6 +93,8 @@ $.widget("ech.wselect", {
     },
 
     _init: function(){
+        this._awaysOpened = false;
+
         if( this.options.header === false ){
             this.header.hide();
         }
@@ -99,6 +102,7 @@ $.widget("ech.wselect", {
             this.headerLinkContainer.find('.wselect-all, .wselect-none').hide();
         }
         if( this.options.autoOpen ){
+            this._awaysOpened = true;
             this.open();
         }
         if( this.element.is(':disabled') ){
@@ -363,7 +367,7 @@ $.widget("ech.wselect", {
 
         // close each widget when clicking on any other element/anywhere else on the page
         $(document).bind('mousedown.wselect', function( e ){
-            if(self._isOpen && !$.contains(self.menu[0], e.target) && !$.contains(self.button[0], e.target) && e.target !== self.button[0]){
+            if(self._isOpen && !$.contains(self.menu[0], e.target) && !$.contains(self.button[0], e.target) && e.target !== self.button[0] && self._awaysOpened === false){
                 self.close();
             }
         });
@@ -541,7 +545,7 @@ $.widget("ech.wselect", {
         $container.scrollTop(0).height(o.height);
 
         // position and show menu
-        if( $.ui.position && !$.isEmptyObject(o.position) ){
+        if( $.ui.position && !$.isEmptyObject(o.position) && !this._awaysOpened){
             o.position.of = o.position.of || button;
 
             menu
@@ -555,6 +559,15 @@ $.widget("ech.wselect", {
                 top: pos.top + button.outerHeight(),
                 left: pos.left
             });
+        }
+
+        //thiago: hide button
+        if(this._awaysOpened)
+        {
+            button.parent().append(menu);
+            button.hide();
+            menu.css('position', 'initial');
+            menu.show();
         }
 
         // show the menu, maybe with a speed/effect combo
