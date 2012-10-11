@@ -65,6 +65,7 @@
             showStatusIcon: true,
             statusPanel: null,
             complete: null,
+			sort: "ASC",
             showPaging: true,
             dictionary:
             {
@@ -158,6 +159,11 @@
             if (plugin.settings.orderby !== "" && plugin.settings.orderby !== null && plugin.settings.orderby !== undefined)
             {
                 orderby = plugin.settings.orderby;
+            }
+			
+			if (plugin.settings.sort !== "" && plugin.settings.sort !== null && plugin.settings.sort !== undefined)
+            {
+                sort = plugin.settings.sort;
             }
 
             querystring = filterParams === "" ? querystring : querystring + "&" + filterParams;
