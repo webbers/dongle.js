@@ -824,7 +824,8 @@
                     (e.srcElement.className.indexOf('wgrid-filter-button') == -1))
                 {
                     if (($(e.srcElement).closest('.ui-widget').length === 0) &&
-                        ($(e.srcElement).closest('.ui-datepicker-header').length === 0))
+                        ($(e.srcElement).closest('.ui-datepicker-header').length === 0) &&
+						($(e.srcElement).closest('.wgrid-filter-panel-element').length === 0))
                     {
                         $('.wgrid-filter-panel').remove();
                     }
