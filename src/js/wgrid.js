@@ -931,9 +931,9 @@
                                 {
                                     filters[fieldName] = filterType + '|' + advancedChoicedOption + '|' + '"' + filterField.val() + '"';
                                 }
-                                else if (filterType == 'hexaid')
+                                else if (filterType == 'hexaid' || filterType== 'pinnumber')
                                 {
-                                    filters[fieldName] = 'text' + '|' + advancedChoicedOption + '|' + '00' + filterField.val();
+                                    filters[fieldName] = filterType + '|' + advancedChoicedOption + '|' + filterField.val();
                                 }
                                 else
                                 {
