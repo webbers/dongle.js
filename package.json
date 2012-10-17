@@ -22,7 +22,7 @@
         }
     ],
     "devDependencies": {
-        "grunt": "~0.3.14",
+        "grunt": "=0.3.16",
         "grunt-css": "0.2.0",
         "grunt-contrib": ">=0.2.0",
         "grunt-qunit-cov": ">=0.2.0",
