@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>WContextmenu Unit Test</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<link type="text/css" href="../3rd/qunit/1.9.0/qunit.css" rel="stylesheet" media="all" />
+	<link type="text/css" href="../src/css/wcontextmenu.css" rel="stylesheet" media="all" />
+    <style type="text/css">
+        BODY, HTML
+        {
+            padding: 0px;
+            margin: 0px;
+        }
+        BODY
+        {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            background: #FFF;
+            padding: 15px;
+        }
+        
+        H1
+        {
+            font-family: Georgia, serif;
+            font-size: 20px;
+            font-weight: normal;
+        }
+        
+        H2
+        {
+            font-family: Georgia, serif;
+            font-size: 16px;
+            font-weight: normal;
+            margin: 0px 0px 10px 0px;
+        }
+        
+        #myDiv
+        {
+            width: 150px;
+            border: solid 1px #2AA7DE;
+            background: #6CC8EF;
+            text-align: center;
+            padding: 4em .5em;
+            float: left;
+        }
+        
+        #myList
+        {
+            margin: 1em;
+            float: left;
+        }
+        
+        #myList UL
+        {
+            padding: 0px;
+            margin: 0em 1em;
+        }
+        
+        #myList LI
+        {
+            width: 100px;
+            border: solid 1px #2AA7DE;
+            background: #6CC8EF;
+            padding: 5px 5px;
+            margin: 2px 0px;
+            list-style: none;
+        }
+        
+        #options
+        {
+            clear: left;
+        }
+        
+        #options INPUT
+        {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            width: 180px;
+        }
+    </style>
+</head>
+<body>
+<h1 id="qunit-header">WContextmenu Unit Tests</h1>
+<h2 id="qunit-banner"></h2>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+
+    <div id="myDiv">
+        Right click to view the context menu
+    </div>
+
+    <ul id="myMenu" class="contextMenu">
+        <li><a href="#item1">Item 1°</a></li>
+        <li><a href="#item2" typeFilter="type2">Item 2°</a></li>
+        <li class="separator"><a href="#item3">Item 3°</a></li>
+        <li class="hasChildren"><a href="#item4">Item 4°</a>
+            <ul class="contextMenu">
+                <li><a href="#subitem1">Subitem 1°</a></li>
+                <li><a href="#subitem2">Subitem 2°</a></li>
+                <li><a href="#subitem3">Subitem 3°</a></li>
+            </ul>
+        </li>
+        <li class="separator hasChildren"><a href="#item5">Item 5°</a>
+            <ul class="contextMenu">
+                <li><a href="#subitem1">Subitem 1°</a></li>
+                <li><a href="#subitem2">Subitem 2°</a></li>
+                <li><a href="#subitem3">Subitem 3°</a></li>
+            </ul>
+        </li>
+    </ul>
+	
+	<script type="text/javascript" src="../3rd/jquery/1.5.1/jquery.js"></script>
+	<script type="text/javascript" src="../src/js/wcontextmenu.js"></script>
+	<script type="text/javascript" src="../3rd/qunit/1.9.0/qunit.js"></script>
+	<script type="text/javascript" src="unit/wcontextmenu.js"></script>
+</body>
+</html>
