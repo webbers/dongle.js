@@ -65,6 +65,7 @@
             showStatusIcon: true,
             statusPanel: null,
             complete: null,
+			sort: "ASC",
             showPaging: true,
             dictionary:
             {
@@ -158,6 +159,11 @@
             if (plugin.settings.orderby !== "" && plugin.settings.orderby !== null && plugin.settings.orderby !== undefined)
             {
                 orderby = plugin.settings.orderby;
+            }
+			
+			if (plugin.settings.sort !== "" && plugin.settings.sort !== null && plugin.settings.sort !== undefined)
+            {
+                sort = plugin.settings.sort;
             }
 
             querystring = filterParams === "" ? querystring : querystring + "&" + filterParams;
@@ -824,7 +830,8 @@
                     (e.srcElement.className.indexOf('wgrid-filter-button') == -1))
                 {
                     if (($(e.srcElement).closest('.ui-widget').length === 0) &&
-                        ($(e.srcElement).closest('.ui-datepicker-header').length === 0))
+                        ($(e.srcElement).closest('.ui-datepicker-header').length === 0) &&
+						($(e.srcElement).closest('.wgrid-filter-panel-element').length === 0))
                     {
                         $('.wgrid-filter-panel').remove();
                     }
@@ -839,9 +846,11 @@
             var filterType = $column.attr('field_type');
             var fieldValue = $column.attr('field_value');
             var fieldOrderBy = $column.attr('orderby');
+			var fieldFilterBy = $column.attr('filterby');
 
             var fieldName = fieldValue !== undefined && fieldValue !== "" ? $column.attr('field_value') : $column.attr('field_name');
-
+			fieldName = fieldFilterBy !== undefined && fieldOrderBy !== "" ? fieldFilterBy : fieldName;
+			
             var filterJsonData = $column.attr('filter_json_data');
             if (filterJsonData !== null)
             {
@@ -889,7 +898,7 @@
                         var filterButton = $('<div class="wgrid-filter-panel-apply-button">&nbsp;</div>');
                         if (filterType.toLowerCase() != 'list' && filterType.toLowerCase() != 'bool')
                         {
-                            if (filterType.toLowerCase() != 'datetime' && filterType.toLowerCase() != 'hexaid' && filterType.toLowerCase() != 'bool' && filterType.toLowerCase() != 'machineid')
+                            if (filterType.toLowerCase() != 'datetime' && filterType.toLowerCase() != 'hexaid' && filterType.toLowerCase() != 'bool' && filterType.toLowerCase() != 'machineid' && filterType.toLowerCase() != 'numeric')
                             {
                                 optionAdvancedFilter = $('<div class="hide advanced-options"> <input type="radio" name="advancedFilter" value="equals" checked=checked>' + plugin.settings.dictionary.exactlyEqual + ' <br /><input type="radio" name="advancedFilter" value="contains">' + plugin.settings.dictionary.contain + '<br /><input type="radio" name="advancedFilter" value="startsWith">' + plugin.settings.dictionary.startWith + '<br /><input type="radio" name="advancedFilter" value="endsWith">' + plugin.settings.dictionary.endWith + ' </div>');
                                 filterAdvancedButton = $('<div class="wgrid-filter-advanced">+ ' + plugin.settings.dictionary.advancedOptions + '</div>');
@@ -922,9 +931,9 @@
                                 {
                                     filters[fieldName] = filterType + '|' + advancedChoicedOption + '|' + '"' + filterField.val() + '"';
                                 }
-                                else if (filterType == 'hexaid')
+                                else if (filterType == 'hexaid' || filterType== 'pinnumber')
                                 {
-                                    filters[fieldName] = 'text' + '|' + advancedChoicedOption + '|' + '00' + filterField.val();
+                                    filters[fieldName] = filterType + '|' + advancedChoicedOption + '|' + filterField.val();
                                 }
                                 else
                                 {

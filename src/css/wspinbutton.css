@@ -2,9 +2,8 @@
 {
     margin: 0;
     padding: 0;
-    padding-right: 3px;
-    height: 20px;
     text-align: right;
+	padding: 8px 5px 9px 5px;
 }
 
 .wspinbutton-button
@@ -14,10 +13,10 @@
     margin: 0;
     background: url(../images/spin-button.png) transparent;
     border: none;
-    width: 14px;
-    height: 20px;
+    width: 16px;
+    height: 37px;
     display: inline-block;
-    zoom: 1;
+    zoom: 0;
     *display: inline;
     *margin-top: 1px;
     vertical-align: top;
