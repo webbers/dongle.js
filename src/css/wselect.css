@@ -141,6 +141,7 @@
 
 .wselect-checkboxes label input
 {
+	margin-left: 6px;
     position:relative;
     top:1px
 }
