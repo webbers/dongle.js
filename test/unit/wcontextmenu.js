@@ -1,7 +1,5 @@
 $(document).ready(function ()
 {
-
-	// Show menu when #myDiv is clicked
 	$("#myDiv").wcontextmenu({
 		menu: 'myMenu',
 		select: function (action, el, pos)
@@ -14,23 +12,6 @@ $(document).ready(function ()
 				);
 		}
 	});
-
-	// Disable first internal menu
-	$("#disableInternalMenu").click(function ()
-	{
-		$('#myDiv, #myList UL LI').wcontextmenu('disableItems', "#item5");
-		$(this).attr('disabled', true);
-		$("#enableInternalMenu").attr('disabled', false);
-	});
-
-	// Enable first internal menu
-	$("#enableInternalMenu").click(function ()
-	{
-		$('#myDiv, #myList UL LI').wcontextmenu('enableItems', "#item5");
-		$(this).attr('disabled', true);
-		$("#disableInternalMenu").attr('disabled', false);
-	});
-
 });
 
 module('WContextmenu');
@@ -110,7 +91,7 @@ test("Hide items",function()
 	ok($("a[href='#item1']").is(':visible')===false);
 });
 
-test("Hide items",function()
+test("Show items",function()
 {
 	$('#myDiv').wcontextmenu('showItems', '#item1');
 	

@@ -476,6 +476,15 @@ createWGrid(function($wgrid, $innerGrid)
 
 createWGrid(function($wgrid, $innerGrid)
 {
+    test("getLastId", function ()
+    {
+        var lastId = $innerGrid.wgrid('getLastId');
+        equal(typeof lastId, "number", "gatLastId is returning a number");
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
     test("getHeaderColumns", function ()
     {
         var getHeaderColumns = $innerGrid.wgrid('getHeaderColumns');
@@ -513,3 +522,18 @@ createWGrid(function($wgrid, $innerGrid)
         deepEqual($wgrid.find('.wgrid-table tr').length == $wgrid.wgrid('getRowsData').length, true, "getRowsData is returning the correct number of data");
     });
 });
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("getSelectedRowsData", function ()
+    {
+        var $all = $wgrid.find('.wgrid-checkbox-all');
+        checkboxClick($all);
+		var count = $wgrid.wgrid('getSelectedRowsData').length;
+        equal(typeof $all, "object", "getSelectedRowsData is returning a object");
+		deepEqual(count, $wgrid.find('.wgrid-checkbox-item:checked').length, "getSelectedRowsData is returning correct number of checked rows");
+    });
+});
+
+
+
