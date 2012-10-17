@@ -1,9 +1,9 @@
 /*jshint node: true */
 /*global config:true, task:true, process:true*/
 
-"use strict";
-module.exports = function( grunt ) {
 
+module.exports = function( grunt ) {
+    "use strict";
     // readOptionalJSON
     // by Ben Alman
     // https://gist.github.com/2876125
