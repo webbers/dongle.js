@@ -1,12 +1,7 @@
-/**
- * Resources
- *
- * https://gist.github.com/2489540
- *
- */
-
 /*jshint node: true */
 /*global config:true, task:true, process:true*/
+
+"use strict";
 module.exports = function( grunt ) {
 
     // readOptionalJSON
