@@ -1,36 +1,13 @@
+var teste = false;
 $(document).ready(function ()
 {
-
-	// Show menu when #myDiv is clicked
 	$("#myDiv").wcontextmenu({
 		menu: 'myMenu',
 		select: function (action, el, pos)
 		{
-			alert(
-					'Action: ' + action + '\n\n' +
-						'Element ID: ' + $(el).attr('id') + '\n\n' +
-							'X: ' + pos.x + '  Y: ' + pos.y + ' (relative to element)\n\n' +
-								'X: ' + pos.docX + '  Y: ' + pos.docY + ' (relative to document)'
-				);
+			teste = true;
 		}
 	});
-
-	// Disable first internal menu
-	$("#disableInternalMenu").click(function ()
-	{
-		$('#myDiv, #myList UL LI').wcontextmenu('disableItems', "#item5");
-		$(this).attr('disabled', true);
-		$("#enableInternalMenu").attr('disabled', false);
-	});
-
-	// Enable first internal menu
-	$("#enableInternalMenu").click(function ()
-	{
-		$('#myDiv, #myList UL LI').wcontextmenu('enableItems', "#item5");
-		$(this).attr('disabled', true);
-		$("#disableInternalMenu").attr('disabled', false);
-	});
-
 });
 
 module('WContextmenu');
@@ -110,7 +87,7 @@ test("Hide items",function()
 	ok($("a[href='#item1']").is(':visible')===false);
 });
 
-test("Hide items",function()
+test("Show items",function()
 {
 	$('#myDiv').wcontextmenu('showItems', '#item1');
 	
@@ -128,4 +105,50 @@ test("Hide items by type",function()
 	$('#myDiv').trigger({type:'mouseup', button: 2});
 	
 	ok($("a[href='#item2']").is(':visible')===false);
+});
+
+test("Hover test",function()
+{
+	$('#myDiv').wcontextmenu('showItems', '#item4');
+	
+	$('#myDiv').trigger({type:'mousedown', button: 2});
+	$('#myDiv').trigger({type:'mouseup', button: 2});
+	
+	$("a[href='#item4']").trigger('mouseover');
+	
+	ok($("a[href='#item4']").parent().hasClass('hover')===true);
+	
+	$("a[href='#item4']").trigger('mouseout');
+	
+	$("a[href='#subitem1']").trigger('mouseover');
+	ok($("a[href='#subitem1']").parent().hasClass('hover')===true);
+	
+	$("a[href='#subitem1']").trigger('mouseout');
+});
+
+test("Hide items by two type",function()
+{
+	$('#myDiv').wcontextmenu('hideItemsByTypes', 'type1, type2');
+	
+	$('#myDiv').trigger({type:'mousedown', button: 2});
+	$('#myDiv').trigger({type:'mouseup', button: 2});
+	
+	ok($("a[href='#item2']").is(':visible')===false);
+	ok($("a[href='#item1']").is(':visible')===false);
+});
+
+test("Submenu click test",function()
+{
+	$('#myDiv').wcontextmenu('showItems', '#item4');
+	
+	$('#myDiv').trigger({type:'mousedown', button: 2});
+	$('#myDiv').trigger({type:'mouseup', button: 2});
+	
+	$("a[href='#item4']").trigger('mouseover');
+		
+	$("a[href='#subitem1']").trigger('mouseover');
+	
+	$("a[href='#subitem1']").click();
+	ok($("#myMenu").is(':visible')===false);
+	ok(teste===true);
 });

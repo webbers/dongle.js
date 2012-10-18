@@ -1,5 +1,5 @@
 /*
-* WButton 1.0
+* WInputfile 1.0
 * Copyright (c) 2012 Webers
 *
 * Depends:
