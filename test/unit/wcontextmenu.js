@@ -110,3 +110,33 @@ test("Hide items by type",function()
 	
 	ok($("a[href='#item2']").is(':visible')===false);
 });
+
+test("Hover test",function()
+{
+	$('#myDiv').wcontextmenu('showItems', '#item4');
+	
+	$('#myDiv').trigger({type:'mousedown', button: 2});
+	$('#myDiv').trigger({type:'mouseup', button: 2});
+	
+	$("a[href='#item4']").trigger('mouseover');
+	
+	ok($("a[href='#item4']").parent().hasClass('hover')===true);
+	
+	$("a[href='#item4']").trigger('mouseout');
+	
+	$("a[href='#subitem1']").trigger('mouseover');
+	ok($("a[href='#subitem1']").parent().hasClass('hover')===true);
+	
+	$("a[href='#subitem1']").trigger('mouseout');
+});
+
+test("Hide items by two type",function()
+{
+	$('#myDiv').wcontextmenu('hideItemsByTypes', 'type1, type2');
+	
+	$('#myDiv').trigger({type:'mousedown', button: 2});
+	$('#myDiv').trigger({type:'mouseup', button: 2});
+	
+	ok($("a[href='#item2']").is(':visible')===false);
+	ok($("a[href='#item1']").is(':visible')===false);
+});
