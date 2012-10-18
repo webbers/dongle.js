@@ -152,3 +152,13 @@ test("Submenu click test",function()
 	ok($("#myMenu").is(':visible')===false);
 	ok(teste===true);
 });
+
+test("Destroy",function()
+{
+	$('#myDiv').wcontextmenu('destroy');
+	
+	$('#myDiv').trigger({type:'mousedown', button: 2});
+	$('#myDiv').trigger({type:'mouseup', button: 2});
+	
+	ok($("#myMenu").is(':visible')===false);
+});
