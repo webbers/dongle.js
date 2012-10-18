@@ -21,6 +21,7 @@ $.widget("ech.wselect", {
     options: {
         header: true,
         height: 'auto',
+		maxHeight: 170,
         minWidth: 225,
         classes: '',
         checkAllText: 'Check all',
@@ -543,6 +544,11 @@ $.widget("ech.wselect", {
 
         // set the scroll of the checkbox container
         $container.scrollTop(0).height(o.height);
+		
+		if(o.height == 'auto')
+		{
+			$container.css('maxHeight', o.maxHeight + 'px');
+		}
 
         // position and show menu
         if( $.ui.position && !$.isEmptyObject(o.position) && !this._awaysOpened){
@@ -676,6 +682,7 @@ $.widget("ech.wselect", {
                 break;
             case 'height':
                 menu.find('ul').last().height( parseInt(value,10) );
+				menu.find('ul').last().css('maxHeight', 'initial');
                 break;
             case 'minWidth':
                 this.options[ key ] = parseInt(value,10);
