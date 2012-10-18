@@ -20,7 +20,7 @@ $.widget("ech.wselect", {
     // default options
     options: {
         header: true,
-        height: 175,
+        height: 'auto',
         minWidth: 225,
         classes: '',
         checkAllText: 'Check all',
@@ -559,6 +559,11 @@ $.widget("ech.wselect", {
                 top: pos.top + button.outerHeight(),
                 left: pos.left
             });
+        }
+		
+		if(!o.multiple)
+        {
+            this.header.css('display', 'none');
         }
 
         //thiago: hide button
