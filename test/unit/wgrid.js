@@ -480,6 +480,7 @@ createWGrid(function($wgrid, $innerGrid)
     {
         var lastId = $innerGrid.wgrid('getLastId');
         equal(typeof lastId, "number", "gatLastId is returning a number");
+		equal(lastId, 9, "getLastId is returning correct number of last records");
     });
 });
 
