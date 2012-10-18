@@ -1,15 +1,11 @@
+var teste = false;
 $(document).ready(function ()
 {
 	$("#myDiv").wcontextmenu({
 		menu: 'myMenu',
 		select: function (action, el, pos)
 		{
-			alert(
-					'Action: ' + action + '\n\n' +
-						'Element ID: ' + $(el).attr('id') + '\n\n' +
-							'X: ' + pos.x + '  Y: ' + pos.y + ' (relative to element)\n\n' +
-								'X: ' + pos.docX + '  Y: ' + pos.docY + ' (relative to document)'
-				);
+			teste = true;
 		}
 	});
 });
@@ -139,4 +135,20 @@ test("Hide items by two type",function()
 	
 	ok($("a[href='#item2']").is(':visible')===false);
 	ok($("a[href='#item1']").is(':visible')===false);
+});
+
+test("Submenu click test",function()
+{
+	$('#myDiv').wcontextmenu('showItems', '#item4');
+	
+	$('#myDiv').trigger({type:'mousedown', button: 2});
+	$('#myDiv').trigger({type:'mouseup', button: 2});
+	
+	$("a[href='#item4']").trigger('mouseover');
+		
+	$("a[href='#subitem1']").trigger('mouseover');
+	
+	$("a[href='#subitem1']").click();
+	ok($("#myMenu").is(':visible')===false);
+	ok(teste===true);
 });
