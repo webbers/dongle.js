@@ -144,6 +144,18 @@
 		
 		el.wselect("destroy");
 	});
+	
+	test("maxHeight", function(){
+		expect(1);
+		
+		var height = 'auto';
+		var maxHeight =  40;
+		
+		el = $("select").wselect({ height: height, maxHeight: maxHeight }).wselect("open");
+		equal( maxHeight, menu().find("ul.wselect-checkboxes").height(), 'Maxheight after opening propertly set to '+maxHeight );
+				
+		el.wselect("destroy");
+	});
 
 	test("minWidth", function(){
 		expect(3);
