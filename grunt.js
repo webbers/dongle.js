@@ -70,22 +70,23 @@ module.exports = function( grunt ) {
                       "src/js/wswitchbutton.js"],
                 dest: "dist/js/dongle.components.js"
             },
-            "components.unobstrusive":
+            "components.unobtrusive":
             {
-                src: ["src/js/wbutton.unobstrusive.js",
-                      "src/js/wslider.unobstrusive.js",
-                      "src/js/wspinbutton.unobstrusive.js",
-                      "src/js/wswitchbutton.unobstrusive.js"],
-                dest: "dist/js/dongle.components.unobstrusive.js"
+                src: ["src/js/wbutton.unobtrusive.js",
+                      "src/js/winputfile.unobtrusive.js",
+                      "src/js/wslider.unobtrusive.js",
+                      "src/js/wspinbutton.unobtrusive.js",
+                      "src/js/wswitchbutton.unobtrusive.js"],
+                dest: "dist/js/dongle.components.unobtrusive.js"
             },
             "validators":
             {
-                src: ["src/js/wrequiredif.unobstrusive.js"],
+                src: ["src/js/wrequiredif.unobtrusive.js"],
                 dest: "dist/js/dongle.validators.js"
             },
             "loader":
             {
-                src: ["src/js/wloader.unobstrusive.js"],
+                src: ["src/js/wloader.unobtrusive.js"],
                 dest: "dist/js/dongle.loader.js"
             },
             "actionbox":

@@ -97,6 +97,13 @@ $.mockjax({
     log: false
 });
 
+$.mockjax({
+    url: 'data.json?skip=0&keyColumn=&orderby=field1&sort=ASC',
+    responseTime: 0,
+    responseText: {"Data": items2,"TotalCount":10},
+    log: false
+});
+
 //StartsWith
 $.mockjax({
     url: 'data.json?skip=0&keyColumn=&field5=text%7CstartsWith%7C2',
@@ -139,7 +146,7 @@ $.mockjax({
 
 function createHtml(id)
 {
-    var html = '<table id="'+ id + '"><thead><tr><th field_type="numeric" field_name="field1" field_value="" disable_handling="">ID</th><th field_type="int" field_name="field2" field_value="" disable_handling="true">INTEIRO</th><th field_type="datetime" field_name="field3" field_value="" disable_handling="true">DATA</th><th field_name="field4" field_value="" disable_handling="true">TESTE</th><th field_type="text" field_name="field5">TESTE DE COLUNA MEGAMENTE GIGANTESCA E GROTESCA</th></tr></thead></table>';
+    var html = '<table id="'+ id + '"><thead><tr><th field_type="numeric" field_name="field1" field_value="" disable_handling="">ID</th><th field_type="int" field_name="field2" field_value="" disable_handling="true">INTEIRO</th><th field_type="datetime" field_name="field3" field_value="" disable_handling="true">DATA</th><th field_name="field4" field_value="" disable_handling="true">TESTE</th><th field_type="text" field_name="field5">TESTE DE COLUNA GRANDE</th><th field_type="bool" field_name="field6" field_value="" disable_handling="true">BOOL</th></tr></thead></table>';
     $(document.body).append(html);
 }
 
@@ -480,6 +487,7 @@ createWGrid(function($wgrid, $innerGrid)
     {
         var lastId = $innerGrid.wgrid('getLastId');
         equal(typeof lastId, "number", "gatLastId is returning a number");
+		equal(lastId, 9, "getLastId is returning correct number of last records");
     });
 });
 

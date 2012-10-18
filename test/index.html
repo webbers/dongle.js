@@ -14,12 +14,12 @@
     <script type="text/javascript" src="../3rd/qunit/1.9.0/qunit.js"></script>
     <script type="text/javascript" src="../3rd/mockjax/1.5.1/jquery.mockjax.js"></script>
     <script type="text/javascript" src="../3rd/jquery.validate/1.8.0/jquery.validate.js"></script>
-    <script type="text/javascript" src="../3rd/jquery.validate/1.8.0/jquery.validate.unobstrusive.js"></script>
+    <script type="text/javascript" src="../3rd/jquery.validate/1.8.0/jquery.validate.unobtrusive.js"></script>
 	
 	<link type="text/css" href="../dist/css/dongle.components.css" rel="stylesheet" media="all" />
 
 	<script src="../dist/js/dongle.components.js"></script>
-	<script src="../dist/js/dongle.components.unobstrusive.js"></script>
+	<script src="../dist/js/dongle.components.unobtrusive.js"></script>
 	<script src="../dist/js/dongle.validators.js"></script>
 </head>
 
@@ -63,8 +63,36 @@
     
 	<!--WButton-->
 	<div>
-		<button id="wbutton-default" class="wbutton">Teste</button>
+		<button id="wbutton-default" class="wbutton submit">Teste</button>
 	</div>
+	
+	<!--Winputfile-->
+	<div>
+		<input type="file" id="winputfile" class="winputfile" />
+	</div>
+	
+	<!--Wslider-->
+	<div id="wslider1" class="wslider" style="width:30%; height: 150px" interval="1000">
+        <ul>
+            <li>
+                <img src="http://g1.globo.com/Noticias/Ciencia/foto/0,,14316948,00.jpg"
+                    alt="Banner1" />
+                <div class="description">
+                    teste1
+                </div>
+            </li>
+            <li>
+                <img src="http://winxlinux.com/wp-content/uploads/2009/05/wallpaper-leao.jpg" alt="Banner1" />
+                <div class="description">
+                    <h2>
+                        Teste2 Down</h2>
+                    <p>
+                        blablabal
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
 	
 	<!--WSPINBUTTON-->
 	<div>
@@ -119,8 +147,10 @@
 <script src="unit/wsimplegrid.js"></script>
 <script src="unit/wgrid.js"></script>
 <script src="unit/wswitchbutton.js"></script>
+<script src="unit/wslider.js"></script>
 <script src="unit/wrequiredif.js"></script>
 <script src="unit/wbutton.js"></script>
 <script src="unit/wspinbutton.js"></script>
+<script src="unit/winputfile.js"></script>
 
 </html>
