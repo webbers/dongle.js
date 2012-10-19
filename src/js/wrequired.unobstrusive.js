@@ -1,4 +1,4 @@
-﻿/*
+/*
 * WRequiredIf 1.0
 * Copyright (c) 2011 Webers
 *
@@ -14,14 +14,14 @@ $(function () {
     jQuery.validator.unobtrusive.adapters.add("wrequired", function (options) {
         // jQuery Validate equates "required" with "mandatory" for checkbox elements
         if (options.element.tagName.toUpperCase() !== "INPUT" || options.element.type.toUpperCase() !== "CHECKBOX") {
-            options.rules["wrequired"] = true;
+            options.rules.wrequired = true;
             if (options.message) {
-                options.messages["wrequired"] = options.message;
+                options.messages.wrequired = options.message;
             }
         }
     });
 
     jQuery.validator.addMethod("wrequired", function (value, element, param) {
-        return value != null && value != '';
+        return value !== null && value !== undefined && value !== '';
     });
 } (jQuery));
