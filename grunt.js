@@ -81,7 +81,8 @@ module.exports = function( grunt ) {
             },
             "validators":
             {
-                src: ["src/js/wrequiredif.unobtrusive.js"],
+                src: ["src/js/wrequiredif.unobtrusive.js",
+                      "src/js/wrequired.unobstrusive.js"],
                 dest: "dist/js/dongle.validators.js"
             },
             "loader":
