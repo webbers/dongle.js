@@ -1,10 +1,10 @@
 import os
 import sys
 from pyhammer.builder import Builder
+from pyhammer.tasks.git.gitcommitandpushtask import GitCommitAndPushTask
 from pyhammer.tasks.helpers.commandtask import CommandTask
 from pyhammer.tasks.io.copytask import CopyTask
 from pyhammer.tasks.io.deletetask import DeleteTask
-from pyhammer.tasks.svn.svncommittask import SvnCommitTask
 from pyhammer.tasks.svn.svncreatetagtask import SvnCreateTagTask
 from pyhammer.tasks.svn.svndeletetask import SvnDeleteTask
 from pyhammer.tasks.svn.svnimporttask import SvnImportTask
@@ -33,7 +33,7 @@ Builder.addTask( "copy", CopyTask(tempDir, pubDir ) )
 Builder.addTask( "import", SvnImportTask( pubDir, repoUrl ) )
 Builder.addTask( "increment-rev", IncrementVersionTask( versionFile, "revision", 3 ) )
 Builder.addTask( "increment-min", IncrementVersionTask( versionFile, "minor", 3 ) )
-Builder.addTask( "commit-version-file", SvnCommitTask( versionFile, 1, svnUserName, svnPassword  ) )
+Builder.addTask( "commit-version-file", GitCommitAndPushTask( rootDir, 1, svnUserName, svnPassword  ) )
 Builder.addTask( "create-tag", SvnCreateTagTask( repoUrl, repoTagUrl , versionFile ) )
 
 #-Root steps------------------------------------------------------------------------------------------------------------
