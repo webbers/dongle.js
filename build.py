@@ -42,4 +42,6 @@ Builder.addTask( "ci", "ps del-repo del-pub copy import del-temp")
 Builder.addTask( "deploy-revision", "increment-rev ci create-tag commit-version-file")
 Builder.addTask( "deploy-minor", "increment-min ci create-tag commit-version-file")
 
+Builder.addTask("test", "increment-rev create-tag")
+
 Builder.runBuild()
