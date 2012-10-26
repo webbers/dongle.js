@@ -16,10 +16,10 @@ svnPassword = ''
 if len(sys.argv)>3: svnPassword = sys.argv[3]
 
 #-Paths-----------------------------------------------------------------------------------------------------------------
-tempDir  = os.path.join( os.path.dirname( __file__ ), 'dist' )
-rootDir  = os.path.join( os.path.dirname( __file__ ), '.' )
-pubDir = os.path.abspath( os.path.join( os.path.dirname( __file__ ), 'pub' ) )
-versionFile = os.path.abspath( os.path.join( os.path.dirname( __file__ ), 'package.json' ) )
+rootDir  = os.path.abspath( os.path.dirname( __file__ ) )
+tempDir  = os.path.join( rootDir, 'dist' )
+pubDir = os.path.join( rootDir, 'pub' )
+versionFile = os.path.join( rootDir, 'package.json' )
 repoUrl = 'http://cronos:9090/gasrd/Web/pub/dongle.js/trunk'
 repoTagUrl = 'http://cronos:9090/gasrd/Web/pub/dongle.js/tags'
 
