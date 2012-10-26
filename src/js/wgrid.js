@@ -156,7 +156,7 @@
                 querystring = querystring + "&keyColumn=" + plugin.settings.keyColumn;
             }
 
-            if (plugin.settings.orderby !== "" && plugin.settings.orderby !== null && plugin.settings.orderby !== undefined)
+            if (orderby !== "" && orderby !== null && orderby !== undefined)
             {
                 orderby = plugin.settings.orderby;
             }
