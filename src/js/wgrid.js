@@ -161,7 +161,7 @@
                 orderby = plugin.settings.orderby;
             }
 			
-			if (plugin.settings.sort !== "" && plugin.settings.sort !== null && plugin.settings.sort !== undefined)
+	    if (sort !== "" && sort !== null && sort !== undefined)
             {
                 sort = plugin.settings.sort;
             }
