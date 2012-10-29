@@ -66,6 +66,7 @@
             statusPanel: null,
             complete: null,
 			sort: "ASC",
+			orderby: "id",
             showPaging: true,
             dictionary:
             {
