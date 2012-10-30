@@ -65,8 +65,7 @@
             showStatusIcon: true,
             statusPanel: null,
             complete: null,
-			sort: "ASC",
-			orderby: "id",
+            sort: "ASC",
             showPaging: true,
             dictionary:
             {
