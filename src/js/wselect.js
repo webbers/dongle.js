@@ -45,7 +45,7 @@ $.widget("ech.wselect", {
         this._awaysOpened = false;
 
         var
-            button = (this.button = $('<button><span class="wselect-final-content"></span></button>'))
+            button = (this.button = $('<div><span class="wselect-final-content"></span></div>'))
                 .addClass('wselect')
                 .addClass( o.classes )
                 .attr({ 'title':el.attr('title'), 'aria-haspopup':true, 'tabIndex':el.attr('tabIndex') })
