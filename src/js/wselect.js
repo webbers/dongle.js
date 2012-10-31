@@ -217,7 +217,7 @@ $.widget("ech.wselect", {
             }
         }
 
-        this.buttonlabel.html( value );
+        this.buttonlabel.html('<span style="margin-left:10px;">' + value + '</span>');
         return value;
     },
 
