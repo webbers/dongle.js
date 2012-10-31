@@ -964,7 +964,6 @@
                                 filters[fieldName] = filterType + '|' + filterField.val();
 
                                 $('.wgrid-filter-panel').remove();
-
                                 reloadGrid();
                             });
                         }
@@ -974,8 +973,8 @@
                             for (var item in filterJsonData)
                             {
                                 filterField.append($('<option value="' +
-                                    filterJsonData[item].key + '">' +
-                                    filterJsonData[item].value + '</option>'));
+                                    filterJsonData[item].Key + '">' +
+                                    filterJsonData[item].Value + '</option>'));
                             }
 
                             filterButton.click(function ()
