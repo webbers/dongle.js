@@ -29,16 +29,6 @@
 		el.wselect("destroy");
 	});
 	
-	test("disable", function(){
-		expect(2);
-	 
-	 	// clone this one so the original is not affected
-		el = $("select").clone(true).appendTo(body).wselect().wselect("disable");
-			ok( button().is(":disabled"), 'Button is disabled');
-			ok( el.is(":disabled"), 'Original select is disabled');
-		el.wselect("destroy").remove();
-	});
-	
 	test("enabling w/ pre-disabled tags (#216)", function(){
 		expect(5);
 	 
@@ -74,7 +64,7 @@
 	 
 		el = $("select").wselect();
 		var button = el.wselect("getButton");
-			ok( button.is("button.wselect"), 'Button is the button element');
+			ok( button.is("div.wselect"), 'Button is the DIV element');
 		el.wselect("destroy");
 	});
 	

@@ -65,7 +65,7 @@
             showStatusIcon: true,
             statusPanel: null,
             complete: null,
-			sort: "ASC",
+            sort: "ASC",
             showPaging: true,
             dictionary:
             {
@@ -156,12 +156,12 @@
                 querystring = querystring + "&keyColumn=" + plugin.settings.keyColumn;
             }
 
-            if (orderby !== "" && orderby !== null && orderby !== undefined)
+            if (orderby === "" || orderby === null || orderby === undefined)
             {
                 orderby = plugin.settings.orderby;
             }
-			
-			if (plugin.settings.sort !== "" && plugin.settings.sort !== null && plugin.settings.sort !== undefined)
+
+            if (sort === "" || sort === null || sort === undefined)
             {
                 sort = plugin.settings.sort;
             }
@@ -964,7 +964,6 @@
                                 filters[fieldName] = filterType + '|' + filterField.val();
 
                                 $('.wgrid-filter-panel').remove();
-
                                 reloadGrid();
                             });
                         }
@@ -974,8 +973,8 @@
                             for (var item in filterJsonData)
                             {
                                 filterField.append($('<option value="' +
-                                    filterJsonData[item].key + '">' +
-                                    filterJsonData[item].value + '</option>'));
+                                    filterJsonData[item].Key + '">' +
+                                    filterJsonData[item].Value + '</option>'));
                             }
 
                             filterButton.click(function ()
