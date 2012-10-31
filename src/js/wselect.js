@@ -45,7 +45,7 @@ $.widget("ech.wselect", {
         this._awaysOpened = false;
 
         var
-            button = (this.button = $('<button><span class="wselect-final-content"></span></button>'))
+            button = (this.button = $('<div><span class="wselect-final-content"></span></div>'))
                 .addClass('wselect')
                 .addClass( o.classes )
                 .attr({ 'title':el.attr('title'), 'aria-haspopup':true, 'tabIndex':el.attr('tabIndex') })
@@ -217,7 +217,7 @@ $.widget("ech.wselect", {
             }
         }
 
-        this.buttonlabel.html( value );
+        this.buttonlabel.html('<span style="margin-left:10px;">' + value + '</span>');
         return value;
     },
 
@@ -561,10 +561,13 @@ $.widget("ech.wselect", {
 
         // if position utility is not available...
         } else {
-            menu.css({
-                top: pos.top + button.outerHeight(),
-                left: pos.left
-            });
+            if(!o.autoOpen)
+			{
+				menu.css({
+					top: pos.top + button.outerHeight(),
+					left: pos.left
+				});
+			}
         }
 		
 		if(!o.multiple)
@@ -577,7 +580,9 @@ $.widget("ech.wselect", {
         {
             button.parent().append(menu);
             button.hide();
-            menu.css('position', 'initial');
+            menu.css('position', 'relative');
+			menu.css('top', '0');
+			
             menu.show();
         }
 
