@@ -467,6 +467,7 @@
             }
 
             reloadTotalsDisplays();
+			loadingHide();
         };
 
         var resizeColumns = function ()
