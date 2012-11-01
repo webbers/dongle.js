@@ -15,6 +15,15 @@ local.properties
 .classpath
 .settings/
 .loadpath
+
+#################
+## QuickBuild
+#################
+.qbcache
+
+#################
+## IntelliJ
+#################
 .idea
 
 # External tool builders

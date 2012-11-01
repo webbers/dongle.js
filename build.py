@@ -1,6 +1,7 @@
 import os
 import sys
 from pyhammer.builder import Builder
+from pyhammer.tasks.git.gitcheckouttask import GitCheckoutTask
 from pyhammer.tasks.git.gitcommitandpushtask import GitCommitAndPushTask
 from pyhammer.tasks.helpers.commandtask import CommandTask
 from pyhammer.tasks.io.copytask import CopyTask
@@ -35,11 +36,12 @@ Builder.addTask( "increment-rev", IncrementVersionTask( versionFile, "revision",
 Builder.addTask( "increment-min", IncrementVersionTask( versionFile, "minor", 3 ) )
 Builder.addTask( "commit-version-file", GitCommitAndPushTask( rootDir, 1, svnUserName, svnPassword  ) )
 Builder.addTask( "create-tag", SvnCreateTagTask( repoUrl, repoTagUrl , versionFile ) )
+Builder.addTask( "git-checkout", GitCheckoutTask( "master", rootDir ) )
 
 #-Root steps------------------------------------------------------------------------------------------------------------
 Builder.addTask( "ps", "del-temp install-deps grunt")
 Builder.addTask( "ci", "ps del-repo del-pub copy import del-temp")
-Builder.addTask( "deploy-revision", "increment-rev ci create-tag commit-version-file")
-Builder.addTask( "deploy-minor", "increment-min ci create-tag commit-version-file")
+Builder.addTask( "deploy-revision", "git-checkout increment-rev ci commit-version-file create-tag")
+Builder.addTask( "deploy-minor", "git-checkout increment-min ci commit-version-file create-tag")
 
 Builder.runBuild()
