@@ -569,7 +569,6 @@
             plugin.settings.statusPanel.find('.wgrid-total').html(totalItemsText);
 
             plugin.settings.statusPanel.find('.more-items-button>.content>span').html('+ ' + plugin.settings.listItemCount);
-            loadingHide();
 
             if (!plugin.settings.showPaging)
             {
