@@ -2,50 +2,50 @@ dongle.js - A boosted util library
 ===================================
 [![Build Status](https://secure.travis-ci.org/webbers/dongle.js.png)](http://travis-ci.org/webbers/dongle.js)
 
-* Conjunto de funções úteis que são uma mão na roda no dia-a-dia do programador Javascript.
+* Features that are useful in handy on a day-to-day programmer Javascript.
 
-O que você precisa para compilar o dongle.js
---------------------------------------------
-Usuários Windows:
+What you need to compile the dongle.js
+--------------------------------------
+Windows users:
 
-1. Instalar o [msysgit](https://code.google.com/p/msysgit/) (não esquecer de colocar a pasta bin na variável de ambiente PATH);
-2. Instalar o [Node.js](http://nodejs.org/).
-3. Baixar o [PhantomJs](http://phantomjs.org/download.html), Descompactar em um diretório e inserir este diretório na variável de ambiente PATH
-3. Baixar o [JsCoverage](http://siliconforks.com/jscoverage/download.html), Descompactar em um diretório e inserir este diretório na variável de ambiente PATH
+1. Install [msysgit](https://code.google.com/p/msysgit/) (register bin folder in PATH environment var);
+2. Install [Node.js](http://nodejs.org/).
+3. Download [PhantomJs](http://phantomjs.org/download.html), extract into a folder and register it in PATH
+3. Download [JsCoverage](http://siliconforks.com/jscoverage/download.html), extract into a folder and register it in PATH
 
-Como compilar o dongle.js
-----------------------------
+How to compile dongle.js
+------------------------
 
-Primeiro faça um clone do repositório:
+First you need clone repo:
 
 ```bash
 git clone https://github.com/webbers/dongle.js.git
 ```
 
-Entre na pasta dongle.js e execute o comnando para instalar as dependências:
+Enter the directory and install the Node dependencies:
 ```bash
 cd dongle.js
 npm install
 ```
 
-Depois instale o grunt para que ele funcione através do path do windows:
+After install ``grunt`` as global:
 ```bash
 npm install -g grunt
 ```
 
-Tenha certeza que você tem o grunt instalado com o seguinte teste:
+Make sure you have ``grunt`` installed by testing:
 
 ```bash
 grunt.cmd -version 
 ```
 
-Então para rodar o build completo do dongle.js digite o seguinte:
+Then, to get a complete version of `dongle.js`, type the following:
 
 ```bash
 grunt.cmd
 ```
 
-A versão compilada e minificada do dongle.js estarão no subdiretório `dist/`.
+The built version and minified of `dongle.js` will be put in the `dist/` subdirectory.
 
 ## Contributing
 
