@@ -898,7 +898,7 @@
                         var filterButton = $('<div class="wgrid-filter-panel-apply-button">&nbsp;</div>');
                         if (filterType.toLowerCase() != 'list' && filterType.toLowerCase() != 'bool')
                         {
-                            if (filterType.toLowerCase() != 'datetime' && filterType.toLowerCase() != 'hexaid' && filterType.toLowerCase() != 'bool' && filterType.toLowerCase() != 'machineid' && filterType.toLowerCase() != 'numeric')
+                            if (filterType.toLowerCase() != 'datetime' && filterType.toLowerCase() != 'hexaid' && filterType.toLowerCase() != 'bool' && filterType.toLowerCase() != 'machineid' && filterType.toLowerCase() != 'numeric' && filterType.toLowerCase() != 'pinnumber')
                             {
                                 optionAdvancedFilter = $('<div class="hide advanced-options"> <input type="radio" name="advancedFilter" value="equals" id="wgrid-equals" checked=checked> <label for="wgrid-equals" >' + plugin.settings.dictionary.exactlyEqual + '</label> <br /><input type="radio" name="advancedFilter" id="wgrid-contains" value="contains"> <label for="wgrid-contains">' + plugin.settings.dictionary.contain + '</label><br /><input type="radio" name="advancedFilter" id="wgrid-startsWith" value="startsWith"> <label for="wgrid-startsWith">' + plugin.settings.dictionary.startWith + '</label><br /><input type="radio" name="advancedFilter" id="wgrid-endsWith" value="endsWith"> <label for="wgrid-endsWith">' + plugin.settings.dictionary.endWith + '</label> </div>');
                                 filterAdvancedButton = $('<div class="wgrid-filter-advanced">+ ' + plugin.settings.dictionary.advancedOptions + '</div>');
