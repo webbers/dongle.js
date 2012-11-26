@@ -34,15 +34,14 @@ Builder.addTask( "del-repo", SvnDeleteTask( repoUrl ) )
 Builder.addTask( "del-pub", DeleteTask( pubDir ) )
 Builder.addTask( "copy", CopyTask(tempDir, pubDir ) )
 Builder.addTask( "import", SvnImportTask( pubDir, repoUrl ) )
-Builder.addTask( "increment-rev", IncrementVersionTask( versionFile, "revision", 3 ) )
-Builder.addTask( "increment-min", IncrementVersionTask( versionFile, "minor", 3 ) )
+Builder.addTask( "increment-rev", IncrementVersionTask( versionFile, "revision") )
 Builder.addTask( "commit-version-file", GitCommitAndPushTask( rootDir, 1 ) )
 Builder.addTask( "create-tag", SvnCreateTagTask( repoUrl, repoTagUrl , versionFile ) )
 Builder.addTask( "git-checkout", GitCheckoutTask( "master", rootDir ) )
 
 #-Root steps------------------------------------------------------------------------------------------------------------
 Builder.addTask( 'pre-commit', [ 'del-temp', 'install-deps' ,'grunt' ])
-Builder.addTask( 'ci', [ 'ps', 'del-repo', 'del-pub', 'copy', 'import', 'del-temp' ])
+Builder.addTask( 'ci', [ 'pre-commit', 'del-repo', 'del-pub', 'copy', 'import', 'del-temp' ])
 Builder.addTask( 'pub-trunk', [ 'git-checkout', 'increment-rev', 'ci', 'commit-version-file', 'create-tag' ])
 
 Builder.runBuild(args.build)
