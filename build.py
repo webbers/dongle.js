@@ -16,6 +16,7 @@ from pyhammer.tasks.text.incrementversiontask import IncrementVersionTask
 #-Argument-Parser-------------------------------------------------------------------------------------------------------
 parser = argparse.ArgumentParser()
 parser.add_argument( '--build', type=str, required=True )
+parser.add_argument( '--version', type=str, required=False )
 args = parser.parse_args()
 
 #-Paths-----------------------------------------------------------------------------------------------------------------
