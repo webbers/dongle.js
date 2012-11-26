@@ -2,8 +2,6 @@
 {
     height: 35px;
     cursor: pointer;
-    margin-left: 4px;
-    margin-right: 4px;
     font-size: 13px;
     color: #192940;
     border: none;
@@ -18,7 +16,6 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    zoom: 1;
     box-sizing: initial;
     padding: 0;
     font-family: Arial;
@@ -278,8 +275,8 @@
     font-size: 12px;
     color: #192940;
     font-family: arial;
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .wselect-checkboxes li label span 

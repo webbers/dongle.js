@@ -482,7 +482,7 @@
             firstColumns.each(function ()
             {
                 var columnWidth = $(this).width();
-                var columnHeaderWidth = $(data.headerColumns[count]).width();
+                var columnHeaderWidth = $(data.headerColumns[count]).outerWidth(true);
 
                 if (columnWidth >= columnHeaderWidth)
                 {
