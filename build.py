@@ -1,5 +1,7 @@
 import os
 import sys
+import argparse
+
 from pyhammer.builder import Builder
 from pyhammer.tasks.git.gitcheckouttask import GitCheckoutTask
 from pyhammer.tasks.git.gitcommitandpushtask import GitCommitAndPushTask
@@ -11,10 +13,10 @@ from pyhammer.tasks.svn.svndeletetask import SvnDeleteTask
 from pyhammer.tasks.svn.svnimporttask import SvnImportTask
 from pyhammer.tasks.text.incrementversiontask import IncrementVersionTask
 
-svnUserName = ''
-if len(sys.argv)>2: svnUserName = sys.argv[2]
-svnPassword = ''
-if len(sys.argv)>3: svnPassword = sys.argv[3]
+#-Argument-Parser-------------------------------------------------------------------------------------------------------
+parser = argparse.ArgumentParser()
+parser.add_argument( '--build', type=str, required=True )
+args = parser.parse_args()
 
 #-Paths-----------------------------------------------------------------------------------------------------------------
 rootDir  = os.path.abspath( os.path.dirname( __file__ ) )
@@ -32,16 +34,15 @@ Builder.addTask( "del-repo", SvnDeleteTask( repoUrl ) )
 Builder.addTask( "del-pub", DeleteTask( pubDir ) )
 Builder.addTask( "copy", CopyTask(tempDir, pubDir ) )
 Builder.addTask( "import", SvnImportTask( pubDir, repoUrl ) )
-Builder.addTask( "increment-rev", IncrementVersionTask( versionFile, "revision" ) )
-Builder.addTask( "increment-min", IncrementVersionTask( versionFile, "minor" ) )
-Builder.addTask( "commit-version-file", GitCommitAndPushTask( rootDir, 1, svnUserName, svnPassword  ) )
+Builder.addTask( "increment-rev", IncrementVersionTask( versionFile, "revision", 3 ) )
+Builder.addTask( "increment-min", IncrementVersionTask( versionFile, "minor", 3 ) )
+Builder.addTask( "commit-version-file", GitCommitAndPushTask( rootDir, 1 ) )
 Builder.addTask( "create-tag", SvnCreateTagTask( repoUrl, repoTagUrl , versionFile ) )
 Builder.addTask( "git-checkout", GitCheckoutTask( "master", rootDir ) )
 
 #-Root steps------------------------------------------------------------------------------------------------------------
-Builder.addTask( "ps", "del-temp install-deps grunt")
-Builder.addTask( "ci", "ps del-repo del-pub copy import del-temp")
-Builder.addTask( "deploy-revision", "git-checkout increment-rev ci commit-version-file create-tag")
-Builder.addTask( "deploy-minor", "git-checkout increment-min ci commit-version-file create-tag")
+Builder.addTask( 'pre-commit', [ 'del-temp', 'install-deps' ,'grunt' ])
+Builder.addTask( 'ci', [ 'ps', 'del-repo', 'del-pub', 'copy', 'import', 'del-temp' ])
+Builder.addTask( 'pub-trunk', [ 'git-checkout', 'increment-rev', 'ci', 'commit-version-file', 'create-tag' ])
 
-Builder.runBuild()
+Builder.runBuild(args.build)
