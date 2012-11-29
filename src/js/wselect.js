@@ -158,7 +158,7 @@ $.widget("ech.wselect", {
             html += '<li class="' + liClasses + '">';
 
             // create the label
-            html += '<label for="' + inputID + '" title="' + description + '" class="' + labelClasses.join(' ') + '">';
+            html += '<label for="' + inputID + '" title="' + title + '" class="' + labelClasses.join(' ') + '">';
             html += '<input id="' + inputID + '" name="wselect_' + id + '" type="' + (o.multiple ? "checkbox" : "radio") + '" value="' + value + '" title="' + title + '"';
 
             // pre-selected?
