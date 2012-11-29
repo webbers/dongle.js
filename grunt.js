@@ -145,6 +145,10 @@ module.exports = function( grunt ) {
         qunit: {
             files: ['test/*.html']
         },
+		
+		phantomjs: {
+			timeout: 100000
+		},
         
         "qunit-cov":
         {
