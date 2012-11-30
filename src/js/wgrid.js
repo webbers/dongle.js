@@ -772,7 +772,7 @@
             '</div>' +
                 '<div class="wgrid-status-panel">' +
                 '<div id="retrieve-more-items-bar" class="wgrid-bar">' +
-                    '<div class="get-more-items" style="float:right;"><div class="more-items-button">&nbsp;</div><div style="float:right; text-align:right;border: 1px solid red;">' +
+                    '<div class="get-more-items" style="float:right;"><div class="more-items-button">&nbsp;</div><div style="float:right; text-align:right;">' +
                         plugin.settings.dictionary.showing + ' <span class="wgrid-displaying">100</span> ' + plugin.settings.dictionary.of + ' ' +
                         '<span class="wgrid-total">-1</span> ' + plugin.settings.dictionary.items +
                         '</div>' +
