@@ -33,7 +33,8 @@ $.widget("ech.wselect", {
         hide: null,
         autoOpen: false,
         multiple: true,
-        position: {}
+        position: {},
+		dialogable: false
     },
 
     _create: function(){
@@ -58,7 +59,9 @@ $.widget("ech.wselect", {
             menu = (this.menu = $('<div />'))
                 .addClass('wselect-menu')
                 .addClass( o.classes )
+                .attr({ 'dialogable': o.dialogable })
                 .appendTo( document.body ),
+                
 
             header = (this.header = $('<div />'))
                 .addClass('wselect-header wselect-helper-clearfix')
