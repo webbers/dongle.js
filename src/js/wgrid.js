@@ -1135,20 +1135,15 @@
             var checkRows = data.checkTable.find('tr');
 
             selectedRowsElements = data.table.find('.wgrid-selected-line');
-			
-            selectedCheckRowsElements = data.checkContainer.find('tr');
+
+			selectedCheckRowsElements = data.checkContainer.find('input[type=checkbox]:checked').closestByTagName('tr');
             selectedRowsIndex = [];
 
             var a;
             for (a = 0; a < selectedCheckRowsElements.length; a++)
             {
-				if($(selectedCheckRowsElements[a]).find('input[type=checkbox]:checked').length === 0)
-				{
-					selectedCheckRowsElements.splice(a,1);
-				}
                 var rowIndex = checkRows.index(selectedCheckRowsElements[a]);
                 selectedRowsIndex.push(rowIndex);
-				
             }
         };
 
@@ -1215,7 +1210,20 @@
         }
         return $element;
     };
+	$.fn.extend({
+		closestByTagName: function(tagname) {
+			var tag = tagname.toUpperCase(), i = this.length, node, found=[], trParents;
+			while(i--) {
+			  node = this[i];
+			  while((node=node.parentNode) && node.nodeName != tag);
+				if(node) {
+				  found[found.length] = node;
+				}
+			}
+			return $(found);
+		}
 
+	});
     $.fn.wgrid = function (options)
     {
         var args = arguments;
