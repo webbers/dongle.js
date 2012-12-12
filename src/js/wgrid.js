@@ -1142,7 +1142,7 @@
             var a;
             for (a = 0; a < selectedCheckRowsElements.length; a++)
             {
-				if($(selectedCheckRowsElements[a]).find('input[type=checkbox]:checked').length == 0)
+				if($(selectedCheckRowsElements[a]).find('input[type=checkbox]:checked').length === 0)
 				{
 					selectedCheckRowsElements.splice(a,1);
 				}
