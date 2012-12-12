@@ -226,7 +226,7 @@ th, td
 {
 	height: 25px;
     border-bottom: 1px solid #CDCDCD;
-	cursor: default;
+	cursor: pointer;
 }
 
 .wgrid-table tr.class-4 td
