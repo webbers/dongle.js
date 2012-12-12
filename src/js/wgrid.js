@@ -1168,7 +1168,7 @@
         {
             var lineCheckbox = $(this);
             var isLineChecked = lineCheckbox.attr("checked");
-            var lineIndex = $element.find('.wgrid-check-content tr').index($(this).closest('tr'));
+            var lineIndex = $element.find('.wgrid-check-content tr').index($(this).closestByTagName('tr'));
             var gridTableLine = $(data.table.find('tr')[lineIndex]);
 
             if( isLineChecked )
