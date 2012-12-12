@@ -243,7 +243,7 @@
         var getTableRow = function (elementData)
         {
             var rowToInsert = [];
-            rowToInsert.push("<tr item-id='" + getElementId(elementData) + "' class='class-" + getRowClass(elementData) + "' onmouseover='this.style.background = \"#eeeeee\"' onmouseout='this.style.background = \"#ffffff\"'>");
+            rowToInsert.push("<tr item-id='" + getElementId(elementData) + "' class='class-" + getRowClass(elementData) + "'>");
             var i = 0;
             for (var column in data.columns)
             {
@@ -261,12 +261,12 @@
 
                 if (i === 0 || column === "MachineId")
                 {
-                    rowToInsert.push('<td style=\"cursor:pointer\">' + columnValue + '</td>');
+                    rowToInsert.push('<td>' + columnValue + '</td>');
                     i++;
                 }
                 else
                 {
-                    rowToInsert.push('<td style=\"cursor:pointer\" title="' + columnValue + '">' + columnValue + '</td>');
+                    rowToInsert.push('<td title="' + columnValue + '">' + columnValue + '</td>');
                 }
             }
             rowToInsert.push("</tr>");
@@ -1135,12 +1135,17 @@
             var checkRows = data.checkTable.find('tr');
 
             selectedRowsElements = data.table.find('.wgrid-selected-line');
-            selectedCheckRowsElements = data.checkContainer.find('input[type=checkbox]:checked').closest('tr');
+			
+            selectedCheckRowsElements = data.checkContainer.find('tr');
             selectedRowsIndex = [];
 
             var a;
             for (a = 0; a < selectedCheckRowsElements.length; a++)
             {
+				if($(selectedCheckRowsElements[a]).find('input[type=checkbox]:checked').length == 0)
+				{
+					selectedCheckRowsElements.splice(a,1);
+				}
                 var rowIndex = checkRows.index(selectedCheckRowsElements[a]);
                 selectedRowsIndex.push(rowIndex);
             }
