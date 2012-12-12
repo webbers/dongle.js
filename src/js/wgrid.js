@@ -1148,6 +1148,7 @@
 				}
                 var rowIndex = checkRows.index(selectedCheckRowsElements[a]);
                 selectedRowsIndex.push(rowIndex);
+				
             }
         };
 
