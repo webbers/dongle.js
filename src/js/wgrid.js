@@ -1210,14 +1210,14 @@
         }
         return $element;
     };
-	$.fn.extend({
-		closestByTagName: function(tagname) {
-			var tag = tagname.toUpperCase(), i = this.length, node, found=[], trParents;
-			while(i--) {
-			  node = this[i];
-			  while((node=node.parentNode) && node.nodeName != tag);
+    $.fn.extend({
+        closestByTagName: function(tagname) {
+            var tag = tagname.toUpperCase(), i = this.length, node, found=[], trParents;
+            while(i--) {
+				node = this[i];
+				while((node=node.parentNode) && node.nodeName != tag);
 				if(node) {
-				  found[found.length] = node;
+					found[found.length] = node;
 				}
 			}
 			return $(found);
