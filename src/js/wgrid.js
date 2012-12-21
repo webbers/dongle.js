@@ -83,7 +83,9 @@
                 showing: "Showing",
                 reload: "Reload",
                 many: "many",
-                dateFormat: "mm/dd/yyyy"
+                dateFormat: "mm/dd/yyyy",
+                from: "From",
+                to: "To"
             },
             getId: function(elementData)
             {
@@ -243,7 +245,7 @@
         var getTableRow = function (elementData)
         {
             var rowToInsert = [];
-            rowToInsert.push("<tr item-id='" + getElementId(elementData) + "' class='class-" + getRowClass(elementData) + "' onmouseover='this.style.background = \"#eeeeee\"' onmouseout='this.style.background = \"#ffffff\"'>");
+            rowToInsert.push("<tr item-id='" + getElementId(elementData) + "' class='class-" + getRowClass(elementData) + "'>");
             var i = 0;
             for (var column in data.columns)
             {
@@ -255,18 +257,18 @@
                     columnValue = creteTagBox(columnValue);
                 }
 
-                columnValue = columnType === "datetime" ? fromDateToString(columnValue) : columnValue;
+                columnValue = (columnType === "datetime" || columnType === "daterange") ? fromDateToString(columnValue) : columnValue;
                 columnValue = columnType === "bool" ? (columnValue ? plugin.settings.dictionary.yes : plugin.settings.dictionary.no) : columnValue;
                 columnValue = columnValue === null || columnValue === undefined ? "" : columnValue;
 
                 if (i === 0 || column === "MachineId")
                 {
-                    rowToInsert.push('<td style=\"cursor:pointer\">' + columnValue + '</td>');
+                    rowToInsert.push('<td>' + columnValue + '</td>');
                     i++;
                 }
                 else
                 {
-                    rowToInsert.push('<td style=\"cursor:pointer\" title="' + columnValue + '">' + columnValue + '</td>');
+                    rowToInsert.push('<td title="' + columnValue + '">' + columnValue + '</td>');
                 }
             }
             rowToInsert.push("</tr>");
@@ -530,23 +532,6 @@
             addRowSelection(row);
         };
 
-        var verifyIfExistsNewItems = function (url, id)
-        {
-            var completeUrl = url + getQuerystring() + "&lastId=" + id;
-
-            var exists = false;
-            $.ajax({
-                url: completeUrl,
-                type: plugin.settings.method,
-                async: false,
-                success: function (returnedData)
-                {
-                    exists = returnedData;
-                }
-            });
-            return exists;
-        };
-
         var reloadTotalsDisplays = function (totalInserted)
         {
             loadingShow();
@@ -798,7 +783,8 @@
             plugin.settings.statusPanel = $elementStructure.find('.wgrid-status-panel');
         }
 
-        data = {
+        data = 
+        {
             main: $element.find('.wgrid-main'),
             container: $element.find('.wgrid-container'),
             content: $element.find('.wgrid-content'),
@@ -831,6 +817,7 @@
                 {
                     if (($(e.srcElement).closest('.ui-widget').length === 0) &&
                         ($(e.srcElement).closest('.ui-datepicker-header').length === 0) &&
+                            ($(e.srcElement).closest('.ui-datepicker-calendar').length === 0) &&
 						($(e.srcElement).closest('.wgrid-filter-panel-element').length === 0))
                     {
                         $('.wgrid-filter-panel').remove();
@@ -896,7 +883,92 @@
                         var filterAdvancedButton;
                         var optionAdvancedFilter;
                         var filterButton = $('<div class="wgrid-filter-panel-apply-button">&nbsp;</div>');
-                        if (filterType.toLowerCase() != 'list' && filterType.toLowerCase() != 'bool')
+                        
+                        if (filterType == 'daterange')
+                        {
+                            var fieldFromDiv = $('<div><div>'+ plugin.settings.dictionary.from +'</div></div>');
+                            var fieldToDiv = $('<div><div>'+ plugin.settings.dictionary.to +'</div></div>');
+
+                            var fieldFrom = $('<input type="text" name="filter-' + fieldName + '-from"/>');
+                            var fieldTo = $('<input type="text" name="filter-' + fieldName + '-to"/>');
+
+                            fieldFrom.datepicker(
+                            {
+                                onClose: function( selectedDate )
+                                {
+                                    fieldTo.datepicker( "option", "minDate", selectedDate );
+                                }
+                            });
+                            
+                            fieldTo.datepicker(
+                            {
+                                onClose: function( selectedDate )
+                                {
+                                    fieldFrom.datepicker( "option", "maxDate", selectedDate );
+                                }
+                            });
+
+                            fieldFromDiv.append(fieldFrom);
+                            fieldToDiv.append(fieldTo);
+
+                            filterField = $('<div></div>').append(fieldFromDiv).append(fieldToDiv);
+
+                            filterButton.click(function ()
+                            {
+                                filterIcon.addClass('active');
+                                var filterValue = filterField.find('input:eq(0)').val() + '&' + filterField.find('input:eq(1)').val();
+                                filters[fieldName] = filterType + '||' + filterValue;
+
+                                $('.wgrid-filter-panel').remove();
+                                reloadGrid();
+                            });
+                            
+                            if( filters[fieldName] !== undefined || filters[fieldName] !== null )
+                            {
+                                var dateFromString = filters[fieldName].replace('daterange||', '').split('&')[0];
+                                var dateToString = filters[fieldName].replace('daterange||', '').split('&')[1];
+
+                                fieldFrom.attr('value', dateFromString);
+                                fieldTo.attr('value', dateToString);
+                            }
+                        }
+                        else if (filterType == 'bool')
+                        {
+                            filterField = $('<select><option value="true">' + plugin.settings.dictionary.yes + '</option><option value="false">' + plugin.settings.dictionary.no + '</option></select>');
+                            filterButton.click(function ()
+                            {
+                                filterIcon.addClass('active');
+                                filters[fieldName] = filterType + '||' + filterField.val();
+
+                                $('.wgrid-filter-panel').remove();
+                                reloadGrid();
+                            });
+                        }
+                        else if (filterType == 'list')
+                        {
+                            filterField = $('<select></select>');
+                            for (var item in filterJsonData)
+                            {
+                                filterField.append($('<option value="' +
+                                    filterJsonData[item].Key + '">' +
+                                    filterJsonData[item].Value + '</option>'));
+                            }
+
+                            filterButton.click(function ()
+                            {
+                                filterIcon.addClass('active');
+                                filters[fieldName] = filterField.attr('value');
+                                $('.wgrid-filter-panel').remove();
+
+                                reloadGrid();
+                            });
+                            
+                            if( filters[fieldName] !== null )
+                            {
+                                filterField.attr('value', filters[fieldName]);
+                            }
+                        }
+                        else 
                         {
                             if (filterType.toLowerCase() != 'datetime' && filterType.toLowerCase() != 'hexaid' && filterType.toLowerCase() != 'bool' && filterType.toLowerCase() != 'machineid' && filterType.toLowerCase() != 'numeric' && filterType.toLowerCase() != 'pinnumber')
                             {
@@ -954,43 +1026,10 @@
                             {
                                 filterField.datepicker();
                             }
-                        }
-                        else if (filterType == 'bool')
-                        {
-                            filterField = $('<select><option value="true">' + plugin.settings.dictionary.yes + '</option><option value="false">' + plugin.settings.dictionary.no + '</option></select>');
-                            filterButton.click(function ()
-                            {
-                                filterIcon.addClass('active');
-                                filters[fieldName] = filterType + '|' + filterField.val();
-
-                                $('.wgrid-filter-panel').remove();
-                                reloadGrid();
-                            });
-                        }
-                        else
-                        {
-                            filterField = $('<select></select>');
-                            for (var item in filterJsonData)
-                            {
-                                filterField.append($('<option value="' +
-                                    filterJsonData[item].Key + '">' +
-                                    filterJsonData[item].Value + '</option>'));
-                            }
-
-                            filterButton.click(function ()
-                            {
-                                filterIcon.addClass('active');
-                                filters[fieldName] = filterField.attr('value');
-                                $('.wgrid-filter-panel').remove();
-
-                                reloadGrid();
-                            });
                             
-                            if( filters[fieldName] !== null )
-                            {
-                                filterField.attr('value', filters[fieldName]);
-                            }
+
                         }
+                        
 
                         if (filterIcon.hasClass('active'))
                         {
@@ -1135,7 +1174,8 @@
             var checkRows = data.checkTable.find('tr');
 
             selectedRowsElements = data.table.find('.wgrid-selected-line');
-            selectedCheckRowsElements = data.checkContainer.find('input[type=checkbox]:checked').closest('tr');
+
+			selectedCheckRowsElements = data.checkContainer.find('input[type=checkbox]:checked').closestByTagName('tr');
             selectedRowsIndex = [];
 
             var a;
@@ -1167,7 +1207,7 @@
         {
             var lineCheckbox = $(this);
             var isLineChecked = lineCheckbox.attr("checked");
-            var lineIndex = $element.find('.wgrid-check-content tr').index($(this).closest('tr'));
+            var lineIndex = $element.find('.wgrid-check-content tr').index($(this).closestByTagName('tr'));
             var gridTableLine = $(data.table.find('tr')[lineIndex]);
 
             if( isLineChecked )
@@ -1209,7 +1249,20 @@
         }
         return $element;
     };
+    $.fn.extend({
+        closestByTagName: function(tagname) {
+            var tag = tagname.toUpperCase(), i = this.length, node, found=[], trParents;
+            while(i--) {
+				node = this[i];
+				while((node=node.parentNode) && node.nodeName != tag);
+				if(node) {
+					found[found.length] = node;
+				}
+			}
+			return $(found);
+		}
 
+	});
     $.fn.wgrid = function (options)
     {
         var args = arguments;
@@ -1233,20 +1286,6 @@
         return ret;
     };
 })(jQuery);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
