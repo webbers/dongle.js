@@ -215,14 +215,18 @@ th, td
 {
 	border-collapse: separate;
 	border-spacing: 0;
-	*border-collapse: collapse; /* hack is needed for IE7 also */
+}
+
+.wgrid-table tr:nth-child(odd)
+{
+	background-color: #EEE;
 }
 
 .wgrid-table td, .wgrid-check-content td
 {
-	height: 32px;
+	height: 25px;
     border-bottom: 1px solid #CDCDCD;
-	cursor: default;
+	cursor: pointer;
 }
 
 .wgrid-table tr.class-4 td
