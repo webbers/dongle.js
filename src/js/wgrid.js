@@ -923,7 +923,7 @@
                                 reloadGrid();
                             });
                             
-                            if( filters[fieldName] !== undefined || filters[fieldName] !== null )
+                            if( filters[fieldName] !== undefined && filters[fieldName] !== null )
                             {
                                 var dateFromString = filters[fieldName].replace('daterange||', '').split('&')[0];
                                 var dateToString = filters[fieldName].replace('daterange||', '').split('&')[1];

@@ -144,9 +144,17 @@ $.mockjax({
     log: false
 });
 
+//Datarange
+$.mockjax({
+    url: 'data.json?skip=0&keyColumn=&field4=daterange%7C%7C10%2F10%2F2010%2610%2F10%2F2012',
+    responseTime: 0,
+    responseText: {"Data": [items[1]],"TotalCount":10},
+    log: true
+});
+
 function createHtml(id)
 {
-    var html = '<table id="'+ id + '"><thead><tr><th field_type="numeric" field_name="field1" field_value="" disable_handling="">ID</th><th field_type="int" field_name="field2" field_value="" disable_handling="true">INTEIRO</th><th field_type="datetime" field_name="field3" field_value="" disable_handling="true">DATA</th><th field_name="field4" field_value="" disable_handling="true">TESTE</th><th field_type="text" field_name="field5">TESTE DE COLUNA GRANDE</th><th field_type="bool" field_name="field6" field_value="" disable_handling="true">BOOL</th></tr></thead></table>';
+    var html = '<table id="'+ id + '"><thead><tr><th field_type="numeric" field_name="field1" field_value="">ID</th><th field_type="int" field_name="field2" field_value="" disable_handling="true">INTEIRO</th><th field_type="datetime" field_name="field3" field_value="" disable_handling="true">DATA</th><th field_type="daterange" field_name="field4" field_value="">DATERANGE</th><th field_type="text" field_name="field5">TESTE DE COLUNA GRANDE</th><th field_type="bool" field_name="field6" field_value="" disable_handling="true">BOOL</th></tr></thead></table>';
     $(document.body).append(html);
 }
 
@@ -330,7 +338,7 @@ createWGrid(function($wgrid, $innerGrid)
     {
         stop();
         $(document.body).hide();
-        $wgrid.find('.wgrid-filter-button:eq(1)').click();
+        $wgrid.find('.wgrid-filter-button:eq(2)').click();
         
         var checkValue = 2;
         $('input[name=filter-field5]').val(checkValue);
@@ -354,7 +362,7 @@ createWGrid(function($wgrid, $innerGrid)
     {
         stop();
         $(document.body).hide();
-        $wgrid.find('.wgrid-filter-button:eq(1)').click();
+        $wgrid.find('.wgrid-filter-button:eq(2)').click();
         
         var checkValue = 4;
         $('input[name=filter-field5]').val(checkValue);
@@ -378,7 +386,7 @@ createWGrid(function($wgrid, $innerGrid)
     {
         stop();
         $(document.body).hide();
-        $wgrid.find('.wgrid-filter-button:eq(1)').click();
+        $wgrid.find('.wgrid-filter-button:eq(2)').click();
         
         var checkValue = 3;
         $('input[name=filter-field5]').val(checkValue);
@@ -440,6 +448,29 @@ createWGrid(function($wgrid, $innerGrid)
         {
             start();
             deepEqual($wgrid.find(".wgrid-table tr").length, 0, "Show no results when filters doens't find any record");
+        }, 100);
+    });
+});
+
+createWGrid(function($wgrid, $innerGrid)
+{
+    test("Daterange Filter", function ()
+    {
+        stop();
+        $(document.body).hide();
+        $wgrid.find('.wgrid-filter-button:eq(1)').click();
+        
+        $('input[name=filter-field4-from]').val('10/10/2010');
+		$('input[name=filter-field4-to]').val('10/10/2012');
+        
+        $('.wgrid-filter-panel-apply-button').click();
+        
+        $(document.body).show();
+        
+        setTimeout(function()
+        {
+            start();
+            deepEqual($wgrid.find(".wgrid-table tr").length, 1, "Verifying if is creating a right ajax request.");
         }, 100);
     });
 });
