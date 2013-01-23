@@ -564,6 +564,6 @@ th, td
 {
     text-overflow: ellipsis !important;
     -ms-text-overflow: ellipsis;
-    width: 30px;
+    width: 210px;
     overflow: hidden;
 }
