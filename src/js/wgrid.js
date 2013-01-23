@@ -264,7 +264,6 @@
                 if (i === 0 || column === "MachineId")
                 {
                     rowToInsert.push('<td>' + columnValue + '</td>');
-                    i++;
                 }
 				else if (data.headerColumns[i].getAttribute("ellipsis") === "true" || data.headerColumns[i].getAttribute("ellipsis") === true)
                 {
@@ -274,6 +273,7 @@
                 {
                     rowToInsert.push('<td title="' + columnValue + '">' + columnValue + '</td>');
                 }
+				i++;
             }
             rowToInsert.push("</tr>");
 
