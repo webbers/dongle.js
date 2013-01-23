@@ -560,3 +560,10 @@ th, td
 {
     height: 22px;
 }
+.wgrid-ellipsis 
+{
+    text-overflow: ellipsis !important;
+    -ms-text-overflow: ellipsis;
+    width: 30px;
+    overflow: hidden;
+}

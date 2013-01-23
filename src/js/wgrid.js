@@ -266,6 +266,10 @@
                     rowToInsert.push('<td>' + columnValue + '</td>');
                     i++;
                 }
+				else if (data.headerColumns[i].getAttribute("ellipsis") === "true" || data.headerColumns[i].getAttribute("ellipsis") === true)) 
+                {
+                    rowToInsert.push('<td title="' + columnValue + '"><div class="wgrid-ellipsis">' + columnValue + '</div></td>');
+                }
                 else
                 {
                     rowToInsert.push('<td title="' + columnValue + '">' + columnValue + '</td>');
