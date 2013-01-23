@@ -99,13 +99,21 @@
                             $(this).parent().addClass('hover');
 
                             var $submenu = $(this).parent().children('.contextMenu');
+							
+							if ((mouseUpEvent.pageY + $submenu.height() + $('.contextMenu').height()) > d.innerHeight)
+                            {
+                                $submenu.css('top', $(this)[0].offsetTop - $submenu.height() + $submenu.context.clientHeight + 'px');
+                            } 
+                            else 
+                            {
+                                $submenu.css('top', $(this)[0].offsetTop + 'px');
+                            }
+							
                             if ($submenu.length)
                             {
-                                $submenu.css('top', $(this)[0].offsetTop);
                                 if ((mouseUpEvent.pageX + $('.contextMenu').width()) > d.innerWidth)
                                 {
                                     $submenu.css('left', '-' + widthContextMenu);
-
                                 }
                                 else
                                 {
@@ -117,7 +125,6 @@
                                         $submenu.css('left', $menu.width());
                                     }
                                 }
-
                             }
                             else
                             {
