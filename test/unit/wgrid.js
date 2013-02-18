@@ -60,7 +60,7 @@ function checkboxClick($element)
 
 //Ajax inicial
 $.mockjax({
-    url: 'data.json?skip=0&keyColumn=',
+    url: 'data.json?skip=0',
     responseTime: 0,
     responseText: {"Data": items,"TotalCount":10},
     log: false
@@ -68,7 +68,7 @@ $.mockjax({
 
 //Ajax order by desc
 $.mockjax({
-    url: 'data.json?skip=0&keyColumn=&orderby=field1&sort=desc',
+    url: 'data.json?skip=0&orderby=field1&sort=desc',
     responseTime: 0,
     responseText: {"Data": items.reverse(),"TotalCount":10},
     log: false
@@ -91,14 +91,14 @@ for( var i = 0; i < items.length; i++ )
     items2.push(newObj);
 }
 $.mockjax({
-    url: 'data.json?skip=5&keyColumn=&lastId=9',
+    url: 'data.json?skip=5&lastId=9',
     responseTime: 0,
     responseText: {"Data": items2,"TotalCount":10},
     log: false
 });
 
 $.mockjax({
-    url: 'data.json?skip=0&keyColumn=&orderby=field1&sort=ASC',
+    url: 'data.json?skip=0&orderby=field1&sort=ASC',
     responseTime: 0,
     responseText: {"Data": items2,"TotalCount":10},
     log: false
@@ -106,7 +106,7 @@ $.mockjax({
 
 //StartsWith
 $.mockjax({
-    url: 'data.json?skip=0&keyColumn=&field5=text%7CstartsWith%7C2',
+    url: 'data.json?skip=0&field5=text%7CstartsWith%7C2',
     responseTime: 0,
     responseText: {"Data": [items[1]],"TotalCount":10},
     log: false
@@ -114,7 +114,7 @@ $.mockjax({
 
 //EndsWith
 $.mockjax({
-    url: 'data.json?skip=0&keyColumn=&field5=text%7CendsWith%7C4',
+    url: 'data.json?skip=0&field5=text%7CendsWith%7C4',
     responseTime: 0,
     responseText: {"Data": [items[3]],"TotalCount":10},
     log: false
@@ -122,7 +122,7 @@ $.mockjax({
 
 //Contains
 $.mockjax({
-    url: 'data.json?skip=0&keyColumn=&field5=text%7Ccontains%7C3',
+    url: 'data.json?skip=0&field5=text%7Ccontains%7C3',
     responseTime: 0,
     responseText: {"Data": [items[2]],"TotalCount":10},
     log: false
@@ -130,7 +130,7 @@ $.mockjax({
 
 //Equals
 $.mockjax({
-    url: 'data.json?skip=0&keyColumn=&field1=numeric%7Cequals%7C5',
+    url: 'data.json?skip=0&field1=numeric%7Cequals%7C5',
     responseTime: 0,
     responseText: {"Data": [items[4]],"TotalCount":10},
     log: false
@@ -138,7 +138,7 @@ $.mockjax({
 
 //Equals with no result
 $.mockjax({
-    url: 'data.json?skip=0&keyColumn=&field1=numeric%7Cequals%7C10',
+    url: 'data.json?skip=0&field1=numeric%7Cequals%7C10',
     responseTime: 0,
     responseText: {"Data": [],"TotalCount":10},
     log: false
@@ -146,7 +146,7 @@ $.mockjax({
 
 //Datarange
 $.mockjax({
-    url: 'data.json?skip=0&keyColumn=&field4=daterange%7C%7C10%2F10%2F2010%2610%2F10%2F2012',
+    url: 'data.json?skip=0&field4=daterange%7C%7C10%2F10%2F2010%2610%2F10%2F2012',
     responseTime: 0,
     responseText: {"Data": [items[1]],"TotalCount":10},
     log: true
