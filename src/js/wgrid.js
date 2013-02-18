@@ -153,7 +153,7 @@
             var filterParams = $.param(filters);
             var querystring = "?skip=" + skip;
 
-            if (plugin.settings.keyColumn !== "" || plugin.settings.keyColumn !== null)
+            if (plugin.settings.keyColumn !== "" && plugin.settings.keyColumn !== null && plugin.settings.keyColumn !== undefined)
             {
                 querystring = querystring + "&keyColumn=" + plugin.settings.keyColumn;
             }
