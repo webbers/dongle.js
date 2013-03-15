@@ -3,10 +3,17 @@
 
 
 module.exports = function( grunt ) {
-    "use strict";
-    // readOptionalJSON
-    // by Ben Alman
-    // https://gist.github.com/2876125
+
+    'use strict';
+
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-qunit');
+
     function readOptionalJSON( filepath ) {
         var data = {};
         try {
@@ -28,12 +35,12 @@ module.exports = function( grunt ) {
     var distpaths = [
         "dist/dongle.js",
         "dist/dongle.min.js",
-        "dist/dongle.unobstrusive.js",
-        "dist/dongle.unobstrusive.min.js"
+        "dist/dongle.unobtrusive.js",
+        "dist/dongle.unobtrusive.min.js"
     ];
 
     grunt.initConfig({
-        pkg: "<json:package.json>",
+        pkg: grunt.file.readJSON('package.json'),
         dst: readOptionalJSON("dist/.destination.json"),
         meta: {
             banner: "/*! Dongle v<%= pkg.version %> <%= pkg.homepage %> | <%= pkg.licenses[0].url %> */"
@@ -47,9 +54,9 @@ module.exports = function( grunt ) {
             dist:
             {
                 files:
-                {
-                    "dist/images/": "src/images/*.*"
-                }
+                [
+                    {expand: true, cwd: 'src/images/', src: ['**'], dest: 'dist/images/'}
+                ]
             }
         },
         
@@ -82,7 +89,7 @@ module.exports = function( grunt ) {
             "validators":
             {
                 src: ["src/js/wrequiredif.unobtrusive.js",
-                      "src/js/wrequired.unobstrusive.js"],
+                      "src/js/wrequired.unobtrusive.js"],
                 dest: "dist/js/dongle.validators.js"
             },
             "loader":
@@ -116,12 +123,22 @@ module.exports = function( grunt ) {
             }             
         },  
 
-        min: {
-            "dist/js/dongle.components.min.js": [ "<banner>", "dist/js/dongle.components.js" ],
-            "dist/js/dongle.components.unobstrusive.min.js": [ "<banner>", "dist/js/dongle.components.unobstrusive.js" ],
-            "dist/js/dongle.loader.min.js": [ "<banner>", "dist/js/dongle.loader.js" ],
-            "dist/js/dongle.actionbox.min.js": [ "<banner>", "dist/js/dongle.actionbox.js" ],
-            "dist/js/dongle.validators.min.js": [ "<banner>", "dist/js/dongle.validators.js" ]
+        uglify: {
+            options: {
+                compress: true,
+                banner: "/*! Dongle v<%= pkg.version %> <%= pkg.homepage %> | <%= pkg.licenses[0].url %> */"
+            },
+            target:
+            {
+                files:
+                {
+                    "dist/js/dongle.components.min.js": [ "dist/js/dongle.components.js" ],
+                    "dist/js/dongle.components.unobtrusive.min.js": [ "dist/js/dongle.components.unobtrusive.js" ],
+                    "dist/js/dongle.loader.min.js": [ "dist/js/dongle.loader.js" ],
+                    "dist/js/dongle.actionbox.min.js": [ "dist/js/dongle.actionbox.js" ],
+                    "dist/js/dongle.validators.min.js": [ "dist/js/dongle.validators.js" ]
+                }
+            }
         },
         
         cssmin:
@@ -130,25 +147,17 @@ module.exports = function( grunt ) {
             "dist/css/dongle.loader.min.css": ["<banner>", "dist/css/dongle.loader.css"]
         },
 
-        lint: {
-            dist: "src/**/*.js",
-            grunt: "grunt.js",
-            tests: "test/unit/*.js"
-        },
-        
         jshint: {
-            options: {
-                //evil: true
-            }
+            beforeconcat: [ 'js/*.js', 'test/js/*.js' ]
         },
-        
+                
         qunit: {
             files: ['test/*.html']
         },
-		
-		phantomjs: {
-			timeout: 60000
-		},
+        
+        phantomjs: {
+            timeout: 60000
+        },
         
         "qunit-cov":
         {
@@ -160,15 +169,13 @@ module.exports = function( grunt ) {
                 depDirs: ['3rd', 'test', 'src'],
                 testFiles: ['test/*.html']
             }
-        },
-        
-        uglify: {}
+        }
     });
     
     grunt.loadNpmTasks('grunt-qunit-cov');
     grunt.loadNpmTasks('grunt-css');
     grunt.loadNpmTasks('grunt-contrib');
-    grunt.registerTask( "default", "concat copy cssmin min lint qunit" );
-    grunt.registerTask( "full", "concat copy cssmin min lint qunit qunit-cov" );
-    grunt.registerTask( "cov", "qunit-cov" );
+    grunt.registerTask( "default", ['concat', 'copy', 'cssmin', 'uglify', 'jshint', 'qunit'] );
+    grunt.registerTask( "full", ['concat', 'copy', 'cssmin', 'uglify', 'jshint', 'qunit', 'qunit-cov'] );
+    grunt.registerTask( "cov", 'qunit-cov' );
 };
