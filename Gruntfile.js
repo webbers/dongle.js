@@ -152,7 +152,7 @@ module.exports = function( grunt ) {
         },
                 
         qunit: {
-            files: ['test/*.html']
+            files: ['test/index.html']
         },
         
         phantomjs: {
@@ -176,6 +176,6 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks('grunt-css');
     grunt.loadNpmTasks('grunt-contrib');
     grunt.registerTask( "default", ['concat', 'copy', 'cssmin', 'uglify', 'jshint', 'qunit'] );
-    grunt.registerTask( "full", ['concat', 'copy', 'cssmin', 'uglify', 'jshint', 'qunit', 'qunit-cov'] );
+    grunt.registerTask( "full", ['concat', 'copy', 'cssmin', 'uglify', 'jshint', 'qunit-cov'] );
     grunt.registerTask( "cov", 'qunit-cov' );
 };
