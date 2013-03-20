@@ -4,6 +4,8 @@
 *
 * Depends:
 *   - jQuery 1.4.2+
+*   - jQuery UI 1.8.16+
+*   - jQuery DateTimePicker 1.2 (http://trentrichardson.com/examples/timepicker/)
 *
 * The MIT License
 * 
@@ -87,6 +89,10 @@
                 from: "From",
                 to: "To"
             },
+			hour: "Hour",
+			second: "Second",
+			minute: "Minute",
+			time: "Time",
             getId: function(elementData)
             {
                 return elementData;
@@ -121,6 +127,19 @@
         {
             loadingHide();
         }
+		
+		var datetimepickerOptions = {
+			showSecond: true,
+			timeFormat: 'HH:mm:ss',
+			stepHour: 1,
+			stepMinute: 1,
+			stepSecond: 1,
+			showButtonPanel: false,
+			hourText: plugin.settings.hour,
+			secondText: plugin.settings.second,
+			minuteText: plugin.settings.minute,
+			timeText: plugin.settings.time
+		};
 
         /*------------------ INTERNAL FUNCTIONS ------------*/
         var getScrollBarWidth = function ()
@@ -1028,10 +1047,8 @@
                             
                             if (filterType == 'datetime')
                             {
-                                filterField.datepicker();
+                                filterField.datetimepicker(datetimepickerOptions);
                             }
-                            
-
                         }
                         
 
