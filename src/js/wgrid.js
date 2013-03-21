@@ -1227,7 +1227,7 @@
         $element.find('.wgrid-check-content').delegate('input[type=checkbox]', 'click', function ()
         {
             var lineCheckbox = $(this);
-            var isLineChecked = lineCheckbox.attr("checked");
+            var isLineChecked = lineCheckbox.is(":checked");
             var lineIndex = $element.find('.wgrid-check-content tr').index($(this).closestByTagName('tr'));
             var gridTableLine = $(data.table.find('tr')[lineIndex]);
 
