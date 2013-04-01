@@ -157,27 +157,6 @@
 		el.wselect("destroy");
 	});
 
-	test("minWidth", function(){
-		expect(3);
-		
-		var minWidth = 321;
-		
-		el = $("select").wselect({ minWidth:minWidth }).wselect("open");
-		equal( minWidth, button().outerWidth(), 'outerWidth of button is '+minWidth );
-		
-		// change height and re-test
-		minWidth = 351;
-		el.wselect("option", "minWidth", minWidth);
-		equal( minWidth, button().outerWidth(), 'changing value through api to '+minWidth);
-		
-		// change height to something that should fail.
-		minWidth = 10;
-		el.wselect("option", "minWidth", minWidth);
-		var outerWidth = button().outerWidth();
-		ok( minWidth !== outerWidth, 'changing value through api to '+minWidth+' (too small), outerWidth is actually ' + outerWidth);
-		
-		el.wselect("destroy");
-	});
 
 	test("checkAllText", function(){
 		expect(2);

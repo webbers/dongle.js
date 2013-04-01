@@ -203,6 +203,15 @@
 
         var moreMargin = '<div id="more-margin" style="width:10px; float:right;">&nbsp</div>';
 
+		var createLinkHtml = function(linkString)
+		{
+			var separatedLink = linkString.split('|');
+			var link = separatedLink.length == 2 ? separatedLink[1] : separatedLink[0];
+			var description = separatedLink[0];
+			
+			return '<a href="' + link + '" target="_blank">' + description + '</a>';
+		}
+		
         var checkIfNotExistsOldItems = function (itemsCount)
         {
             var moreItemsButton = plugin.settings.statusPanel.find('.more-items-button');
@@ -278,7 +287,11 @@
 
                 columnValue = (columnType === "datetime" || columnType === "daterange") ? fromDateToString(columnValue) : columnValue;
                 columnValue = columnType === "bool" ? (columnValue ? plugin.settings.dictionary.yes : plugin.settings.dictionary.no) : columnValue;
-                columnValue = columnValue === null || columnValue === undefined ? "" : columnValue;
+				columnValue = columnValue === null || columnValue === undefined ? "" : columnValue;
+				
+				var columnCleanedValue = columnValue;
+				
+                columnValue = columnType === "link" ? createLinkHtml(columnValue) : columnValue;
 
                 if (i === 0 || column === "MachineId")
                 {
@@ -286,11 +299,11 @@
                 }
 				else if (data.headerColumns[i].getAttribute("ellipsis") === "true" || data.headerColumns[i].getAttribute("ellipsis") === true)
                 {
-                    rowToInsert.push('<td title="' + columnValue + '"><div class="wgrid-ellipsis">' + columnValue + '</div></td>');
+                    rowToInsert.push('<td title="' + columnCleanedValue + '"><div class="wgrid-ellipsis">' + columnValue + '</div></td>');
                 }
                 else
                 {
-                    rowToInsert.push('<td title="' + columnValue + '">' + columnValue + '</td>');
+                    rowToInsert.push('<td title="' + columnCleanedValue + '">' + columnValue + '</td>');
                 }
 				i++;
             }

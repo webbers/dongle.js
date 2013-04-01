@@ -138,9 +138,10 @@
 
 .wselect-checkboxes label input
 {
-	margin-left: 6px;
-    position:relative;
-    top:1px
+    margin-left: 6px;
+    position: relative;
+    top: 1px;
+    float: left;
 }
 
 .wselect-checkboxes li
@@ -281,11 +282,11 @@
 
 .wselect-checkboxes li label span 
 {
-    margin-left: 5px;
-	white-space: nowrap;
+    margin-left: 27px;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: inline-block;
+    display: block;
 }
 
 .wselect-checkboxes li label.wselect-hover
