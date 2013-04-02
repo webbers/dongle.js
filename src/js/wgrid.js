@@ -1229,8 +1229,21 @@
             }
         });
 
-        data.table.delegate('tr', 'click', function ()
+        data.table.delegate('tr', 'dblclick', function ()
         {
+            if (plugin.settings.itemClick !== null)
+            {
+                plugin.settings.itemClick(plugin.methods.getSelectedRowsData());
+            }
+        });
+		
+		$element.find('.wgrid-check-content').delegate('.wgrid-status-icon', 'click', function ()
+        {
+			var lineIndex = $element.find('.wgrid-check-content tr').index($(this).closestByTagName('tr'));
+			var gridTableLine = $(data.table.find('tr')[lineIndex]);
+			
+			checkALine(gridTableLine, true);
+			
             if (plugin.settings.itemClick !== null)
             {
                 plugin.settings.itemClick(plugin.methods.getSelectedRowsData());
@@ -1253,6 +1266,8 @@
                 checkALine(gridTableLine, false);
             }
         });
+		
+		
 
         //Statuspanel functions
         plugin.settings.statusPanel.find('.more-items-button').click(function ()

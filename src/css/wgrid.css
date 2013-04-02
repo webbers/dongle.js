@@ -226,7 +226,6 @@ th, td
 {
 	height: 25px;
     border-bottom: 1px solid #CDCDCD;
-	cursor: pointer;
 }
 
 .wgrid-table tr.class-4 td
@@ -272,6 +271,11 @@ th, td
 	color: white !important;
 }
 
+.wgrid-selected-line td a
+{
+	color: white !important;
+}
+
 .wgrid-check-container
 {
 	position:relative;
@@ -313,6 +317,7 @@ th, td
 	width:16px;
 	height:16px;
 	margin-left:2px;
+	cursor: pointer;
 }
 
 /*--------------------------------------------------*/
