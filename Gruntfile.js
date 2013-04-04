@@ -133,7 +133,7 @@ module.exports = function( grunt ) {
                 files:
                 {
                     "dist/js/dongle.components.min.js": [ "dist/js/dongle.components.js" ],
-                    "dist/js/dongle.components.unobtrusive.min.js": [ "dist/js/dongle.components.unobtrusive.js" ],
+                    "dist/js/dongle.components.unobstrusive.min.js": [ "dist/js/dongle.components.unobtrusive.js" ],
                     "dist/js/dongle.loader.min.js": [ "dist/js/dongle.loader.js" ],
                     "dist/js/dongle.actionbox.min.js": [ "dist/js/dongle.actionbox.js" ],
                     "dist/js/dongle.validators.min.js": [ "dist/js/dongle.validators.js" ]

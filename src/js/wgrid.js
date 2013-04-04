@@ -206,10 +206,15 @@
 		var createLinkHtml = function(linkString)
 		{
 			var separatedLink = linkString.split('|');
-			var link = separatedLink.length == 2 ? separatedLink[1] : separatedLink[0];
+			var link = separatedLink.length >= 2 ? separatedLink[1] : separatedLink[0];
 			var description = separatedLink[0];
+		    var target = " target=\"_blank\"";
+		    if(separatedLink.length == 3 && separatedLink[2] == '0') 
+		    {
+		        target = "";
+		    }
 			
-			return '<a href="' + link + '" target="_blank">' + description + '</a>';
+			return '<a href="' + link + '"'+ target + '>' + description + '</a>';
 		}
 		
         var checkIfNotExistsOldItems = function (itemsCount)
