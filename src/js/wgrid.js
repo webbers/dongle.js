@@ -1233,12 +1233,20 @@
                 setRowSelection($(this), e.which == 1 ? 'left' : 'right', isMultiSelectKeyPressed);
             }
         });
-
-        data.table.delegate('tr', 'dblclick', function ()
+        
+        data.table.delegate('tr', 'click', function ()
         {
             if (plugin.settings.itemClick !== null)
             {
                 plugin.settings.itemClick(plugin.methods.getSelectedRowsData());
+            }
+        });
+
+        data.table.delegate('tr', 'dblclick', function ()
+        {
+            if (plugin.settings.itemDblClick !== null)
+            {
+                plugin.settings.itemDblClick(plugin.methods.getSelectedRowsData());
             }
         });
 		
