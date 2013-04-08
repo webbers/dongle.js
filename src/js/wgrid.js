@@ -1236,7 +1236,7 @@
         
         data.table.delegate('tr', 'click', function ()
         {
-            if (plugin.settings.itemClick !== null)
+            if (plugin.settings.itemClick !== undefined)
             {
                 plugin.settings.itemClick(plugin.methods.getSelectedRowsData());
             }
@@ -1244,7 +1244,7 @@
 
         data.table.delegate('tr', 'dblclick', function ()
         {
-            if (plugin.settings.itemDblClick !== null)
+            if (plugin.settings.itemDblClick !== undefined)
             {
                 plugin.settings.itemDblClick(plugin.methods.getSelectedRowsData());
             }
