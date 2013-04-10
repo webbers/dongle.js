@@ -1257,7 +1257,12 @@
 			
 			checkALine(gridTableLine, true);
 			
-            if (plugin.settings.itemClick !== null)
+            if (plugin.settings.itemClick !== undefined)
+            {
+                plugin.settings.itemClick(plugin.methods.getSelectedRowsData());
+            }
+            
+            if (plugin.settings.itemDblClick !== undefined)
             {
                 plugin.settings.itemClick(plugin.methods.getSelectedRowsData());
             }
