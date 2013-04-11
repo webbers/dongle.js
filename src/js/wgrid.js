@@ -52,6 +52,9 @@
         var selectedRowsElements = [];
         var selectedCheckRowsElements = [];
         var selectedRowsIndex = [];
+        var onError = function (){
+            return;
+        };
         var defaults =
         {
             listItemCount: 100,
@@ -394,6 +397,9 @@
                     {
                         plugin.settings.complete();
                     }
+                },
+                error: function () {
+                    plugin.settings.onError();
                 }
             });
         };
