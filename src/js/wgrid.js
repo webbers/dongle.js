@@ -1270,7 +1270,7 @@
             
             if (plugin.settings.itemDblClick !== undefined)
             {
-                plugin.settings.itemClick(plugin.methods.getSelectedRowsData());
+                plugin.settings.itemDblClick(plugin.methods.getSelectedRowsData());
             }
         });
 
