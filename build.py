@@ -24,8 +24,8 @@ rootDir  = os.path.abspath( os.path.dirname( __file__ ) )
 tempDir  = os.path.join( rootDir, 'dist' )
 pubDir = os.path.join( rootDir, 'pub' )
 versionFile = os.path.join( rootDir, 'package.json' )
-repoUrl = 'http://cronos:9090/gasrd/Web/pub/dongle.js/trunk'
-repoTagUrl = 'http://cronos:9090/gasrd/Web/pub/dongle.js/tags'
+repoUrl = 'http://cronos/svn/Web/pub/dongle.js/trunk'
+repoTagUrl = 'http://cronos/svn/Web/pub/dongle.js/tags'
 
 #-Steps-----------------------------------------------------------------------------------------------------------------
 Builder.addTask( "del-temp", DeleteTask( tempDir ) )
