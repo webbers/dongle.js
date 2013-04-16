@@ -52,12 +52,6 @@
         var selectedRowsElements = [];
         var selectedCheckRowsElements = [];
         var selectedRowsIndex = [];
-        var onError = function (){
-            return;
-        };
-        var parseError = function (){
-            return;
-        };
         var defaults =
         {
             listItemCount: 100,
@@ -102,6 +96,14 @@
             getId: function(elementData)
             {
                 return elementData;
+            },
+            onError = function ()
+            {
+                return;
+            },
+            parseError = function ()
+            {
+                return;
             }
         };
 
