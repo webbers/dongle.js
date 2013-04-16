@@ -104,6 +104,11 @@
             parseError = function ()
             {
                 return;
+            },
+            refreshShortcut: 
+            {
+                modifier: '',
+                keyCode: null
             }
         };
 
@@ -130,7 +135,43 @@
 
         //plugin configurations
         plugin.settings = $.extend({}, defaults, options);
+		
+        $(document).keydown(function (event) 
+        {
+            if(plugin.settings.refreshShortcut.keyCode !== null) 
+			{
 
+                var modifier = true;
+
+                switch (plugin.settings.refreshShortcut.modifier) 
+				{
+                    case 'ctrl':
+                        modifier = event.ctrlKey;
+                    break;
+                    case 'alt':
+                        modifier = event.altKey;
+                    break;
+                    case 'shift':
+                        modifier = event.shiftKey;
+                    break;
+                }                
+                
+                if(modifier && event.keyCode === plugin.settings.refreshShortcut.keyCode) 
+				{
+                    reloadGrid();
+
+				    if(event.preventDefault)
+				    {
+						event.preventDefault();
+					}
+				    else
+					{
+						return false;
+					}
+                }
+            }
+        });
+		
         if (plugin.settings.loadOverlay !== null)
         {
             loadingHide();
