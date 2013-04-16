@@ -105,11 +105,11 @@
             {
                 return;
             },
-            refreshShortcut: 
-            {
-                modifier: '',
-                keyCode: null
-            }
+            refreshShortcut =  
+				{
+					modifier: '',
+					keyCode: null
+				}
         };
 
         var loadingShow = function ()
