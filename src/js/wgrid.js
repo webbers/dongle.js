@@ -55,6 +55,9 @@
         var onError = function (){
             return;
         };
+        var parseError = function (){
+            return;
+        };
         var defaults =
         {
             listItemCount: 100,
@@ -398,8 +401,16 @@
                         plugin.settings.complete();
                     }
                 },
-                error: function () {
-                    plugin.settings.onError();
+                error: function (xhr, textStatus, errorThrown) 
+                {
+                    if(textStatus == "parsererror") 
+                    {
+                        plugin.settings.parseError();
+                    }
+                    if(textStatus == "error") 
+                    {
+                        plugin.settings.onError();
+                    }
                 }
             });
         };
