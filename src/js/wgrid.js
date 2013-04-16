@@ -94,22 +94,22 @@
 			minute: "Minute",
 			time: "Time",
             getId: function(elementData)
-            {
-                return elementData;
-            },
-            onError = function ()
-            {
-                return;
-            },
-            parseError = function ()
-            {
-                return;
-            },
-            refreshShortcut =  
 				{
-					modifier: '',
-					keyCode: null
-				}
+					return elementData;
+				},
+            onError: function ()
+				{
+					return;
+				},
+            parseError: function ()
+				{
+					return;
+				},
+            refreshShortcut:  
+			{
+				modifier: '',
+				keyCode: null
+			}
         };
 
         var loadingShow = function ()
