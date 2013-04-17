@@ -87,7 +87,8 @@
                 many: "many",
                 dateFormat: "mm/dd/yyyy",
                 from: "From",
-                to: "To"
+                to: "To",
+                shortcut: "Shortcut"
             },
 			hour: "Hour",
 			second: "Second",
@@ -882,6 +883,27 @@
             $element.data('wgrid', plugin);
             $element.attr("contextmenuid", wgridContextMenu);
             plugin.settings.statusPanel = $elementStructure.find('.wgrid-status-panel');
+
+            if(plugin.settings.refreshShortcut.keyCode !== null) 
+            {
+                var shortcut = plugin.settings.dictionary.shortcut + ': ';
+
+                switch (plugin.settings.refreshShortcut.modifier) {
+                case 'ctrl':
+                    shortcut += 'Ctrl+';
+                    break;
+                case 'alt':
+                    shortcut += 'Alt+';
+                    break;
+                case 'shift':
+                    shortcut += 'Shift+';
+                    break;
+                }
+
+                shortcut += String.fromCharCode(plugin.settings.refreshShortcut.keyCode);
+
+                $('.reload-button').attr({'title': shortcut});
+            }
         }
 
         data = 
