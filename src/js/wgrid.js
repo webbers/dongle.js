@@ -387,6 +387,7 @@
                 dataType: 'json',
                 async: true,
                 data: params,
+                cache: false,
                 success: function (json)
                 {
                     loadingShow();
