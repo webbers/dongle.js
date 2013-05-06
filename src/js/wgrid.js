@@ -88,7 +88,8 @@
                 dateFormat: "mm/dd/yyyy",
                 from: "From",
                 to: "To",
-                shortcut: "Shortcut"
+                shortcut: "Shortcut",
+				shortcutTitle: "Shortcuts"
             },
 			hour: "Hour",
 			second: "Second",
@@ -109,8 +110,22 @@
             refreshShortcut:  
 			{
 				modifier: '',
-				keyCode: null
-			}
+				keyCode: '',
+				description: ''
+			},
+            setShortcut:
+            {
+                defaultShortcut: 
+                {
+                    keyCode: null,
+                    modifier: null,
+                    description: null,
+                    callback: function () 
+                    {
+                        return;    
+                    }
+                }
+            }
         };
 
         var loadingShow = function ()
@@ -136,42 +151,6 @@
 
         //plugin configurations
         plugin.settings = $.extend({}, defaults, options);
-		
-        $(document).keydown(function (event) 
-        {
-            if(plugin.settings.refreshShortcut.keyCode !== null) 
-			{
-
-                var modifier = true;
-
-                switch (plugin.settings.refreshShortcut.modifier) 
-				{
-                    case 'ctrl':
-                        modifier = event.ctrlKey;
-                    break;
-                    case 'alt':
-                        modifier = event.altKey;
-                    break;
-                    case 'shift':
-                        modifier = event.shiftKey;
-                    break;
-                }                
-                
-                if(modifier && event.keyCode === plugin.settings.refreshShortcut.keyCode) 
-				{
-                    reloadGrid();
-
-				    if(event.preventDefault)
-				    {
-						event.preventDefault();
-					}
-				    else
-					{
-						return false;
-					}
-                }
-            }
-        });
 		
         if (plugin.settings.loadOverlay !== null)
         {
@@ -835,7 +814,7 @@
         //Colocar tabela dentro da estrutura
         if (plugin.settings.full)
         {
-            var $elementStructure = $('<div class="wgrid">' +
+            var $elementStructure = $('<div class="wgrid" tabindex="0">' +
             '<div class="wgrid-left">' +
                 '<div class="wgrid-header-check">' +
                     '<input type="checkbox" class="wgrid-checkbox-all" />' +
@@ -903,7 +882,7 @@
 
                 shortcut += String.fromCharCode(plugin.settings.refreshShortcut.keyCode);
 
-                $('.reload-button').attr({'title': shortcut});
+                $('.reload-button').attr({'title': shortcut}).addClass('tip');
             }
         }
 
@@ -930,6 +909,310 @@
         $(this).data('data', data);
         $('.wgrid-horizontal-empty').height(data.scrollBarWidth);
 
+		
+        var shortcutDisplayList = $('<table style="margin: 10px"></table>');
+        
+        for(var key in plugin.settings.setShortcut) 
+        {
+            if(plugin.settings.setShortcut[key].keyCode !== null) 
+            {
+                    
+                var shortcutString = '';
+
+                if(plugin.settings.setShortcut[key].modifier === 'ctrl' || plugin.settings.setShortcut[key].modifier === 'alt' || plugin.settings.setShortcut[key].modifier === 'shift') 
+				{
+					shortcutString = plugin.settings.setShortcut[key].modifier;
+					shortcutString = shortcutString.charAt(0).toUpperCase() + shortcutString.slice(1);
+                }
+                
+                    
+                if(shortcutString !== '') 
+                {
+                    shortcutString += '+';
+                }
+
+                var keyCode = String.fromCharCode(plugin.settings.setShortcut[key].keyCode);
+
+                switch (plugin.settings.setShortcut[key].keyCode) {
+                    case 46:
+                        keyCode = 'Delete';
+                    break;
+                    case 45:
+                        keyCode = 'Insert';    
+                    break;
+                }
+
+                shortcutString += keyCode;
+
+                shortcutDisplayList.append('<tr><td><b>'+shortcutString+'</b></td><td><b> -</b> '+plugin.settings.setShortcut[key].description+'</td></tr>');
+            }
+        }
+        
+        if(plugin.settings.refreshShortcut.keyCode !== null) 
+		{
+        
+            shortcutString = '';
+            
+            if(plugin.settings.refreshShortcut.modifier !== undefined && (plugin.settings.refreshShortcut.modifier === 'ctrl' || plugin.settings.refreshShortcut.modifier === 'alt' || plugin.settings.refreshShortcut.modifier === 'shift'))
+			{
+                shortcutString = plugin.settings.refreshShortcut.modifier;
+				shortcutString = shortcutString.charAt(0).toUpperCase() + shortcutString.slice(1);
+            }     
+                    
+            if(shortcutString !== '') 
+            {
+                shortcutString += '+';
+            }
+
+            shortcutString += String.fromCharCode(plugin.settings.refreshShortcut.keyCode);
+            
+            shortcutDisplayList.append('<tr><td><b>'+shortcutString+'</b></td><td><b> -</b> '+plugin.settings.refreshShortcut.description+'</td></tr>');
+        }
+		
+		this.directionDown = false;
+		$element.bind('keydown', function (event) 
+		{
+			var hasScrollBar = $element.find('.wgrid-container').get(0).scrollHeight > $element.find('.wgrid-container').height();
+		
+			for(var key in plugin.settings.setShortcut) 
+			{
+				if(plugin.settings.setShortcut[key].keyCode !== null) 
+				{
+					
+					var ctrl = true;
+					var shift = true;
+					var alt = true;
+
+					switch (plugin.settings.setShortcut[key].modifier) 
+					{
+						case 'ctrl':
+							ctrl = event.ctrlKey;
+							shift = !event.shiftKey;
+							alt = !event.altKey;
+						break;
+						case 'alt':
+							ctrl = !event.ctrlKey;
+							shift = !event.shiftKey;
+							alt = event.altKey;
+						break;
+						case 'shift':
+							ctrl = !event.ctrlKey;
+							shift = event.shiftKey;
+							alt = !event.altKey;
+						break;
+					}
+					
+					if(event.keyCode === plugin.settings.setShortcut[key].keyCode && ctrl && shift && alt) 
+					{
+						plugin.settings.setShortcut[key].callback(plugin, selectedRowsElements);
+					}
+				}
+			}
+			
+			if(plugin.settings.refreshShortcut.keyCode !== null) 
+			{
+
+				var modifier = true;
+
+				switch (plugin.settings.refreshShortcut.modifier) 
+				{
+					case 'ctrl':
+						modifier = event.ctrlKey;
+					break;
+					case 'alt':
+						modifier = event.altKey;
+					break;
+					case 'shift':
+						modifier = event.shiftKey;
+					break;
+				}                
+				
+				if(modifier && event.keyCode === plugin.settings.refreshShortcut.keyCode) 
+				{
+					reloadGrid();
+					clearRowSelection();
+
+					if(event.preventDefault)
+					{
+						event.preventDefault();
+					}
+					else
+					{
+						return false;
+					}
+				}
+			}
+			
+			if(event.keyCode === 193 && !$('.ui-dialog:visible')[0] && !event.ctrlKey && !event.shiftKey && !event.altKey) 
+			{
+				shortcutDisplayList.dialog(
+				{
+					title: plugin.settings.shortcutTitle,
+					modal: true
+				});
+				return false;
+			}
+			
+			var table = $element.find('.wgrid-table');
+			var container = $element.find(".wgrid-container");
+			
+			if(event.keyCode === 36 && !event.ctrlKey && !event.shiftKey && !event.altKey) 
+			{
+				row = $element.find('table.wgrid-table tr').first();
+				
+				if(row.attr('item-id') !== table.find('.wgrid-selected-line').first().attr('item-id') && hasScrollBar) 
+				{
+					container.scrollTop(0);
+				}
+
+				clearRowSelection();
+				checkALine(row, true);
+			}
+			else if(event.keyCode === 35 && !event.ctrlKey && !event.shiftKey && !event.altKey) 
+			{
+				row = table.find('tr').last();
+				
+				if(row.attr('item-id') !== table.find('.wgrid-selected-line').last().attr('item-id') && hasScrollBar) 
+				{
+					container.scrollTop(row.position().top+row.offset().top+row.height()*7);
+				}
+
+				clearRowSelection();
+				checkALine(row, true);
+			}
+			
+			if(event.keyCode === 40) 
+			{
+				var row = table.find('.wgrid-selected-line');
+				
+				if(!event.shiftKey) 
+				{
+					var check = null;
+					if(row.length > 1) {
+						check = row.last().next();
+					}
+					if(row.last().next()[0]) 
+					{
+						clearRowSelection();
+					}
+					if(check) 
+					{
+						checkALine(check, true);
+					}
+				}
+				
+				if(!row[0]) 
+				{
+					row = table.find('tr').first();
+					checkALine(row, true);
+					if(hasScrollBar)
+					{
+						container.scrollTop(0);
+					}
+					this.directionDown = true;
+				}
+				else 
+				{
+					var lastSelectedRow = row.last();
+					
+					if(row.length == 1) 
+					{
+						this.directionDown = true;
+					}
+					
+					if(!this.directionDown) 
+					{
+						checkALine(row.first(), false);
+					}
+					else if(lastSelectedRow.next()[0])
+					{
+						checkALine(lastSelectedRow.next(), true);
+					}
+
+					if(lastSelectedRow.position().top > container.height()-lastSelectedRow.height()*2) 
+					{
+						container.scrollTop(container.scrollTop() + lastSelectedRow.height());
+					}
+					else if((lastSelectedRow.position().top < 0))
+					{
+						container.scrollTop(container.scrollTop()+lastSelectedRow.position().top-lastSelectedRow.height()*2);
+					}
+				}
+			}
+			else if(event.keyCode === 38) 
+			{
+				row = table.find('.wgrid-selected-line');
+				
+				if(!event.shiftKey) 
+				{
+					check = null;
+					if(row.length > 1) 
+					{
+						check = row.first().prev();
+					}
+					if(row.first().prev()[0]) 
+					{
+						clearRowSelection();
+					}
+					if(check) 
+					{
+						checkALine(check, true);
+					}
+				}
+				
+				if(!row[0]) 
+				{
+					row = table.find('tr').last();
+					checkALine(row, true);
+					if(hasScrollBar)
+					{
+						container.scrollTop(row.offset().top);
+					}
+					this.directionDown = false;
+				}
+				else 
+				{
+					var firstSelectedRow = row.first();
+					
+					
+					if(row.length == 1) 
+					{
+						this.directionDown = false;
+					}
+					
+					if(this.directionDown) 
+					{
+						checkALine(row.last(), false);
+					}
+					else 
+					{
+						checkALine(firstSelectedRow.prev(), true);
+					}
+					
+					if(firstSelectedRow.position().top < firstSelectedRow.height()) 
+					{
+						container.scrollTop(container.scrollTop() - firstSelectedRow.height());
+					}
+					else if(firstSelectedRow.position().top > container.height())
+					{
+						container.scrollTop(container.scrollTop()+firstSelectedRow.position().top-firstSelectedRow.height()*4);
+					}
+				}
+			}
+			
+			if(event.keyCode === 40 || event.keyCode === 38 || event.keyCode === 35 || event.keyCode === 36) 
+			{
+				if(event.preventDefault)
+				{
+					event.preventDefault();
+				}
+				else
+				{
+					return false;
+				}
+			}
+		});
+		
         //Para sumir com o filtro quando clica fora
         $(document).bind('click', function (e)
         {
@@ -1308,12 +1591,89 @@
             }
         };
 
+		var clickBefore = false;
         data.table.delegate('tr', 'mousedown', function (e)
         {
             if (!$(e.target).is('input') && !$(e.target).is('a'))
             {
-                var isMultiSelectKeyPressed = e.ctrlKey ? true : false;
-                setRowSelection($(this), e.which == 1 ? 'left' : 'right', isMultiSelectKeyPressed);
+                var currentElement = $(this);
+                if(e.shiftKey) 
+                {
+                    var prevAll = currentElement.prevAll('.wgrid-selected-line');
+                    
+                    var lastSelectedRowIndex = prevAll.last().closest('tr').prevAll().length;
+                    var currentSelectedRowIndex = currentElement.closest('tr').prevAll().length;
+
+                    if(lastSelectedRowIndex !== 0 || (prevAll.attr('item-id') === currentElement.closest('table').find('tr').first().attr('item-id'))) 
+                    {
+                        if(!clickBefore) 
+                        {
+                            lastSelectedRowIndex = prevAll.first().closest('tr').prevAll().length;
+                        }
+                        clickBefore = true;
+
+                        items = data.tableRows.slice(lastSelectedRowIndex, currentSelectedRowIndex + 1);
+                        checks = data.checkTable.find('tr').slice(lastSelectedRowIndex, currentSelectedRowIndex + 1);
+                    }
+                    else 
+                    {
+                        var nextAll = currentElement.nextAll('.wgrid-selected-line');
+                        if(!clickBefore) 
+                        {
+                            lastSelectedRowIndex = nextAll.last().closest('tr').prevAll().length;
+                        }
+                        else 
+                        {
+                            lastSelectedRowIndex = nextAll.first().closest('tr').prevAll().length;
+                        }
+                        
+                        if(lastSelectedRowIndex === 0) 
+                        {
+                            items = data.tableRows.slice(lastSelectedRowIndex, currentSelectedRowIndex + 1);
+                            checks = data.checkTable.find('tr').slice(lastSelectedRowIndex, currentSelectedRowIndex + 1);
+                        }
+                        else 
+                        {
+                            items = data.tableRows.slice(currentSelectedRowIndex, lastSelectedRowIndex+1);
+                            checks = data.checkTable.find('tr').slice(currentSelectedRowIndex, lastSelectedRowIndex+1);
+                        }
+                        
+                        clickBefore = false;
+
+                    }
+
+                    if(items !== null && checks !== null) 
+                    {
+                        clearRowSelection();
+
+                        items.addClass('wgrid-selected-line');
+                        checks.find('input[type="checkbox"]').attr('checked', true);
+                        
+                        updateSelectedElementsArrays();
+                    }
+                
+                    items = null;
+                    checks = null;
+					
+                    document.getSelection().removeAllRanges();
+					return false;
+                }
+                
+                if(e.ctrlKey && currentElement.closest('tr').is('.wgrid-selected-line') === true) 
+                {
+                    $(this).closest('tr').removeClass('wgrid-selected-line');
+                    data.checkTable.find('input[value="' + $(this).closest('tr').attr('item-id') + '"]').attr('checked', false);
+                    
+                    updateSelectedElementsArrays();
+                }
+                else 
+                {
+                    var isMultiSelectKeyPressed = e.ctrlKey ? true : false;
+                    setRowSelection($(this), e.which == 1 ? 'left' : 'right', isMultiSelectKeyPressed);
+                }
+                
+                items = null;
+                checks = null;
             }
         });
         

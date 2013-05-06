@@ -152,6 +152,14 @@ $.mockjax({
     log: true
 });
 
+//Shortcuts
+$.mockjax({
+    url: 'data.json?skip=0',
+    responseTime: 0,
+    responseText: {"Data": items,"TotalCount":10},
+    log: false
+});
+
 function createHtml(id)
 {
     var html = '<table id="'+ id + '"><thead><tr><th field_type="numeric" field_name="field1" field_value="">ID</th><th field_type="int" field_name="field2" field_value="" disable_handling="true">INTEIRO</th><th field_type="datetime" field_name="field3" field_value="" disable_handling="true">DATA</th><th field_type="daterange" field_name="field4" field_value="">DATERANGE</th><th field_type="text" field_name="field5">TESTE DE COLUNA GRANDE</th><th field_type="bool" field_name="field6" field_value="" disable_handling="true">BOOL</th></tr></thead></table>';
@@ -190,11 +198,83 @@ function createWGrid(test)
                 test($('#' + id).closest(".wgrid"), $('#' + id));
             }
         },
+		refreshShortcut: 
+		{
+			modifier: 'ctrl',
+			keyCode: 82,
+			description: 'Refresh'
+		},
+		setShortcut:
+		{
+			detele: 
+			{
+				keyCode: 46,
+				modifier: '',
+				description: 'Delete',
+				callback: function (api, selectedElements) 
+				{
+					api.methods.removeSelectedRows(selectedElements);
+				}
+			}
+		},
         itemClick: function (selectedItems)
         {
             $('.wgrid').after('<div id="clicked">Cliked</div>');
             $("#clicked").fadeOut(1000);
         }
+    });
+    $('#' + id).closest('.wgrid').css({ position: 'relative', height: '300px' });
+}
+
+function createWGrid2(test)
+{
+    var id = "wgrid2-" + parseInt(Math.random() * 100, 10); 
+    
+    var completed = false;
+    
+    createHtml(id);
+    $('#' + id).wgrid({
+        full: true,
+        jsonUrl: 'data.json',
+        method: "GET",
+        totalItems: 20,
+        keyColumn: "",
+        showStatusIcon: false,
+        classRowObjectField: "EventTypeLevel",
+        colorizeItems: true,
+        listItemCount: 10,
+        useUrlQuerystring: true,
+        getId: function(line)
+        {
+            return line.rownum;
+        },        
+        complete: function()
+        {
+            if(completed === false)
+            {
+                completed = true;
+                test($('#' + id).closest(".wgrid"), $('#' + id));
+            }
+        },
+		refreshShortcut: 
+		{
+			modifier: 'ctrl',
+			keyCode: 82,
+			description: 'Refresh'
+		},
+		setShortcut:
+		{
+			detele: 
+			{
+				keyCode: 46,
+				modifier: '',
+				description: 'Delete',
+				callback: function (api, selectedElements) 
+				{
+					api.methods.removeSelectedRows(selectedElements);
+				}
+			}
+		}
     });
     $('#' + id).closest('.wgrid').css({ position: 'relative', height: '300px' });
 }
@@ -574,5 +654,193 @@ createWGrid(function($wgrid, $innerGrid)
     });
 });
 
+createWGrid2(function($wgrid)
+{
+    asyncTest("Testing default shortcuts", function ()
+    {
+		setTimeout(function ()
+		{
+			var event = jQuery.Event("keydown");
+			var row = $wgrid.find('tr').first();
+			
+			var KEYHOME = 36;
+			var KEYEND = 35;
+			var KEYR = 82;
+			var KEYQUESTION = 193;
+			var KEYESC = 27;
+			var KEYDELETE = 46;
+			
+			event.keyCode = KEYHOME;
+			$wgrid.focus();
+			$wgrid.trigger(event);		
+			deepEqual(row.attr('item-id'), $wgrid.find('.wgrid-selected-line').first().attr('item-id'), "'Home' key is selecting the first item");
+			
+			row = $wgrid.find('tr').last();
+			event.keyCode = KEYEND;
+			$wgrid.focus();
+			$wgrid.trigger(event);
+			
+			event.keyCode = KEYHOME;
+			event.ctrlKey = true;
+			event.altKey = false;
+			event.shiftKey = false;
+			$wgrid.focus();
+			$wgrid.trigger(event);		
+			deepEqual(row.attr('item-id'), $wgrid.find('.wgrid-selected-line').last().attr('item-id'), "'Home' key with Ctrl key pressed is not selecting the first item");
+			
+			row = $wgrid.find('tr').last();
+			event.keyCode = KEYHOME;
+			event.ctrlKey = false;
+			event.altKey = true;
+			event.shiftKey = false;
+			$wgrid.focus();
+			$wgrid.trigger(event);
+			deepEqual(row.attr('item-id'), $wgrid.find('.wgrid-selected-line').last().attr('item-id'), "'Home' key with Alt key pressed is not selecting the first item");
+			
+			row = $wgrid.find('tr').last();
+			event.keyCode = KEYHOME;
+			event.ctrlKey = false;
+			event.altKey = false;
+			event.shiftKey = true;
+			$wgrid.focus();
+			$wgrid.trigger(event);
+			deepEqual(row.attr('item-id'), $wgrid.find('.wgrid-selected-line').last().attr('item-id'), "'Home' key with Shift key pressed is not selecting the first item");
+			
+			row = $wgrid.find('tr').last();	
+			event = jQuery.Event("keydown");
+			event.keyCode = KEYEND;
+			$wgrid.focus();
+			$wgrid.trigger(event);		
+			deepEqual(row.attr('item-id'), $wgrid.find('.wgrid-selected-line').first().attr('item-id'), "'End' key is selecting the last item");
+			
+			row = $wgrid.find('tr').first();
+			event.keyCode = KEYHOME;
+			$wgrid.focus();
+			$wgrid.trigger(event);
+			
+			event.keyCode = KEYEND;
+			event.ctrlKey = true;
+			event.altKey = false;
+			event.shiftKey = false;
+			$wgrid.focus();
+			$wgrid.trigger(event);		
+			deepEqual(row.attr('item-id'), $wgrid.find('.wgrid-selected-line').first().attr('item-id'), "'End' key with Ctrl key pressed is not selecting the last item");
+			
+			row = $wgrid.find('tr').first();
+			event.keyCode = KEYEND;
+			event.ctrlKey = false;
+			event.altKey = true;
+			event.shiftKey = false;
+			$wgrid.focus();
+			$wgrid.trigger(event);
+			deepEqual(row.attr('item-id'), $wgrid.find('.wgrid-selected-line').first().attr('item-id'), "'End' key with Alt key pressed is not selecting the last item");
+			
+			row = $wgrid.find('tr').first();
+			event.keyCode = KEYEND;
+			event.ctrlKey = false;
+			event.altKey = false;
+			event.shiftKey = true;
+			$wgrid.focus();
+			$wgrid.trigger(event);
+			deepEqual(row.attr('item-id'), $wgrid.find('.wgrid-selected-line').first().attr('item-id'), "'End' key with Shift key pressed is not selecting the last item");
+			
+			event = jQuery.Event("keydown");
+			event.ctrlKey = true;
+			event.keyCode = KEYR;
+			$wgrid.focus();
+			$wgrid.trigger(event);
+			equal(0, $wgrid.find('.wgrid-selected-line').length, "WGrid is refreshing with refreshShortcut");
+			
+			event = jQuery.Event("keydown");
+			event.keyCode = KEYQUESTION;
+			$wgrid.focus();
+			$wgrid.trigger(event);
+			equal(1, $('.ui-dialog:visible').length, "WGrid is displaying Shortcuts List dialog");
+			
+			event = jQuery.Event("keydown");
+			event.keyCode = KEYESC;
+			$wgrid.focus();
+			$(document).trigger(event);		
+			equal(0, $('.ui-dialog:visible').length, "WGrid is closing Shortcuts List dialog");
+			
+			stop();
+			setTimeout( function ()
+			{
+				row = $wgrid.find('table.wgrid-table tr').get(1);
+				event = jQuery.Event("keydown");
+				event.ctrlKey = false;
+				event.keyCode = KEYHOME;
+				$wgrid.focus();
+				$wgrid.trigger(event);
+				
+				event = jQuery.Event("keydown");
+				event.ctrlKey = false;
+				event.keyCode = KEYDELETE;
+				$wgrid.focus();
+				$wgrid.trigger(event);
+				equal(row.getAttribute('item-id'), $wgrid.find('tr').get(0).getAttribute('item-id'), "Custom shortcut key is calling callback function");
+				start();
+			}, 500);
+			
+			$(document).scrollTop(0);
+			start();
+		}, 1000);
+    });
+});
 
+createWGrid2(function($wgrid)
+{
+	asyncTest("Testing item selection with mouse with Shift and Ctrl keys", function ()
+	{
+		var event = jQuery.Event('mousedown');
+		var row = $wgrid.find('table.wgrid-table tr').first();
+		
+		event.which = 1;
+		row.trigger(event);		
+		deepEqual(true, row.is('.wgrid-selected-line'), 'Is selecting item with left mouse button click');
+		
+		var thirdRow = $wgrid.find('tr[item-id="'+$wgrid.find('table.wgrid-table tr').get(2).getAttribute('item-id')+'"]');
+		event = jQuery.Event('mousedown');
+		event.which = 1;
+		event.shiftKey = true;
+		thirdRow.trigger(event);
+		equal(true, $wgrid.find('table.wgrid-table tr').slice(0, 3).is('.wgrid-selected-line'), 'Is selecting many items with Shift key and a item selected previusly');
+		
+		row = $wgrid.find('table.wgrid-table tr').first();
+		event = jQuery.Event('mousedown');
+		event.which = 1;
+		event.ctrlKey = true;
+		row.trigger(event);
+		deepEqual(false, row.is('.wgrid-selected-line'), 'Is unselecting item with Ctrl key and left mouse button click');
+		
+		$wgrid.wgrid('reloadGrid');
+		
+		stop();
+		setTimeout(function ()
+		{
+			row = $wgrid.find('tr[item-id="'+$wgrid.find('table.wgrid-table tr').get(2).getAttribute('item-id')+'"]');
+			event = jQuery.Event('mousedown');
+			event.which = 1;
+			row.trigger(event);
+			
+			row = $wgrid.find('tr[item-id="'+$wgrid.find('table.wgrid-table tr').get(1).getAttribute('item-id')+'"]');
+			event = jQuery.Event('mousedown');
+			event.which = 1;
+			event.shiftKey = true;
+			row.trigger(event);
+			
+			row = $wgrid.find('tr[item-id="'+$wgrid.find('table.wgrid-table tr').get(4).getAttribute('item-id')+'"]');
+			event = jQuery.Event('mousedown');
+			event.which = 1;
+			event.shiftKey = true;
+			row.trigger(event);
+			
+			deepEqual(true, $wgrid.find('table.wgrid-table tr').slice(2, 5).is('.wgrid-selected-line'), 'Is selecting many items with Shift key and a item selected previusly');			
+			
+			start();
+		}, 500);
+		
+		start();
+	});
+});
 
