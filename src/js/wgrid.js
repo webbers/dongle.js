@@ -1000,6 +1000,11 @@
 							shift = event.shiftKey;
 							alt = !event.altKey;
 						break;
+						default :
+							ctrl = !event.ctrlKey;
+							shift = !event.shiftKey;
+							alt = !event.altKey;
+                        break;
 					}
 					
 					if(event.keyCode === plugin.settings.setShortcut[key].keyCode && ctrl && shift && alt) 
