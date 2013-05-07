@@ -89,7 +89,8 @@
                 from: "From",
                 to: "To",
                 shortcut: "Shortcut",
-				shortcutTitle: "Shortcuts"
+				shortcutTitle: "Shortcuts",
+				refreshShortcutDescription: "Refresh"
             },
 			hour: "Hour",
 			second: "Second",
@@ -109,9 +110,9 @@
 				},
             refreshShortcut:  
 			{
-				modifier: '',
-				keyCode: '',
-				description: ''
+				modifier: 'ctrl',
+				keyCode: 82,
+				description: "Refresh"
 			},
             setShortcut:
             {
@@ -152,6 +153,7 @@
         //plugin configurations
         plugin.settings = $.extend({}, defaults, options);
 		
+		plugin.settings.refreshShortcut.description = plugin.settings.dictionary.refreshShortcutDescription;
         if (plugin.settings.loadOverlay !== null)
         {
             loadingHide();
@@ -864,11 +866,12 @@
             $element.attr("contextmenuid", wgridContextMenu);
             plugin.settings.statusPanel = $elementStructure.find('.wgrid-status-panel');
 
-            if(plugin.settings.refreshShortcut.keyCode !== null) 
+            if(plugin.settings.refreshShortcut.keyCode !== null && plugin.settings.activateRefreshShortcut)  
             {
                 var shortcut = plugin.settings.dictionary.shortcut + ': ';
 
-                switch (plugin.settings.refreshShortcut.modifier) {
+                switch (plugin.settings.refreshShortcut.modifier) 
+				{
                 case 'ctrl':
                     shortcut += 'Ctrl+';
                     break;
@@ -933,7 +936,8 @@
 
                 var keyCode = String.fromCharCode(plugin.settings.setShortcut[key].keyCode);
 
-                switch (plugin.settings.setShortcut[key].keyCode) {
+                switch (plugin.settings.setShortcut[key].keyCode) 
+				{
                     case 46:
                         keyCode = 'Delete';
                     break;
