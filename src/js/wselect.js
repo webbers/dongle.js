@@ -310,12 +310,16 @@ $.widget("ech.wselect", {
 
                 switch(e.which){
                     case 9: // tab
+                        break;
                     case 27: // esc
                         self.close();
                         break;
                     case 38: // up
+                        break;
                     case 40: // down
+                        break;
                     case 37: // left
+                        break;
                     case 39: // right
                         self._traverse(e.which, this);
                         break;
