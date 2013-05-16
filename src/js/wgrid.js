@@ -65,6 +65,7 @@
             advancedFilter: 'equals',
             checkboxRowSelect: true,
             showStatusIcon: true,
+            additionalParameters: null,
             statusPanel: null,
             complete: null,
             sort: "ASC",
@@ -202,7 +203,7 @@
         {
             var filterParams = $.param(filters);
             var querystring = "?skip=" + skip;
-
+            var additional;
             if (plugin.settings.keyColumn !== "" && plugin.settings.keyColumn !== null && plugin.settings.keyColumn !== undefined)
             {
                 querystring = querystring + "&keyColumn=" + plugin.settings.keyColumn;
@@ -217,11 +218,29 @@
             {
                 sort = plugin.settings.sort;
             }
+            
+            if(!!plugin.settings.additionalParameters) 
+            {
+                for (var param in plugin.settings.additionalParameters) 
+                {
+                    var p;
+                    if(typeof plugin.settings.additionalParameters[param] == "object") 
+                    {
+                        p = plugin.settings.additionalParameters[param].Value;
+                    } 
+                    else 
+                    {
+                        p = plugin.settings.additionalParameters[param];
+                    }
+                    additional = "&" + param + "=" + p;
+                }
+            }
 
             querystring = filterParams === "" ? querystring : querystring + "&" + filterParams;
             querystring = orderby === undefined ? querystring : querystring + "&orderby=" + orderby + "&sort=" + sort;
             querystring = lastId === 0 ? querystring : querystring + "&lastId=" + lastId;
             querystring = eventFilter === undefined ? querystring : querystring + "&eventFilter=" + eventFilter;
+            //querystring = !additional ? querystring : querystring + additional;
 
             if (plugin.settings.useUrlQuerystring)
             {
