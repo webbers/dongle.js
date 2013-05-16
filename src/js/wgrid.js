@@ -240,7 +240,7 @@
             querystring = orderby === undefined ? querystring : querystring + "&orderby=" + orderby + "&sort=" + sort;
             querystring = lastId === 0 ? querystring : querystring + "&lastId=" + lastId;
             querystring = eventFilter === undefined ? querystring : querystring + "&eventFilter=" + eventFilter;
-            //querystring = !additional ? querystring : querystring + additional;
+            querystring = !additional ? querystring : querystring + additional;
 
             if (plugin.settings.useUrlQuerystring)
             {
