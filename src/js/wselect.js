@@ -244,11 +244,14 @@ $.widget("ech.wselect", {
             keypress: function( e ){
                 switch(e.which){
                     case 27: // esc
+                        break;
                     case 38: // up
+                        break;
                     case 37: // left
                         self.close();
                         break;
                     case 39: // right
+                        break;
                     case 40: // down
                         self.open();
                         break;
