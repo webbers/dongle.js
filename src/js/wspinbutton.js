@@ -65,7 +65,7 @@
                 });
                 
                 $element.keyup(function (e) {
-                    if ($(this).val() == "" || $(this).val() == "-")
+                    if ($(this).val() == "" || $(this).val() === "-")
                     {
                         $(this).val(val);
                     }
