@@ -53,6 +53,24 @@
                 $buttonElement.addClass('wspinbutton-button');
                 $element.after($buttonElement);
                 $element.data('wspinned', true);
+                
+                var val;
+                $element.keydown(function (e)
+                {
+                    val = $element.val();
+                    if (!((e.keyCode > 47 && e.keyCode < 58) || (e.keyCode > 95 && e.keyCode < 106) || e.keyCode == 8 || e.keyCode == 46))
+                    {
+                        return false;
+                    }
+                });
+                
+                $element.keyup(function (e) {
+                    if ($(this).val() == "")
+                    {
+                        $(this).val(val);
+                    }
+                });
+                
                 if (options.locked)
                 {
                     $element.focus(function ()
