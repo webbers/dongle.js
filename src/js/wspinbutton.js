@@ -58,14 +58,14 @@
                 $element.keydown(function (e)
                 {
                     val = $element.val();
-                    if (!((e.keyCode > 47 && e.keyCode < 58) || (e.keyCode > 95 && e.keyCode < 106) || e.keyCode == 8 || e.keyCode == 46))
+                    if (!((e.keyCode > 47 && e.keyCode < 58) || (e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 36 && e.keyCode < 41) || e.keyCode == 8 || e.keyCode == 46 || e.keyCode == 109))
                     {
                         return false;
                     }
                 });
                 
                 $element.keyup(function (e) {
-                    if ($(this).val() == "" || $(this).val() === "-")
+                    if ($(this).val() == "" || $(this).val() === "-" || $(this).val().split("-").length > 2)
                     {
                         $(this).val(val);
                     }
