@@ -573,8 +573,13 @@ $.widget("ech.wselect", {
         } else {
             if(!o.autoOpen)
 			{
+				var posY = pos.top + button.outerHeight();
+                if ((self.button.position().top + menu.height()) >= window.screen.availHeight)
+                {
+                    posY = pos.top - menu.height() + 12;
+                }
 				menu.css({
-					top: pos.top + button.outerHeight(),
+				    top: posY,
 					left: pos.left
 				});
 			}
