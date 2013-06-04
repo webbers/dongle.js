@@ -23,8 +23,6 @@
     ],
     "devDependencies": {
         "grunt": "~0.4.0",
-        "grunt-css": "0.2.0",
-        "grunt-contrib": ">=0.2.0",
         "grunt-qunit-cov": ">=0.2.0",
         "grunt-compare-size": ">=0.1.0",
         "grunt-git-authors": ">=1.0.0",

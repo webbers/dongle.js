@@ -10,9 +10,9 @@ module.exports = function( grunt ) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.loadNpmTasks('grunt-qunit-cov');
 
     function readOptionalJSON( filepath ) {
         var data = {};
@@ -143,9 +143,16 @@ module.exports = function( grunt ) {
         
         cssmin:
         {
-            "dist/css/dongle.components.min.css": ["<banner>", "dist/css/dongle.components.css"],
-            "dist/css/dongle.loader.min.css": ["<banner>", "dist/css/dongle.loader.css"]
+            combine:
+            {
+                files:
+                {
+                    "dist/css/dongle.components.min.css": ["<banner>", "dist/css/dongle.components.css"],
+                    "dist/css/dongle.loader.min.css": ["<banner>", "dist/css/dongle.loader.css"]
+                }
+            }
         },
+        
 
         jshint: {
             beforeconcat: [ 'js/*.js', 'test/js/*.js' ]
@@ -170,11 +177,7 @@ module.exports = function( grunt ) {
                 testFiles: ['test/*.html']
             }
         }
-    });
-    
-    grunt.loadNpmTasks('grunt-qunit-cov');
-    grunt.loadNpmTasks('grunt-css');
-    grunt.loadNpmTasks('grunt-contrib');
+    });    
     grunt.registerTask( "default", ['concat', 'copy', 'cssmin', 'uglify', 'jshint', 'qunit'] );
     grunt.registerTask( "full", ['concat', 'copy', 'cssmin', 'uglify', 'jshint', 'qunit-cov'] );
     grunt.registerTask( "cov", 'qunit-cov' );
