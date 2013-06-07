@@ -574,7 +574,7 @@ $.widget("ech.wselect", {
             if(!o.autoOpen)
 			{
 				var posY = pos.top + button.outerHeight();
-                if ((self.button.position().top + menu.height()) >= window.screen.availHeight)
+                if ((self.button.position().top + menu.height() * 1.5) >= window.screen.availHeight)
                 {
                     posY = pos.top - menu.height() + 12;
                 }
