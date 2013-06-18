@@ -564,6 +564,7 @@ th, td
 .wgrid-content-filter-panel input[type=text] 
 {
     height: 22px;
+    width: 165px;
 }
 .wgrid-ellipsis 
 {
