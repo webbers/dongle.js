@@ -1321,7 +1321,7 @@
                         
                         if (filterType == 'daterange')
                         {
-                            var fieldFromDiv = $('<div style="display:inline-block><div>'+ plugin.settings.dictionary.from +'</div></div>');
+                            var fieldFromDiv = $('<div style="display:inline-block"><div>'+ plugin.settings.dictionary.from +'</div></div>');
                             var fieldToDiv = $('<div><div>'+ plugin.settings.dictionary.to +'</div></div>');
 
                             var fieldFrom = $('<input type="text" name="filter-' + fieldName + '-from"/>');
