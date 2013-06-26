@@ -324,6 +324,7 @@ th, td
 .wgrid-content-filter-panel
 {
 	padding: 10px;
+    width: 180px;
 }
 
 .wgrid-filter-panel
