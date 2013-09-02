@@ -285,12 +285,15 @@
             $("#more-margin").remove();
         };
 
-        var getElementId = function (elementData)
+        var getElementId = function (elementData, i)
         {
             var elementId = elementData.Id;
             if (elementId === null || elementId === undefined)
             {
                 elementId = elementData.rownum;
+				if (elementId === null || elementId === undefined) {
+                    elementId = i;
+                }
             }
 
             return elementId;
@@ -308,9 +311,9 @@
             return rowClass;
         };
 
-        var getCheckTableRow = function (elementData)
+        var getCheckTableRow = function (elementData, i)
         {
-            var tableRow = '<tr item-id="' + getElementId(elementData) + '" class="class-' + getRowClass(elementData) + '"><td class="wgrid-checkbox-column"><input type="checkbox" class="wgrid-checkbox-item" value="' + getElementId(elementData) + '" name="selectedIds"></td>';
+            var tableRow = '<tr item-id="' + getElementId(elementData, i) + '" class="class-' + getRowClass(elementData) + '"><td class="wgrid-checkbox-column"><input type="checkbox" class="wgrid-checkbox-item" value="' + getElementId(elementData, i) + '" name="selectedIds"></td>';
             tableRow += plugin.settings.showStatusIcon ? '<td><span class="wgrid-status-icon"></span></td>' : "";
             tableRow += '</tr>';
             return tableRow;
@@ -325,10 +328,10 @@
             } return "";
         };
 
-        var getTableRow = function (elementData)
+        var getTableRow = function (elementData, i)
         {
             var rowToInsert = [];
-            rowToInsert.push("<tr item-id='" + getElementId(elementData) + "' class='class-" + getRowClass(elementData) + "'>");
+            rowToInsert.push("<tr item-id='" + getElementId(elementData, i) + "' class='class-" + getRowClass(elementData) + "'>");
             var i = 0;
             for (var column in data.columns)
             {
@@ -405,9 +408,9 @@
                             var elementData = jsonData[i];
                             rowsDataArray.push(elementData);
 
-                            lastId = getElementId(elementData) > lastId ? getElementId(elementData) : lastId;
-                            rowsToInsert.push(getTableRow(elementData));
-                            checkRowsToInsert.push(getCheckTableRow(elementData));
+                            lastId = getElementId(elementData, i) > lastId ? getElementId(elementData, i) : lastId;
+                            rowsToInsert.push(getTableRow(elementData, i));
+                            checkRowsToInsert.push(getCheckTableRow(elementData, i));
                         }
 
                         data.table.append(rowsToInsert.join(''));
