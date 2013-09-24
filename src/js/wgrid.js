@@ -203,7 +203,7 @@
         {
             var filterParams = $.param(filters);
             var querystring = "?skip=" + skip;
-            var additional;
+            var additional = "";
             if (plugin.settings.keyColumn !== "" && plugin.settings.keyColumn !== null && plugin.settings.keyColumn !== undefined)
             {
                 querystring = querystring + "&keyColumn=" + plugin.settings.keyColumn;
@@ -231,8 +231,8 @@
                     else 
                     {
                         p = plugin.settings.additionalParameters[param];
-                    }
-                    additional = "&" + param + "=" + p;
+                    }                    
+					additional = additional + "&" + param + "=" + p;
                 }
             }
 
