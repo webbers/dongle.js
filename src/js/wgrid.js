@@ -1420,6 +1420,16 @@
                             }
                             filterField = $('<input type="text" name="filter-' + fieldName + '"/>');
 
+                            if (filters[fieldName] !== undefined && filters[fieldName] !== null) {
+                                var temp = filters[fieldName];
+                                temp = temp.split('|');
+                                
+                                setTimeout(function() {
+                                    filterField.val(temp[2]);
+                                    filterField.attr('value', temp[2]);
+                                }, 100);
+                            }
+
                             //FILTER CLICK
                             filterButton.click(function ()
                             {
@@ -1455,10 +1465,6 @@
                                 reloadGrid();
                                 reloadTotalsDisplays();
                             });
-                            if( filters[fieldName] !== null )
-                            {
-                                filterField.val(filters[fieldName]);
-                            }
                             
                             if (filterType == 'datetime')
                             {
