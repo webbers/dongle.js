@@ -46,7 +46,7 @@ Builder.addTask( "svn-commit", SvnCommitTask( rootDir ) )
 
 #-Root steps------------------------------------------------------------------------------------------------------------
 Builder.addTask( 'pre-commit', [ 'svn-update', 'del-temp', 'install-deps' ,'grunt' ])
-Builder.addTask( 'ci', [ 'pre-commit', 'del-repo', 'del-pub', 'svn-update', 'copy', 'svn-commit', 'del-temp' ])
+Builder.addTask( 'ci', [ 'pre-commit', 'del-pub', 'copy', 'del-repo', 'svn-update', 'import', 'del-temp' ])
 Builder.addTask( 'pub-trunk', [ 'git-checkout', 'increment-rev', 'ci', 'commit-version-file', 'create-tag' ])
 
 Builder.runBuild(args.build)
