@@ -11,6 +11,7 @@ from pyhammer.tasks.io.deletetask import DeleteTask
 from pyhammer.tasks.svn.svncreatetagtask import SvnCreateTagTask
 from pyhammer.tasks.svn.svndeletetask import SvnDeleteTask
 from pyhammer.tasks.svn.svnimporttask import SvnImportTask
+from pyhammer.tasks.svn.svnupdatetask import SvnUpdateTask
 from pyhammer.tasks.text.incrementversiontask import IncrementVersionTask
 
 #-Argument-Parser-------------------------------------------------------------------------------------------------------
