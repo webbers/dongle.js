@@ -1334,21 +1334,34 @@
                             var fieldFrom = $('<input type="text" name="filter-' + fieldName + '-from"/>');
                             var fieldTo = $('<input type="text" name="filter-' + fieldName + '-to"/>');
 
-                            fieldFrom.datepicker(
-                            {
-                                onClose: function( selectedDate )
-                                {
-                                    fieldTo.datepicker( "option", "minDate", selectedDate );
+                            var opts = datetimepickerOptions;
+                            opts.timeFormat = 'HH:mm:ss';
+                            opts.onClose = function (dateText) {
+                                var endDateTextBox = fieldTo;
+                                var testStartDate = new Date(dateText);
+                                var testEndDate = new Date(endDateTextBox.val());
+                                if (testStartDate > testEndDate) {
+                                    endDateTextBox.val(dateText);
                                 }
-                            });
+                            };
+                            opts.onSelect = function(dateText) {
+                                fieldTo.datetimepicker('option', 'minDate', fieldFrom.datetimepicker('getDate'));
+                            };
+                            fieldFrom.datetimepicker(opts);
                             
-                            fieldTo.datepicker(
-                            {
-                                onClose: function( selectedDate )
-                                {
-                                    fieldFrom.datepicker( "option", "maxDate", selectedDate );
+                            opts.onClose = function (dateText) {
+                                var startDateTextBox = fieldFrom;
+                                var testStartDate = new Date(startDateTextBox.val());
+                                var testEndDate = new Date(dateText);
+                                if (testStartDate > testEndDate) {
+                                    startDateTextBox.val(dateText);
                                 }
-                            });
+                            };
+                            opts.onSelect = function (selectedDateTime) {
+                                var date = new Date(fieldTo.datetimepicker('getDate'));
+                                fieldFrom.datetimepicker('option', 'maxDate', date);
+                            };
+                            fieldTo.datetimepicker(opts);
 
                             fieldFromDiv.append(fieldFrom);
                             fieldToDiv.append(fieldTo);
