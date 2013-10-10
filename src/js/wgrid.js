@@ -159,6 +159,10 @@
         {
             loadingHide();
         }
+        
+        if (!!plugin.settings.eventFilter){
+            eventFilter = plugin.settings.eventFilter;
+        }
 		
 		var datetimepickerOptions = {
 			showSecond: true,
