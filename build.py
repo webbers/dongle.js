@@ -12,6 +12,7 @@ from pyhammer.tasks.svn.svncreatetagtask import SvnCreateTagTask
 from pyhammer.tasks.svn.svndeletetask import SvnDeleteTask
 from pyhammer.tasks.svn.svnimporttask import SvnImportTask
 from pyhammer.tasks.svn.svnupdatetask import SvnUpdateTask
+from pyhammer.tasks.svn.svncommittask import SvnCommitTask
 from pyhammer.tasks.text.incrementversiontask import IncrementVersionTask
 
 #-Argument-Parser-------------------------------------------------------------------------------------------------------
@@ -41,10 +42,11 @@ Builder.addTask( "commit-version-file", GitCommitAndPushTask( rootDir, 1 ) )
 Builder.addTask( "create-tag", SvnCreateTagTask( repoUrl, repoTagUrl , versionFile ) )
 Builder.addTask( "git-checkout", GitCheckoutTask( "master", rootDir ) )
 Builder.addTask( "svn-update", SvnUpdateTask( rootDir ) )
+Builder.addTask( "svn-commit", SvnCommitTask( rootDir ) )
 
 #-Root steps------------------------------------------------------------------------------------------------------------
 Builder.addTask( 'pre-commit', [ 'svn-update', 'del-temp', 'install-deps' ,'grunt' ])
-Builder.addTask( 'ci', [ 'pre-commit', 'del-repo', 'del-pub', 'svn-update', 'copy', 'import', 'del-temp' ])
+Builder.addTask( 'ci', [ 'pre-commit', 'del-repo', 'del-pub', 'svn-update', 'copy', 'svn-commit', 'del-temp' ])
 Builder.addTask( 'pub-trunk', [ 'git-checkout', 'increment-rev', 'ci', 'commit-version-file', 'create-tag' ])
 
 Builder.runBuild(args.build)
