@@ -29,7 +29,7 @@ repoTagUrl = 'https://cronos/svn/Web/pub/dongle.js/tags'
 
 #-Steps-----------------------------------------------------------------------------------------------------------------
 Builder.addTask( "del-temp", DeleteTask( tempDir ) )
-Builder.addTask( "install-deps", CommandTask( 'npm.cmd --registry http://192.168.0.68:5984/registry/_design install', rootDir ) )
+Builder.addTask( "install-deps", CommandTask( 'npm.cmd install', rootDir ) )
 Builder.addTask( "grunt", CommandTask( 'grunt.cmd full', rootDir ) )
 Builder.addTask( "del-repo", SvnDeleteTask( repoUrl ) )
 Builder.addTask( "del-pub", DeleteTask( pubDir ) )

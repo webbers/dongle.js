@@ -170,7 +170,7 @@ module.exports = function( grunt ) {
         {
             test:
             {
-                minimum: 0.7,
+                minimum: 0.5,
                 srcDir: 'dist',
                 outDir: 'testResults',
                 depDirs: ['3rd', 'test', 'src'],
