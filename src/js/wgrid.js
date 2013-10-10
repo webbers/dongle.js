@@ -1335,7 +1335,6 @@
                             var fieldTo = $('<input type="text" name="filter-' + fieldName + '-to"/>');
 
                             var opts = datetimepickerOptions;
-                            opts.timeFormat = 'HH:mm:ss';
                             opts.onClose = function (dateText) {
                                 var endDateTextBox = fieldTo;
                                 var testStartDate = new Date(dateText);
