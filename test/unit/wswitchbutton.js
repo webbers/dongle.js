@@ -81,33 +81,6 @@ function getPosition($element)
 
 test("Background uncheck changes", function ()
 {
-    var expected;
-
-    stop();
-    
-    var result = getPosition($('#yesno3'));
-    
-    if (navigator.appName != 'Microsoft Internet Explorer')
-    {
-        expected = [0, 50];
-    }
-    else
-    {
-        expected = [0, 0];
-    }
-    $("#yesno3").wswitchbutton('uncheck');
-    
-    setTimeout(function ()
-    {
-        var newPosition = getPosition($('#yesno3'));
-        notDeepEqual(newPosition, result, "Element has changed background");
-        deepEqual(result, expected, "Element is with correct background when unchecked");
-        start();
-    }, 100);
-});
-
-test("Background uncheck changes", function ()
-{
     stop();
 
     var expected;
