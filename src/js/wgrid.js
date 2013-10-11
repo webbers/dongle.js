@@ -469,17 +469,21 @@
 
         var creteTagBox = function (tags)
         {
-            if (tags === null || tags === undefined || tags.length === 0) return '';
+            if (tags === null || tags === undefined || tags.length === 0) return '  ';
 
             var tagBox = [];
             var colorClass = tags.length > 1 ? 'multi-color' : 'color-' + tags[0].Color;
 
             tagBox.push('<div class="tag-div">');
 
-            if (tags.length > 1)
-            {
+            if (tags.length > 1){
                 tagBox.push('<div class="tag-count">');
                 tagBox.push(tags.length);
+                tagBox.push('</div>');
+            }
+            else{
+                tagBox.push('<div class="tag-count">');
+                tagBox.push("   ");
                 tagBox.push('</div>');
             }
             tagBox.push('<div class="tag-icon tip ');
