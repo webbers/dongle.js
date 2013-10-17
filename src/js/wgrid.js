@@ -146,7 +146,7 @@
 
         var loadingHide = function ()
         {
-            var $loading = $('.wgrid-loader-overlay');
+            var $loading = $element.find('.wgrid-loader-overlay');
             $loading.hide();
         };
 
