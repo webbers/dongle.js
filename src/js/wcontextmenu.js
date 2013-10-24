@@ -42,7 +42,7 @@
                 $element.unbind('mouseup');
                 if (mouseDownEvent.button == 2)
                 {
-                    //plugin.settings.beforeOpen($element);
+                    //plugin.settings.beforeOpen($element, mouseUpEvent);
 
                     // Oculta menus que estao sendo exibidos
                     $(".contextMenu").hide();
