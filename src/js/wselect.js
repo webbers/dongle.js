@@ -315,7 +315,7 @@ $.widget("ech.wselect", {
                     case 9: // tab
                         break;
                     case 27: // esc
-                        self.close();
+                        //self.close();
                         break;
                     case 38: // up
                         break;
