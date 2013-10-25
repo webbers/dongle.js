@@ -248,7 +248,7 @@ $.widget("ech.wselect", {
                     case 38: // up
                         break;
                     case 37: // left
-                        self.close();
+                        //self.close();
                         break;
                     case 39: // right
                         break;
