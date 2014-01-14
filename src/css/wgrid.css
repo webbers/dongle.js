@@ -380,7 +380,7 @@ th, td
     height: 100% !important;
     background-color: white;
     display: none;
-    z-index: 99999;
+    z-index: 1000;
 }
 
 #wgrid-access-overlay.wgrid-loader-overlay, #wgrid-events-overlay.wgrid-loader-overlay
@@ -393,7 +393,7 @@ th, td
     bottom: 62px;
     right: 11px;
     display: none;
-    z-index: 99998;
+    z-index: 1000;
     height: auto !important;
 }
 
