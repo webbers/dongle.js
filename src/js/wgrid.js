@@ -325,7 +325,7 @@
 
         var fromDateToString = function (date, mask)
         {
-            if (date !== null)
+            if (!!date)
             {
                 mask = mask ? mask : plugin.settings.dictionary.dateFormat + ' HH:MM:ss';
                 return dateFormat(parseInt(date.match(/\d+/), 10), mask);
