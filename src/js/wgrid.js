@@ -1373,6 +1373,9 @@
 
                             filterButton.click(function ()
                             {
+								if (filterField.find('input:eq(0)').val() == '' && filterField.find('input:eq(1)').val() == '') {
+                                    return false;
+                                }
                                 filterIcon.addClass('active');
                                 var filterValue = filterField.find('input:eq(0)').val() + '&' + filterField.find('input:eq(1)').val();
                                 filters[fieldName] = filterType + '||' + filterValue;
