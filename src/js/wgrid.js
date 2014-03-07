@@ -978,7 +978,7 @@
 
                 shortcutString += keyCode;
 
-                shortcutDisplayList.append('<tr><td><b>'+shortcutString+'</b></td><td><b> -</b> '+plugin.settings.setShortcut[key].description+'</td></tr>');
+                shortcutDisplayList.append('<tr><td><b>'+shortcutString+'</b></td><td>&nbsp;&nbsp;'+plugin.settings.setShortcut[key].description+'</td></tr>');
             }
         }
         
@@ -1000,7 +1000,7 @@
 
             shortcutString += String.fromCharCode(plugin.settings.refreshShortcut.keyCode);
             
-            shortcutDisplayList.append('<tr><td><b>'+shortcutString+'</b></td><td><b> -</b> '+plugin.settings.refreshShortcut.description+'</td></tr>');
+            shortcutDisplayList.append('<tr><td><b>'+shortcutString+'</b></td><td>&nbsp;&nbsp;'+plugin.settings.refreshShortcut.description+'</td></tr>');
         }
 		
 		this.directionDown = false;
@@ -1086,7 +1086,7 @@
 			{
 				shortcutDisplayList.dialog(
 				{
-					title: plugin.settings.shortcutTitle,
+					title: plugin.settings.dictionary.shortcutTitle,
 					modal: true
 				});
 				return false;
