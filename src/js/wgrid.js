@@ -1082,7 +1082,7 @@
 				}
 			}
 			
-			if(event.keyCode === 193 && !$('.ui-dialog:visible')[0] && !event.ctrlKey && !event.shiftKey && !event.altKey) 
+			if(event.keyCode === 193 && !$('.ui-dialog:visible')[0] && !event.ctrlKey && event.shiftKey && !event.altKey) 
 			{
 				shortcutDisplayList.dialog(
 				{
