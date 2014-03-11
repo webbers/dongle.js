@@ -1087,7 +1087,8 @@
 				shortcutDisplayList.dialog(
 				{
 					title: plugin.settings.dictionary.shortcutTitle,
-					modal: true
+					modal: true,
+			        close: function () { $('.wgrid:eq(0)').focus(); }
 				});
 				return false;
 			}
