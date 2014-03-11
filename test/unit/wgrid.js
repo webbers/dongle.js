@@ -753,6 +753,7 @@ createWGrid2(function($wgrid)
 			
 			event = jQuery.Event("keydown");
 			event.keyCode = KEYQUESTION;
+			event.shiftKey = true;
 			$wgrid.focus();
 			$wgrid.trigger(event);
 			equal(1, $('.ui-dialog:visible').length, "WGrid is displaying Shortcuts List dialog");
