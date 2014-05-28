@@ -147,7 +147,14 @@
         var loadingHide = function ()
         {
             var $loading = $element.find('.wgrid-loader-overlay');
-            $loading.hide();
+            if ($.browser.version == '8.0') {
+                $loading = $('.wgrid-loader-overlay');
+                setTimeout(function() {
+                    $loading.hide();
+                }, 200);
+            } else {
+                $loading.hide();
+            }
         };
 
 
