@@ -44,6 +44,7 @@
         var orderby;
         var eventFilter;
         var sort;
+		var maxItensCount;
         var skip = 0;
         var params = null;
         var lastId = 0;
@@ -69,6 +70,7 @@
             statusPanel: null,
             complete: null,
             sort: "ASC",
+			maxItensCount: 100,
             showPaging: true,
             dictionary:
             {
@@ -230,6 +232,11 @@
                 sort = plugin.settings.sort;
             }
             
+			if (maxItensCount === "" || maxItensCount === null || maxItensCount === undefined)
+            {
+                maxItensCount = plugin.settings.maxItensCount;
+            }
+			
             if(!!plugin.settings.additionalParameters) 
             {
                 for (var param in plugin.settings.additionalParameters) 
@@ -248,7 +255,7 @@
             }
 
             querystring = filterParams === "" ? querystring : querystring + "&" + filterParams;
-            querystring = orderby === undefined ? querystring : querystring + "&orderby=" + orderby + "&sort=" + sort;
+            querystring = orderby === undefined ? querystring : querystring + "&orderby=" + orderby + "&sort=" + sort + "&maxItensCount=" + maxItensCount;
             querystring = lastId === 0 ? querystring : querystring + "&lastId=" + lastId;
             querystring = eventFilter === undefined ? querystring : querystring + "&eventFilter=" + eventFilter;
             querystring = !additional ? querystring : querystring + additional;
@@ -517,6 +524,19 @@
             skip = 0;
             lastId = 0;
             totalDisplayingItems = 0;
+			var gridType = params || '';
+
+            switch (gridType.queryItensCount) {
+                case 'queryItensCount':
+                    maxItensCount = cookieManager.read($.console.regional.queryItensCount);
+                    break;
+                case 'queryItensCountEv':
+                    maxItensCount = cookieManager.read($.console.regional.queryItensCountEv);
+                    break;
+                case 'queryItensCountAc':
+                    maxItensCount = cookieManager.read($.console.regional.queryItensCountAc);
+                    break;
+            }
 
             if (plugin.settings.jsonUrl === null) { return; }
             var completeUrl = plugin.settings.jsonUrl + getQuerystring();
