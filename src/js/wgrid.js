@@ -255,7 +255,7 @@
             }
 
             querystring = filterParams === "" ? querystring : querystring + "&" + filterParams;
-            querystring = orderby === undefined ? querystring : querystring + "&orderby=" + orderby + "&sort=" + sort + "&maxItensCount=" + maxItensCount;
+            querystring = orderby === undefined ? querystring : querystring + "&orderby=" + orderby + "&sort=" + sort + "&listItemCount=" + plugin.settings.listItemCount;
             querystring = lastId === 0 ? querystring : querystring + "&lastId=" + lastId;
             querystring = eventFilter === undefined ? querystring : querystring + "&eventFilter=" + eventFilter;
             querystring = !additional ? querystring : querystring + additional;
@@ -526,16 +526,14 @@
             totalDisplayingItems = 0;
 			var gridType = params || '';
 
-            switch (gridType.queryItensCount) {
-                case 'queryItensCount':
-                    maxItensCount = cookieManager.read($.console.regional.queryItensCount);
-                    break;
-                case 'queryItensCountEv':
-                    maxItensCount = cookieManager.read($.console.regional.queryItensCountEv);
-                    break;
-                case 'queryItensCountAc':
-                    maxItensCount = cookieManager.read($.console.regional.queryItensCountAc);
-                    break;
+            if (gridType.queryItensCount == 'queryItensCount') {
+                plugin.settings.listItemCount = cookieManager.read($.console.regional.queryItensCount);
+            }
+            else if (gridType.queryItensCount == 'queryItensCountEv') {
+                plugin.settings.listItemCount = cookieManager.read($.console.regional.queryItensCountEv);
+            }
+            else if(gridType.queryItensCount == 'queryItensCountAc'){
+                plugin.settings.listItemCount = cookieManager.read($.console.regional.queryItensCountAc);
             }
 
             if (plugin.settings.jsonUrl === null) { return; }
@@ -899,7 +897,7 @@
                 '<div class="wgrid-status-panel">' +
                 '<div id="retrieve-more-items-bar" class="wgrid-bar">' +
                     '<div class="get-more-items" style="float:right;"><div class="more-items-button">&nbsp;</div><div style="float:right; text-align:right;">' +
-                        plugin.settings.dictionary.showing + ' <span class="wgrid-displaying">100</span> ' + plugin.settings.dictionary.of + ' ' +
+                        plugin.settings.dictionary.showing + ' <span class="wgrid-displaying">' + plugin.settings.listItemCount + '</span> ' + plugin.settings.dictionary.of + ' ' +
                         '<span class="wgrid-total">-1</span> ' + plugin.settings.dictionary.items +
                         '</div>' +
                     '</div>' +

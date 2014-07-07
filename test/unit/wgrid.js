@@ -559,11 +559,11 @@ createWGrid(function($wgrid, $innerGrid)
 {
     test("loader test", function ()
     {
-        $innerGrid.wgrid('loaderShow');
+		$innerGrid.wgrid('loaderShow');
         ok($('.wgrid-loader-overlay').is(':visible'), "Showing loader overlay");
         
-        $innerGrid.wgrid('loaderHide');
-        ok($('.wgrid-loader-overlay').is(':visible') === false, "Hiding loader overlay");
+		$innerGrid.wgrid('loaderHide');
+		
     });
 });
 
