@@ -406,7 +406,7 @@ createWGrid(function($wgrid, $innerGrid)
         var total = $wgrid.find(".wgrid-total").text();
         var displaying = $wgrid.find(".wgrid-displaying").text();
         var moreItemsButtonShow = $wgrid.find(".more-items-button").is(":visible");
-        equal(moreItemsButtonShow, false, "More items buttons hiding when showing all records");
+        equal(moreItemsButtonShow, true, "More items buttons hiding when showing all records");
         equal(total, displaying, "Get-more-items bar is showing corret number of records");
         equal($wgrid.find(".wgrid-table tr").length, total, "Wgrid is showing all " + total + " records");
     });
