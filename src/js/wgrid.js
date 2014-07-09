@@ -292,15 +292,13 @@
 
 			if (itemsCount < plugin.settings.listItemCount || itemsCount === 0)
             {
-                moreItemsButton.hide();
-                moreItemsButton.after(moreMargin);
+                moreItemsButton.width("0");
                 return;
             }
             else
             {
-                moreItemsButton.show();
+                moreItemsButton.width("41");
             }
-            $("#more-margin").remove();
         };
 
         var getElementId = function (elementData, i)
@@ -391,9 +389,8 @@
         var hideMoreItems = function ()
         {
             var moreItemsButton = plugin.settings.statusPanel.find('.more-items-button');
-            $("#more-margin").remove();
-            moreItemsButton.after(moreMargin);
-            moreItemsButton.hide();
+			$(this).closest("#more-margin").remove();
+            moreItemsButton.width("0");
         };
 
         var insertJsonItems = function (completeUrl, callback)
@@ -546,10 +543,6 @@
             {
                 $('.wgrid-main .wgrid-layout').width('auto');
             }
-            if ($("#more-margin").length > 0)
-            {
-                $("#more-margin").remove();
-            }
         };
 
         var retrieveMoreItems = function ()
@@ -697,10 +690,7 @@
 
             if (!plugin.settings.showPaging)
             {
-                if ($("#more-margin").length > 0) {
-                    $(moreMargin).remove();
-                }
-                plugin.settings.statusPanel.find('.more-items-button').before(moreMargin).hide();
+				plugin.settings.statusPanel.find('.more-items-button').before(moreMargin).hide();
             }
         };
 
@@ -1829,7 +1819,6 @@
         plugin.settings.statusPanel.find('.reload-button').click(function ()
         {
             reloadGrid();
-            $("#more-margin").remove();
         });
 
         if (plugin.settings.autoLoad)
