@@ -44,7 +44,7 @@
         var orderby;
         var eventFilter;
         var sort;
-		var maxItensCount;
+		var maxRegisters;
         var skip = 0;
         var params = null;
         var lastId = 0;
@@ -70,7 +70,7 @@
             statusPanel: null,
             complete: null,
             sort: "ASC",
-			maxItensCount: 100,
+			maxRegisters: false,
             showPaging: true,
             dictionary:
             {
@@ -158,7 +158,13 @@
                 $loading.hide();
             }
         };
-
+		
+		var verifyMaxRegisters = function() {
+            if (maxRegisters == true) {
+                plugin.settings.statusPanel.find('.maxRegisterNumber').show();
+                plugin.settings.statusPanel.find('.more-items-button').css('width', 0);
+            }
+        };
 
         //plugin configurations
         plugin.settings = $.extend({}, defaults, options);
@@ -232,11 +238,6 @@
                 sort = plugin.settings.sort;
             }
             
-			if (maxItensCount === "" || maxItensCount === null || maxItensCount === undefined)
-            {
-                maxItensCount = plugin.settings.maxItensCount;
-            }
-			
             if(!!plugin.settings.additionalParameters) 
             {
                 for (var param in plugin.settings.additionalParameters) 
@@ -454,7 +455,8 @@
                     }
                     reloadTotalsDisplays(totalInserted);
                     loadingHide();
-
+					verifyMaxRegisters();
+										
                     if (typeof callback == 'function')
                     {
                         callback();
@@ -831,6 +833,9 @@
             loaderHide: function ()
             {
                 loadingHide();
+            },
+			verifyMaxRegisters: function() {
+                verifyMaxRegisters();
             },
             updateRow: function (elementData)
             {
