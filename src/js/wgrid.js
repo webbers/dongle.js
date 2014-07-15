@@ -160,7 +160,7 @@
         };
 		
 		var verifyMaxRegisters = function() {
-            if (maxRegisters == true) {
+            if (plugin.settings.maxRegisters == true) {
                 plugin.settings.statusPanel.find('.maxRegisterNumber').show();
                 plugin.settings.statusPanel.find('.more-items-button').css('width', 0);
             }
