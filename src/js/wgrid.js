@@ -367,6 +367,11 @@
 				var columnCleanedValue = columnValue;
 				
                 columnValue = columnType === "link" ? createLinkHtml(columnValue) : columnValue;
+				
+				var title = 'title="' + columnCleanedValue + '"';
+				if (data.headerColumns[i].getAttribute("disable_title") === "true") {
+				    title = "";
+				}
 
                 if (i === 0 || column === "MachineId")
                 {
@@ -374,11 +379,11 @@
                 }
 				else if (data.headerColumns[i].getAttribute("ellipsis") === "true" || data.headerColumns[i].getAttribute("ellipsis") === true)
                 {
-                    rowToInsert.push('<td title="' + columnCleanedValue + '"><div class="wgrid-ellipsis">' + columnValue + '</div></td>');
+				    rowToInsert.push('<td ' + title + '><div class="wgrid-ellipsis">' + columnValue + '</div></td>');
                 }
                 else
                 {
-                    rowToInsert.push('<td title="' + columnCleanedValue + '">' + columnValue + '</td>');
+				    rowToInsert.push('<td ' + title + '>' + columnValue + '</td>');
                 }
 				i++;
             }
