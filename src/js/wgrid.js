@@ -680,7 +680,7 @@
 
             if ((totalInserted !== null || totalInserted !== undefined))
             {
-                if (totalInserted < plugin.settings.listItemCount)
+                if (totalInserted <= plugin.settings.listItemCount)
                 {
                     totalItemsText = totalDisplayingItems;
                 }
