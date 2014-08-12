@@ -367,6 +367,11 @@
 				var columnCleanedValue = columnValue;
 				
                 columnValue = columnType === "link" ? createLinkHtml(columnValue) : columnValue;
+				
+				var title = 'title="' + columnCleanedValue + '"';
+				if (data.headerColumns[i].getAttribute("disable_title") === "true") {
+				    title = "";
+				}
 
                 if (i === 0 || column === "MachineId")
                 {
@@ -374,11 +379,11 @@
                 }
 				else if (data.headerColumns[i].getAttribute("ellipsis") === "true" || data.headerColumns[i].getAttribute("ellipsis") === true)
                 {
-                    rowToInsert.push('<td title="' + columnCleanedValue + '"><div class="wgrid-ellipsis">' + columnValue + '</div></td>');
+				    rowToInsert.push('<td ' + title + '><div class="wgrid-ellipsis">' + columnValue + '</div></td>');
                 }
                 else
                 {
-                    rowToInsert.push('<td title="' + columnCleanedValue + '">' + columnValue + '</td>');
+				    rowToInsert.push('<td ' + title + '>' + columnValue + '</td>');
                 }
 				i++;
             }
@@ -1356,6 +1361,7 @@
                             var fieldFromDiv = $('<div style="display:inline-block"><div>'+ plugin.settings.dictionary.from +'</div></div>');
                             var fieldToDiv = $('<div><div>'+ plugin.settings.dictionary.to +'</div></div>');
 
+                            var maxDate = new Date();
                             var fieldFrom = $('<input type="text" name="filter-' + fieldName + '-from"/>');
                             var fieldTo = $('<input type="text" name="filter-' + fieldName + '-to"/>');
 
@@ -1372,6 +1378,7 @@
                                 fieldTo.datetimepicker('option', 'minDate', fieldFrom.datetimepicker('getDate'));
                             };
                             fieldFrom.datetimepicker(opts);
+                            fieldFrom.datetimepicker('option', 'maxDate', maxDate);
                             
                             opts.onClose = function (dateText) {
                                 var startDateTextBox = fieldFrom;
@@ -1386,6 +1393,7 @@
                                 fieldFrom.datetimepicker('option', 'maxDate', date);
                             };
                             fieldTo.datetimepicker(opts);
+                            fieldTo.datetimepicker('option', 'maxDate', maxDate);
 
                             fieldFromDiv.append(fieldFrom);
                             fieldToDiv.append(fieldTo);
