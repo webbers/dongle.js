@@ -1377,8 +1377,8 @@
                             opts.onSelect = function(dateText) {
                                 fieldTo.datetimepicker('option', 'minDate', fieldFrom.datetimepicker('getDate'));
                             };
+                            opts.maxDate = maxDate;
                             fieldFrom.datetimepicker(opts);
-                            fieldFrom.datetimepicker('option', 'maxDate', maxDate);
                             
                             opts.onClose = function (dateText) {
                                 var startDateTextBox = fieldFrom;
@@ -1393,7 +1393,6 @@
                                 fieldFrom.datetimepicker('option', 'maxDate', date);
                             };
                             fieldTo.datetimepicker(opts);
-                            fieldTo.datetimepicker('option', 'maxDate', maxDate);
 
                             fieldFromDiv.append(fieldFrom);
                             fieldToDiv.append(fieldTo);
