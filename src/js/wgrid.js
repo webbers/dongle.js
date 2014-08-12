@@ -1361,6 +1361,7 @@
                             var fieldFromDiv = $('<div style="display:inline-block"><div>'+ plugin.settings.dictionary.from +'</div></div>');
                             var fieldToDiv = $('<div><div>'+ plugin.settings.dictionary.to +'</div></div>');
 
+                            var maxDate = new Date();
                             var fieldFrom = $('<input type="text" name="filter-' + fieldName + '-from"/>');
                             var fieldTo = $('<input type="text" name="filter-' + fieldName + '-to"/>');
 
@@ -1377,6 +1378,7 @@
                                 fieldTo.datetimepicker('option', 'minDate', fieldFrom.datetimepicker('getDate'));
                             };
                             fieldFrom.datetimepicker(opts);
+                            fieldFrom.datetimepicker('option', 'maxDate', maxDate);
                             
                             opts.onClose = function (dateText) {
                                 var startDateTextBox = fieldFrom;
@@ -1391,6 +1393,7 @@
                                 fieldFrom.datetimepicker('option', 'maxDate', date);
                             };
                             fieldTo.datetimepicker(opts);
+                            fieldTo.datetimepicker('option', 'maxDate', maxDate);
 
                             fieldFromDiv.append(fieldFrom);
                             fieldToDiv.append(fieldTo);
