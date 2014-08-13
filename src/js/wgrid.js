@@ -685,9 +685,13 @@
 
             if ((totalInserted !== null || totalInserted !== undefined))
             {
-                if (totalInserted <= plugin.settings.listItemCount)
+                if (totalInserted < plugin.settings.listItemCount)
                 {
                     totalItemsText = totalDisplayingItems;
+                }
+				else 
+				{
+                    totalItemsText = plugin.settings.dictionary.many;
                 }
             }
 
