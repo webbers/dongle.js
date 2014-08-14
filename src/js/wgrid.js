@@ -162,7 +162,8 @@
 		var verifyMaxRegisters = function() {
             if (plugin.settings.maxRegisters == true) {
                 plugin.settings.statusPanel.find('.maxRegisterNumber').show();
-                plugin.settings.statusPanel.find('.more-items-button').css('width', 0);
+                plugin.settings.statusPanel.find('.more-items-button').hide();
+				plugin.settings.statusPanel.find('.get-more-items').css("margin-right", "10px");
             }
         };
 
@@ -289,11 +290,11 @@
         var checkIfNotExistsOldItems = function (itemsCount)
         {
             var moreItemsButton = plugin.settings.statusPanel.find('.more-items-button');
-
-
+			
 			if (itemsCount < plugin.settings.listItemCount || itemsCount === 0)
             {
-                moreItemsButton.width("0");
+                moreItemsButton.hide();
+				plugin.settings.statusPanel.find('.get-more-items').css("margin-right", "10px");
                 return;
             }
             else
@@ -396,7 +397,8 @@
         {
             var moreItemsButton = plugin.settings.statusPanel.find('.more-items-button');
 			$(this).closest("#more-margin").remove();
-            moreItemsButton.width("0");
+            moreItemsButton.hide();
+			plugin.settings.statusPanel.find('.get-more-items').css("margin-right", "10px");
         };
 
         var insertJsonItems = function (completeUrl, callback)
