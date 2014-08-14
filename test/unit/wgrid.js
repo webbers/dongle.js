@@ -400,20 +400,6 @@ createWGrid(function($wgrid, $innerGrid)
 
 createWGrid(function($wgrid, $innerGrid)
 {
-    test("Paging", function ()
-    {
-        $wgrid.find(".more-items-button").click();
-        var total = $wgrid.find(".wgrid-total").text();
-        var displaying = $wgrid.find(".wgrid-displaying").text();
-        var moreItemsButtonShow = $wgrid.find(".more-items-button").is(":visible");
-        equal(moreItemsButtonShow, true, "More items buttons hiding when showing all records");
-        equal(total, displaying, "Get-more-items bar is showing corret number of records");
-        equal($wgrid.find(".wgrid-table tr").length, total, "Wgrid is showing all " + total + " records");
-    });
-});
-
-createWGrid(function($wgrid, $innerGrid)
-{
     test("StartsWith", function ()
     {
         stop();
