@@ -1329,6 +1329,10 @@
             var disableOrder = $column.attr('disable_order') == 'true' ?
                 'true' :
                 'false';
+                
+            var disableFilter = $column.attr('disable_filter') == 'true' ?
+                'true' :
+                'false';
 
             var headerName = $column.html();
             $column.html('');
@@ -1620,7 +1624,9 @@
             $column.append($div);
 
             $div.append(orderbyIcon);
-            $div.append(filterIcon);
+            if (disableFilter != 'true') {
+                $div.append(filterIcon);
+            }
         });
 
         //scroll header and check container
