@@ -177,7 +177,7 @@ th, td
     padding-right: 20px; 
 }
 
-.hover .wgrid-order-button {
+.wgrid-order-button {
    background-image: url('../images/order-icon.png'); 
 }
 
@@ -200,7 +200,7 @@ th, td
     cursor: pointer;
 }
 
-.hover .wgrid-filter-button {
+.wgrid-filter-button {
     background: url('../images/filter-icon.png') no-repeat center center;
 }
 
