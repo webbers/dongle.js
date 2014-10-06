@@ -1436,9 +1436,11 @@
                             filterField = $('<select></select>');
                             for (var item in filterJsonData)
                             {
-                                filterField.append($('<option value="' +
-                                    filterJsonData[item].Key + '">' +
-                                    filterJsonData[item].Value + '</option>'));
+                                var selected = "";
+                                if (filters[fieldName] == filterJsonData[item].Key) {
+                                    selected = 'selected="selected"';
+                                }
+                                filterField.append($('<option ' + selected + ' value="' + filterJsonData[item].Key + '">' + filterJsonData[item].Value + '</option>'));
                             }
 
                             filterButton.click(function ()
@@ -1449,11 +1451,6 @@
 
                                 reloadGrid();
                             });
-                            
-                            if( filters[fieldName] !== null )
-                            {
-                                filterField.attr('value', filters[fieldName]);
-                            }
                         }
                         else 
                         {
