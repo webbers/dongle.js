@@ -162,7 +162,8 @@
 		var verifyMaxRegisters = function() {
             if (plugin.settings.maxRegisters == true) {
                 plugin.settings.statusPanel.find('.maxRegisterNumber').show();
-                plugin.settings.statusPanel.find('.more-items-button').css('width', 0);
+                plugin.settings.statusPanel.find('.more-items-button').hide();
+				plugin.settings.statusPanel.find('.get-more-items').css("margin-right", "10px");
             }
         };
 
@@ -289,11 +290,11 @@
         var checkIfNotExistsOldItems = function (itemsCount)
         {
             var moreItemsButton = plugin.settings.statusPanel.find('.more-items-button');
-
-
+			
 			if (itemsCount < plugin.settings.listItemCount || itemsCount === 0)
             {
-                moreItemsButton.width("0");
+                moreItemsButton.hide();
+				plugin.settings.statusPanel.find('.get-more-items').css("margin-right", "10px");
                 return;
             }
             else
@@ -396,7 +397,8 @@
         {
             var moreItemsButton = plugin.settings.statusPanel.find('.more-items-button');
 			$(this).closest("#more-margin").remove();
-            moreItemsButton.width("0");
+            moreItemsButton.hide();
+			plugin.settings.statusPanel.find('.get-more-items').css("margin-right", "10px");
         };
 
         var insertJsonItems = function (completeUrl, callback)
@@ -688,6 +690,10 @@
                 if (totalInserted < plugin.settings.listItemCount)
                 {
                     totalItemsText = totalDisplayingItems;
+                }
+				else 
+				{
+                    totalItemsText = plugin.settings.dictionary.many;
                 }
             }
 
@@ -1323,6 +1329,10 @@
             var disableOrder = $column.attr('disable_order') == 'true' ?
                 'true' :
                 'false';
+                
+            var disableFilter = $column.attr('disable_filter') == 'true' ?
+                'true' :
+                'false';
 
             var headerName = $column.html();
             $column.html('');
@@ -1361,6 +1371,7 @@
                             var fieldFromDiv = $('<div style="display:inline-block"><div>'+ plugin.settings.dictionary.from +'</div></div>');
                             var fieldToDiv = $('<div><div>'+ plugin.settings.dictionary.to +'</div></div>');
 
+                            var maxDate = new Date();
                             var fieldFrom = $('<input type="text" name="filter-' + fieldName + '-from"/>');
                             var fieldTo = $('<input type="text" name="filter-' + fieldName + '-to"/>');
 
@@ -1376,6 +1387,7 @@
                             opts.onSelect = function(dateText) {
                                 fieldTo.datetimepicker('option', 'minDate', fieldFrom.datetimepicker('getDate'));
                             };
+                            opts.maxDate = maxDate;
                             fieldFrom.datetimepicker(opts);
                             
                             opts.onClose = function (dateText) {
@@ -1609,7 +1621,9 @@
             $column.append($div);
 
             $div.append(orderbyIcon);
-            $div.append(filterIcon);
+            if (disableFilter != 'true') {
+                $div.append(filterIcon);
+            }
         });
 
         //scroll header and check container
