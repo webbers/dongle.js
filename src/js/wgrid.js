@@ -608,7 +608,7 @@
             {
                 totalItems = totalItems - $(selectedRowsElements).length;
             }
-
+            resizeColumns();
             reloadTotalsDisplays();
 			loadingHide();
         };
