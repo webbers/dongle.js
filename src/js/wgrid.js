@@ -42,6 +42,7 @@
         var rowsDataArray = [];
         var filters = {};
         var orderby;
+        var orderlistdescending;
         var eventFilter;
         var sort;
 		var maxRegisters;
@@ -233,6 +234,9 @@
             {
                 orderby = plugin.settings.orderby;
             }
+            if (orderlistdescending === "" || orderlistdescending === null || orderlistdescending === undefined) {
+                orderlistdescending = plugin.settings.orderlistdescending;
+            }
 
             if (sort === "" || sort === null || sort === undefined)
             {
@@ -258,6 +262,7 @@
 
             querystring = filterParams === "" ? querystring : querystring + "&" + filterParams;
             querystring = orderby === undefined ? querystring : querystring + "&orderby=" + orderby + "&sort=" + sort + "&listItemCount=" + plugin.settings.listItemCount;
+            querystring = orderlistdescending === undefined ? querystring : querystring + "&orderlistdescending=" + orderlistdescending;
             querystring = lastId === 0 ? querystring : querystring + "&lastId=" + lastId;
             querystring = eventFilter === undefined ? querystring : querystring + "&eventFilter=" + eventFilter;
             querystring = !additional ? querystring : querystring + additional;
