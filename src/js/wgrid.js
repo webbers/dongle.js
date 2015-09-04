@@ -262,7 +262,11 @@
 
             querystring = filterParams === "" ? querystring : querystring + "&" + filterParams;
             querystring = orderby === undefined ? querystring : querystring + "&orderby=" + orderby + "&sort=" + sort + "&listItemCount=" + plugin.settings.listItemCount;
-            querystring = orderlistdescending === undefined ? querystring : querystring + "&orderlistdescending=" + orderlistdescending;
+            
+            if(orderby === 'Id' && !!orderlistdescending){
+                querystring = querystring + "&orderlistdescending=" + orderlistdescending;    
+            }
+            
             querystring = lastId === 0 ? querystring : querystring + "&lastId=" + lastId;
             querystring = eventFilter === undefined ? querystring : querystring + "&eventFilter=" + eventFilter;
             querystring = !additional ? querystring : querystring + additional;
