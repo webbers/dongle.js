@@ -1561,7 +1561,7 @@
                             if (optionAdvancedFilter)
                             {
                                 optionAdvancedFilter.find('input:checked').removeAttr('checked');
-                                optionAdvancedFilter.find('input[value="' + removedAdvancedFilters + '"').trigger('click');
+                                optionAdvancedFilter.find('input[value="' + removedAdvancedFilters + '"]').trigger('click');
                             }
                             filterPanelContent.append(filterField.val(removedFilters)).append(filterButton).append(removeFilterButton).append(filterAdvancedButton).append(optionAdvancedFilter);
                         }
