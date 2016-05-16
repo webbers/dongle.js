@@ -89,7 +89,7 @@
                 showing: "Showing",
                 reload: "Reload",
                 many: "many",
-                dateFormat: "mm/dd/yyyy",
+                dateFormat: "MM/dd/yyyy",
                 from: "From",
                 to: "To",
                 shortcut: "Shortcut",
@@ -350,7 +350,7 @@
         {
             if (!!date)
             {
-                mask = mask ? mask : plugin.settings.dictionary.dateFormat + ' HH:MM:ss';
+                mask = mask ? mask : plugin.settings.dictionary.dateFormat + ' HH:mm:ss';
                 return dateFormat(parseInt(date.match(/\d+/), 10), mask);
             } return "";
         };
@@ -1961,10 +1961,10 @@ var dateFormat = function ()
         var _ = utc ? "getUTC" : "get",
             d = date[_ + "Date"](),
             D = date[_ + "Day"](),
-            m = date[_ + "Month"](),
+            M = date[_ + "Month"](),
             y = date[_ + "FullYear"](),
             H = date[_ + "Hours"](),
-            M = date[_ + "Minutes"](),
+            m = date[_ + "Minutes"](),
             s = date[_ + "Seconds"](),
             L = date[_ + "Milliseconds"](),
             o = utc ? 0 : date.getTimezoneOffset(),
@@ -1973,18 +1973,18 @@ var dateFormat = function ()
                 dd: pad(d),
                 ddd: dF.i18n.dayNames[D],
                 dddd: dF.i18n.dayNames[D + 7],
-                m: m + 1,
-                mm: pad(m + 1),
-                mmm: dF.i18n.monthNames[m],
-                mmmm: dF.i18n.monthNames[m + 12],
+                M: m + 1,
+                MM: pad(M + 1),
+                MMM: dF.i18n.monthNames[M],
+                MMMM: dF.i18n.monthNames[M + 12],
                 yy: String(y).slice(2),
                 yyyy: y,
                 h: H % 12 || 12,
                 hh: pad(H % 12 || 12),
                 H: H,
                 HH: pad(H),
-                M: M,
-                MM: pad(M),
+                m: m,
+                mm: pad(m),
                 s: s,
                 ss: pad(s),
                 l: pad(L, 3),
@@ -2007,18 +2007,18 @@ var dateFormat = function ()
 
 // Some common format strings
 dateFormat.masks = {
-    "default": "ddd mmm dd yyyy HH:MM:ss",
-    shortDate: "m/d/yy",
-    mediumDate: "mmm d, yyyy",
-    longDate: "mmmm d, yyyy",
-    fullDate: "dddd, mmmm d, yyyy",
-    shortTime: "h:MM TT",
-    mediumTime: "h:MM:ss TT",
-    longTime: "h:MM:ss TT Z",
-    isoDate: "yyyy-mm-dd",
-    isoTime: "HH:MM:ss",
-    isoDateTime: "yyyy-mm-dd'T'HH:MM:ss",
-    isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
+    "default": "ddd MM dd yyyy HH:mm:ss",
+    shortDate: "M/d/yy",
+    mediumDate: "MMM d, yyyy",
+    longDate: "MMMM d, yyyy",
+    fullDate: "dddd, MMMM d, yyyy",
+    shortTime: "h:mm TT",
+    mediumTime: "h:mm:ss TT",
+    longTime: "h:mm:ss TT Z",
+    isoDate: "yyyy-MM-dd",
+    isoTime: "HH:mm:ss",
+    isoDateTime: "yyyy-MM-dd'T'HH:mm:ss",
+    isoUtcDateTime: "UTC:yyyy-MM-dd'T'HH:mm:ss'Z'"
 };
 
 // Internationalization strings
