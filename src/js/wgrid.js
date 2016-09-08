@@ -8,17 +8,17 @@
 *   - jQuery DateTimePicker 1.2 (http://trentrichardson.com/examples/timepicker/)
 *
 * The MIT License
-* 
+*
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -112,7 +112,7 @@
 				{
 					return;
 				},
-            refreshShortcut:  
+            refreshShortcut:
 			{
 				modifier: 'ctrl',
 				keyCode: 82,
@@ -120,14 +120,14 @@
 			},
             setShortcut:
             {
-                defaultShortcut: 
+                defaultShortcut:
                 {
                     keyCode: null,
                     modifier: null,
                     description: null,
-                    callback: function () 
+                    callback: function ()
                     {
-                        return;    
+                        return;
                     }
                 }
             }
@@ -159,7 +159,7 @@
                 $loading.hide();
             }
         };
-		
+
 		var verifyMaxRegisters = function() {
             if (plugin.settings.maxRegisters == true) {
                 plugin.settings.statusPanel.find('.maxRegisterNumber').show();
@@ -170,17 +170,17 @@
 
         //plugin configurations
         plugin.settings = $.extend({}, defaults, options);
-		
+
 		plugin.settings.refreshShortcut.description = plugin.settings.dictionary.refreshShortcutDescription;
         if (plugin.settings.loadOverlay !== null)
         {
             loadingHide();
         }
-        
+
         if (!!plugin.settings.eventFilter){
             eventFilter = plugin.settings.eventFilter;
         }
-		
+
 		var datetimepickerOptions = {
 			showSecond: true,
 			timeFormat: 'HH:mm:ss',
@@ -242,31 +242,31 @@
             {
                 sort = plugin.settings.sort;
             }
-            
-            if(!!plugin.settings.additionalParameters) 
+
+            if(!!plugin.settings.additionalParameters)
             {
-                for (var param in plugin.settings.additionalParameters) 
+                for (var param in plugin.settings.additionalParameters)
                 {
                     var p;
-                    if(typeof plugin.settings.additionalParameters[param] == "object") 
+                    if(typeof plugin.settings.additionalParameters[param] == "object")
                     {
                         p = plugin.settings.additionalParameters[param].Value;
-                    } 
-                    else 
+                    }
+                    else
                     {
                         p = plugin.settings.additionalParameters[param];
-                    }                    
+                    }
 					additional = additional + "&" + param + "=" + p;
                 }
             }
 
             querystring = filterParams === "" ? querystring : querystring + "&" + filterParams;
             querystring = orderby === undefined ? querystring : querystring + "&orderby=" + orderby + "&sort=" + sort + "&listItemCount=" + plugin.settings.listItemCount;
-            
+
             if(orderby === 'Id' && !!orderlistdescending){
-                querystring = querystring + "&orderlistdescending=" + orderlistdescending;    
+                querystring = querystring + "&orderlistdescending=" + orderlistdescending;
             }
-            
+
             querystring = lastId === 0 ? querystring : querystring + "&lastId=" + lastId;
             querystring = eventFilter === undefined ? querystring : querystring + "&eventFilter=" + eventFilter;
             querystring = !additional ? querystring : querystring + additional;
@@ -288,18 +288,18 @@
 			var link = separatedLink.length >= 2 ? separatedLink[1] : separatedLink[0];
 			var description = separatedLink[0];
 		    var target = " target=\"_blank\"";
-		    if(separatedLink.length == 3 && separatedLink[2] == '0') 
+		    if(separatedLink.length == 3 && separatedLink[2] == '0')
 		    {
 		        target = "";
 		    }
-			
+
 			return '<a href="' + link + '"'+ target + '>' + description + '</a>';
 		}
-		
+
         var checkIfNotExistsOldItems = function (itemsCount)
         {
             var moreItemsButton = plugin.settings.statusPanel.find('.more-items-button');
-			
+
 			if (itemsCount < plugin.settings.listItemCount || itemsCount === 0)
             {
                 moreItemsButton.hide();
@@ -373,11 +373,11 @@
                 columnValue = (columnType === "datetime" || columnType === "daterange") ? fromDateToString(columnValue) : columnValue;
                 columnValue = columnType === "bool" ? (columnValue ? plugin.settings.dictionary.yes : plugin.settings.dictionary.no) : columnValue;
 				columnValue = columnValue === null || columnValue === undefined ? "" : columnValue;
-				
+
 				var columnCleanedValue = columnValue;
-				
+
                 columnValue = columnType === "link" ? createLinkHtml(columnValue) : columnValue;
-				
+
 				var title = 'title="' + columnCleanedValue + '"';
 				if (data.headerColumns[i].getAttribute("disable_title") === "true") {
 				    title = "";
@@ -472,7 +472,7 @@
                     reloadTotalsDisplays(totalInserted);
                     loadingHide();
 					verifyMaxRegisters();
-										
+
                     if (typeof callback == 'function')
                     {
                         callback();
@@ -482,13 +482,13 @@
                         plugin.settings.complete();
                     }
                 },
-                error: function (xhr, textStatus, errorThrown) 
+                error: function (xhr, textStatus, errorThrown)
                 {
-                    if(textStatus == "parsererror") 
+                    if(textStatus == "parsererror")
                     {
                         plugin.settings.parseError();
                     }
-                    if(textStatus == "error") 
+                    if(textStatus == "error")
                     {
                         plugin.settings.onError();
                     }
@@ -611,15 +611,21 @@
             $(selectedCheckRowsElements).remove();
 
             data.tableRows = data.table.find('tr');
+
+            for (a = 0; a < selectedRowsIndex.length; a++) {
+                rowsDataArray.splice(selectedRowsIndex[a], 1);
+            }
+
             totalDisplayingItems = totalDisplayingItems - $(selectedRowsElements).length;
 
             if (removeFromTotal && totalItems !== null)
             {
                 totalItems = totalItems - $(selectedRowsElements).length;
             }
+
             resizeColumns();
             reloadTotalsDisplays();
-			loadingHide();
+            loadingHide();
         };
 
         var resizeColumns = function ()
@@ -700,7 +706,7 @@
                 {
                     totalItemsText = totalDisplayingItems;
                 }
-				else 
+				else
 				{
                     totalItemsText = plugin.settings.dictionary.many;
                 }
@@ -936,11 +942,11 @@
             $element.attr("contextmenuid", wgridContextMenu);
             plugin.settings.statusPanel = $elementStructure.find('.wgrid-status-panel');
 
-            if(plugin.settings.refreshShortcut.keyCode !== null && plugin.settings.activateRefreshShortcut)  
+            if(plugin.settings.refreshShortcut.keyCode !== null && plugin.settings.activateRefreshShortcut)
             {
                 var shortcut = plugin.settings.dictionary.shortcut + ': ';
 
-                switch (plugin.settings.refreshShortcut.modifier) 
+                switch (plugin.settings.refreshShortcut.modifier)
 				{
                 case 'ctrl':
                     shortcut += 'Ctrl+';
@@ -959,7 +965,7 @@
             }
         }
 
-        data = 
+        data =
         {
             main: $element.find('.wgrid-main'),
             container: $element.find('.wgrid-container'),
@@ -982,37 +988,37 @@
         $(this).data('data', data);
         $('.wgrid-horizontal-empty').height(data.scrollBarWidth);
 
-		
+
         var shortcutDisplayList = $('<table style="margin: 10px"></table>');
-        
-        for(var key in plugin.settings.setShortcut) 
+
+        for(var key in plugin.settings.setShortcut)
         {
-            if(plugin.settings.setShortcut[key].keyCode !== null) 
+            if(plugin.settings.setShortcut[key].keyCode !== null)
             {
-                    
+
                 var shortcutString = '';
 
-                if(plugin.settings.setShortcut[key].modifier === 'ctrl' || plugin.settings.setShortcut[key].modifier === 'alt' || plugin.settings.setShortcut[key].modifier === 'shift') 
+                if(plugin.settings.setShortcut[key].modifier === 'ctrl' || plugin.settings.setShortcut[key].modifier === 'alt' || plugin.settings.setShortcut[key].modifier === 'shift')
 				{
 					shortcutString = plugin.settings.setShortcut[key].modifier;
 					shortcutString = shortcutString.charAt(0).toUpperCase() + shortcutString.slice(1);
                 }
-                
-                    
-                if(shortcutString !== '') 
+
+
+                if(shortcutString !== '')
                 {
                     shortcutString += '+';
                 }
 
                 var keyCode = String.fromCharCode(plugin.settings.setShortcut[key].keyCode);
 
-                switch (plugin.settings.setShortcut[key].keyCode) 
+                switch (plugin.settings.setShortcut[key].keyCode)
 				{
                     case 46:
                         keyCode = 'Delete';
                     break;
                     case 45:
-                        keyCode = 'Insert';    
+                        keyCode = 'Insert';
                     break;
                 }
 
@@ -1021,43 +1027,43 @@
                 shortcutDisplayList.append('<tr><td><b>'+shortcutString+'</b></td><td>&nbsp;&nbsp;'+plugin.settings.setShortcut[key].description+'</td></tr>');
             }
         }
-        
-        if(plugin.settings.refreshShortcut.keyCode !== null) 
+
+        if(plugin.settings.refreshShortcut.keyCode !== null)
 		{
-        
+
             shortcutString = '';
-            
+
             if(plugin.settings.refreshShortcut.modifier !== undefined && (plugin.settings.refreshShortcut.modifier === 'ctrl' || plugin.settings.refreshShortcut.modifier === 'alt' || plugin.settings.refreshShortcut.modifier === 'shift'))
 			{
                 shortcutString = plugin.settings.refreshShortcut.modifier;
 				shortcutString = shortcutString.charAt(0).toUpperCase() + shortcutString.slice(1);
-            }     
-                    
-            if(shortcutString !== '') 
+            }
+
+            if(shortcutString !== '')
             {
                 shortcutString += '+';
             }
 
             shortcutString += String.fromCharCode(plugin.settings.refreshShortcut.keyCode);
-            
+
             shortcutDisplayList.append('<tr><td><b>'+shortcutString+'</b></td><td>&nbsp;&nbsp;'+plugin.settings.refreshShortcut.description+'</td></tr>');
         }
-		
+
 		this.directionDown = false;
-		$element.bind('keydown', function (event) 
+		$element.bind('keydown', function (event)
 		{
 			var hasScrollBar = $element.find('.wgrid-container').get(0).scrollHeight > $element.find('.wgrid-container').height();
-		
-			for(var key in plugin.settings.setShortcut) 
+
+			for(var key in plugin.settings.setShortcut)
 			{
-				if(plugin.settings.setShortcut[key].keyCode !== null) 
+				if(plugin.settings.setShortcut[key].keyCode !== null)
 				{
-					
+
 					var ctrl = true;
 					var shift = true;
 					var alt = true;
 
-					switch (plugin.settings.setShortcut[key].modifier) 
+					switch (plugin.settings.setShortcut[key].modifier)
 					{
 						case 'ctrl':
 							ctrl = event.ctrlKey;
@@ -1080,20 +1086,20 @@
 							alt = !event.altKey;
                         break;
 					}
-					
-					if(event.keyCode === plugin.settings.setShortcut[key].keyCode && ctrl && shift && alt) 
+
+					if(event.keyCode === plugin.settings.setShortcut[key].keyCode && ctrl && shift && alt)
 					{
 						plugin.settings.setShortcut[key].callback(plugin, selectedRowsElements);
 					}
 				}
 			}
-			
-			if(plugin.settings.refreshShortcut.keyCode !== null) 
+
+			if(plugin.settings.refreshShortcut.keyCode !== null)
 			{
 
 				var modifier = true;
 
-				switch (plugin.settings.refreshShortcut.modifier) 
+				switch (plugin.settings.refreshShortcut.modifier)
 				{
 					case 'ctrl':
 						modifier = event.ctrlKey;
@@ -1104,9 +1110,9 @@
 					case 'shift':
 						modifier = event.shiftKey;
 					break;
-				}                
-				
-				if(modifier && event.keyCode === plugin.settings.refreshShortcut.keyCode) 
+				}
+
+				if(modifier && event.keyCode === plugin.settings.refreshShortcut.keyCode)
 				{
 					reloadGrid();
 					clearRowSelection();
@@ -1121,8 +1127,8 @@
 					}
 				}
 			}
-			
-			if(event.keyCode === 193 && !$('.ui-dialog:visible')[0] && !event.ctrlKey && event.shiftKey && !event.altKey) 
+
+			if(event.keyCode === 193 && !$('.ui-dialog:visible')[0] && !event.ctrlKey && event.shiftKey && !event.altKey)
 			{
 				shortcutDisplayList.dialog(
 				{
@@ -1132,15 +1138,15 @@
 				});
 				return false;
 			}
-			
+
 			var table = $element.find('.wgrid-table');
 			var container = $element.find(".wgrid-container");
-			
-			if(event.keyCode === 36 && !event.ctrlKey && !event.shiftKey && !event.altKey) 
+
+			if(event.keyCode === 36 && !event.ctrlKey && !event.shiftKey && !event.altKey)
 			{
 				row = $element.find('table.wgrid-table tr').first();
-				
-				if(row.attr('item-id') !== table.find('.wgrid-selected-line').first().attr('item-id') && hasScrollBar) 
+
+				if(row.attr('item-id') !== table.find('.wgrid-selected-line').first().attr('item-id') && hasScrollBar)
 				{
 					container.scrollTop(0);
 				}
@@ -1148,11 +1154,11 @@
 				clearRowSelection();
 				checkALine(row, true);
 			}
-			else if(event.keyCode === 35 && !event.ctrlKey && !event.shiftKey && !event.altKey) 
+			else if(event.keyCode === 35 && !event.ctrlKey && !event.shiftKey && !event.altKey)
 			{
 				row = table.find('tr').last();
-				
-				if(row.attr('item-id') !== table.find('.wgrid-selected-line').last().attr('item-id') && hasScrollBar) 
+
+				if(row.attr('item-id') !== table.find('.wgrid-selected-line').last().attr('item-id') && hasScrollBar)
 				{
 					container.scrollTop(row.position().top+row.offset().top+row.height()*7);
 				}
@@ -1160,28 +1166,28 @@
 				clearRowSelection();
 				checkALine(row, true);
 			}
-			
-			if(event.keyCode === 40) 
+
+			if(event.keyCode === 40)
 			{
 				var row = table.find('.wgrid-selected-line');
-				
-				if(!event.shiftKey) 
+
+				if(!event.shiftKey)
 				{
 					var check = null;
 					if(row.length > 1) {
 						check = row.last().next();
 					}
-					if(row.last().next()[0]) 
+					if(row.last().next()[0])
 					{
 						clearRowSelection();
 					}
-					if(check) 
+					if(check)
 					{
 						checkALine(check, true);
 					}
 				}
-				
-				if(!row[0]) 
+
+				if(!row[0])
 				{
 					row = table.find('tr').first();
 					checkALine(row, true);
@@ -1191,16 +1197,16 @@
 					}
 					this.directionDown = true;
 				}
-				else 
+				else
 				{
 					var lastSelectedRow = row.last();
-					
-					if(row.length == 1) 
+
+					if(row.length == 1)
 					{
 						this.directionDown = true;
 					}
-					
-					if(!this.directionDown) 
+
+					if(!this.directionDown)
 					{
 						checkALine(row.first(), false);
 					}
@@ -1209,7 +1215,7 @@
 						checkALine(lastSelectedRow.next(), true);
 					}
 
-					if(lastSelectedRow.position().top > container.height()-lastSelectedRow.height()*2) 
+					if(lastSelectedRow.position().top > container.height()-lastSelectedRow.height()*2)
 					{
 						container.scrollTop(container.scrollTop() + lastSelectedRow.height());
 					}
@@ -1219,28 +1225,28 @@
 					}
 				}
 			}
-			else if(event.keyCode === 38) 
+			else if(event.keyCode === 38)
 			{
 				row = table.find('.wgrid-selected-line');
-				
-				if(!event.shiftKey) 
+
+				if(!event.shiftKey)
 				{
 					check = null;
-					if(row.length > 1) 
+					if(row.length > 1)
 					{
 						check = row.first().prev();
 					}
-					if(row.first().prev()[0]) 
+					if(row.first().prev()[0])
 					{
 						clearRowSelection();
 					}
-					if(check) 
+					if(check)
 					{
 						checkALine(check, true);
 					}
 				}
-				
-				if(!row[0]) 
+
+				if(!row[0])
 				{
 					row = table.find('tr').last();
 					checkALine(row, true);
@@ -1250,26 +1256,26 @@
 					}
 					this.directionDown = false;
 				}
-				else 
+				else
 				{
 					var firstSelectedRow = row.first();
-					
-					
-					if(row.length == 1) 
+
+
+					if(row.length == 1)
 					{
 						this.directionDown = false;
 					}
-					
-					if(this.directionDown) 
+
+					if(this.directionDown)
 					{
 						checkALine(row.last(), false);
 					}
-					else 
+					else
 					{
 						checkALine(firstSelectedRow.prev(), true);
 					}
-					
-					if(firstSelectedRow.position().top < firstSelectedRow.height()) 
+
+					if(firstSelectedRow.position().top < firstSelectedRow.height())
 					{
 						container.scrollTop(container.scrollTop() - firstSelectedRow.height());
 					}
@@ -1279,8 +1285,8 @@
 					}
 				}
 			}
-			
-			if(event.keyCode === 40 || event.keyCode === 38 || event.keyCode === 35 || event.keyCode === 36) 
+
+			if(event.keyCode === 40 || event.keyCode === 38 || event.keyCode === 35 || event.keyCode === 36)
 			{
 				if(event.preventDefault)
 				{
@@ -1292,7 +1298,7 @@
 				}
 			}
 		});
-		
+
         //Para sumir com o filtro quando clica fora
         $(document).bind('click', function (e)
         {
@@ -1324,7 +1330,7 @@
 
             var fieldName = fieldValue !== undefined && fieldValue !== "" ? $column.attr('field_value') : $column.attr('field_name');
 			fieldName = fieldFilterBy !== undefined && fieldOrderBy !== "" ? fieldFilterBy : fieldName;
-			
+
             var filterJsonData = $column.attr('filter_json_data');
             if (filterJsonData !== null)
             {
@@ -1338,7 +1344,7 @@
             var disableOrder = $column.attr('disable_order') == 'true' ?
                 'true' :
                 'false';
-                
+
             var disableFilter = $column.attr('disable_filter') == 'true' ?
                 'true' :
                 'false';
@@ -1374,7 +1380,7 @@
                         var filterAdvancedButton;
                         var optionAdvancedFilter;
                         var filterButton = $('<div class="wgrid-filter-panel-apply-button">&nbsp;</div>');
-                        
+
                         if (filterType == 'daterange')
                         {
                             var fieldFromDiv = $('<div style="display:inline-block"><div>'+ plugin.settings.dictionary.from +'</div></div>');
@@ -1398,7 +1404,7 @@
                             };
                             opts.maxDate = maxDate;
                             fieldFrom.datetimepicker(opts);
-                            
+
                             opts.onClose = function (dateText) {
                                 var startDateTextBox = fieldFrom;
                                 var testStartDate = new Date(startDateTextBox.val());
@@ -1430,7 +1436,7 @@
                                 $('.wgrid-filter-panel').remove();
                                 reloadGrid();
                             });
-                            
+
                             if( filters[fieldName] !== undefined && filters[fieldName] !== null )
                             {
                                 var dateFromString = filters[fieldName].replace('daterange||', '').split('&')[0];
@@ -1473,7 +1479,7 @@
                                 reloadGrid();
                             });
                         }
-                        else 
+                        else
                         {
                             if (filterType.toLowerCase() != 'datetime' && filterType.toLowerCase() != 'hexaid' && filterType.toLowerCase() != 'bool' && filterType.toLowerCase() != 'machineid' && filterType.toLowerCase() != 'numeric' && filterType.toLowerCase() != 'pinnumber')
                             {
@@ -1490,7 +1496,7 @@
                             if (filters[fieldName] !== undefined && filters[fieldName] !== null) {
                                 var temp = filters[fieldName];
                                 temp = temp.split('|');
-                                
+
                                 setTimeout(function() {
                                     filterField.val(temp[2]);
                                     filterField.attr('value', temp[2]);
@@ -1532,13 +1538,13 @@
                                 reloadGrid();
                                 reloadTotalsDisplays();
                             });
-                            
+
                             if (filterType == 'datetime')
                             {
                                 filterField.datetimepicker(datetimepickerOptions);
                             }
                         }
-                        
+
 
                         if (filterIcon.hasClass('active'))
                         {
@@ -1703,16 +1709,16 @@
             if (!$(e.target).is('input') && !$(e.target).is('a'))
             {
                 var currentElement = $(this);
-                if(e.shiftKey) 
+                if(e.shiftKey)
                 {
                     var prevAll = currentElement.prevAll('.wgrid-selected-line');
-                    
+
                     var lastSelectedRowIndex = prevAll.last().closest('tr').prevAll().length;
                     var currentSelectedRowIndex = currentElement.closest('tr').prevAll().length;
 
-                    if(lastSelectedRowIndex !== 0 || (prevAll.attr('item-id') === currentElement.closest('table').find('tr').first().attr('item-id'))) 
+                    if(lastSelectedRowIndex !== 0 || (prevAll.attr('item-id') === currentElement.closest('table').find('tr').first().attr('item-id')))
                     {
-                        if(!clickBefore) 
+                        if(!clickBefore)
                         {
                             lastSelectedRowIndex = prevAll.first().closest('tr').prevAll().length;
                         }
@@ -1721,68 +1727,68 @@
                         items = data.tableRows.slice(lastSelectedRowIndex, currentSelectedRowIndex + 1);
                         checks = data.checkTable.find('tr').slice(lastSelectedRowIndex, currentSelectedRowIndex + 1);
                     }
-                    else 
+                    else
                     {
                         var nextAll = currentElement.nextAll('.wgrid-selected-line');
-                        if(!clickBefore) 
+                        if(!clickBefore)
                         {
                             lastSelectedRowIndex = nextAll.last().closest('tr').prevAll().length;
                         }
-                        else 
+                        else
                         {
                             lastSelectedRowIndex = nextAll.first().closest('tr').prevAll().length;
                         }
-                        
-                        if(lastSelectedRowIndex === 0) 
+
+                        if(lastSelectedRowIndex === 0)
                         {
                             items = data.tableRows.slice(lastSelectedRowIndex, currentSelectedRowIndex + 1);
                             checks = data.checkTable.find('tr').slice(lastSelectedRowIndex, currentSelectedRowIndex + 1);
                         }
-                        else 
+                        else
                         {
                             items = data.tableRows.slice(currentSelectedRowIndex, lastSelectedRowIndex+1);
                             checks = data.checkTable.find('tr').slice(currentSelectedRowIndex, lastSelectedRowIndex+1);
                         }
-                        
+
                         clickBefore = false;
 
                     }
 
-                    if(items !== null && checks !== null) 
+                    if(items !== null && checks !== null)
                     {
                         clearRowSelection();
 
                         items.addClass('wgrid-selected-line');
                         checks.find('input[type="checkbox"]').attr('checked', true);
-                        
+
                         updateSelectedElementsArrays();
                     }
-                
+
                     items = null;
                     checks = null;
-					
+
                     document.getSelection().removeAllRanges();
 					return false;
                 }
-                
-                if(e.ctrlKey && currentElement.closest('tr').is('.wgrid-selected-line') === true) 
+
+                if(e.ctrlKey && currentElement.closest('tr').is('.wgrid-selected-line') === true)
                 {
                     $(this).closest('tr').removeClass('wgrid-selected-line');
                     data.checkTable.find('input[value="' + $(this).closest('tr').attr('item-id') + '"]').attr('checked', false);
-                    
+
                     updateSelectedElementsArrays();
                 }
-                else 
+                else
                 {
                     var isMultiSelectKeyPressed = e.ctrlKey ? true : false;
                     setRowSelection($(this), e.which == 1 ? 'left' : 'right', isMultiSelectKeyPressed);
                 }
-                
+
                 items = null;
                 checks = null;
             }
         });
-        
+
         data.table.delegate('tr', 'click', function ()
         {
             if (plugin.settings.itemClick !== undefined)
@@ -1798,19 +1804,19 @@
                 plugin.settings.itemDblClick(plugin.methods.getSelectedRowsData());
             }
         });
-		
+
 		$element.find('.wgrid-check-content').delegate('.wgrid-status-icon', 'click', function ()
         {
 			var lineIndex = $element.find('.wgrid-check-content tr').index($(this).closestByTagName('tr'));
 			var gridTableLine = $(data.table.find('tr')[lineIndex]);
-			
+
 			checkALine(gridTableLine, true);
-			
+
             if (plugin.settings.itemClick !== undefined)
             {
                 plugin.settings.itemClick(plugin.methods.getSelectedRowsData());
             }
-            
+
             if (plugin.settings.itemDblClick !== undefined)
             {
                 plugin.settings.itemDblClick(plugin.methods.getSelectedRowsData());
@@ -1833,8 +1839,8 @@
                 checkALine(gridTableLine, false);
             }
         });
-		
-		
+
+
 
         //Statuspanel functions
         plugin.settings.statusPanel.find('.more-items-button').click(function ()
